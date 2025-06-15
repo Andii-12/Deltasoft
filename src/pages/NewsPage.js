@@ -7,10 +7,16 @@ import config from '../config';
 const NewsPage = () => {
   const [news, setNews] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     fetch(`${config.API_URL}/api/news`)
-      .then(res => res.json())
+      .then(res => {
+        if (!res.ok) {
+          throw new Error('Network response was not ok');
+        }
+        return res.json();
+      })
       .then(data => {
         setNews(
           data
@@ -18,6 +24,11 @@ const NewsPage = () => {
             .sort((a, b) => new Date(b.date) - new Date(a.date))
         );
         setLoading(false);
+      })
+      .catch(error => {
+        setError('Сервертэй холбогдоход алдаа гарлаа');
+        setLoading(false);
+        console.error(error);
       });
   }, []);
 
