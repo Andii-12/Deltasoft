@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { FaCheck, FaTimes, FaSpinner, FaEye, FaSort, FaSearch, FaChevronLeft, FaChevronRight, FaTrash } from 'react-icons/fa';
+import config from '../../config';
 
 const QuotesDashboard = () => {
   const [quotes, setQuotes] = useState([]);
@@ -20,7 +21,7 @@ const QuotesDashboard = () => {
   const fetchQuotes = async () => {
     try {
       const token = localStorage.getItem('adminToken');
-      const response = await fetch('http://localhost:5001/api/quotes', {
+      const response = await fetch(`${config.API_URL}/api/quotes`, {
         headers: {
           'x-auth-token': token
         }
@@ -44,7 +45,7 @@ const QuotesDashboard = () => {
     setLoading(true);
     try {
       const token = localStorage.getItem('adminToken');
-      const response = await fetch(`http://localhost:5001/api/quotes/${id}`, {
+      const response = await fetch(`${config.API_URL}/api/quotes/${id}`, {
         method: 'PATCH',
         headers: {
           'Content-Type': 'application/json',
@@ -74,7 +75,7 @@ const QuotesDashboard = () => {
     setError('');
     try {
       const token = localStorage.getItem('adminToken');
-      const response = await fetch(`http://localhost:5001/api/quotes/${id}`, {
+      const response = await fetch(`${config.API_URL}/api/quotes/${id}`, {
         method: 'DELETE',
         headers: {
           'x-auth-token': token

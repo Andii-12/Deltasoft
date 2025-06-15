@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+import config from '../config';
 
 const News = () => {
   const [newsItems, setNewsItems] = useState([]);
@@ -11,7 +12,7 @@ const News = () => {
       setLoading(true);
       setError('');
       try {
-        const response = await fetch('http://localhost:5001/api/news');
+        const response = await fetch(`${config.API_URL}/api/news`);
         const data = await response.json();
         if (response.ok) {
           setNewsItems(data.filter(item => item.status === 'published'));

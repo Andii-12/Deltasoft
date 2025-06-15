@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
+import config from '../../config';
 
-const API_URL = 'http://localhost:5001/api/team';
+const API_URL = `${config.API_URL}/api/team`;
 
 const TeamManagement = () => {
   const [team, setTeam] = useState([]);

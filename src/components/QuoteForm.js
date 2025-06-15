@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Navbar from './Navbar';
+import config from '../config';
 
 const QuoteForm = () => {
   const [formData, setFormData] = useState({
@@ -26,7 +27,7 @@ const QuoteForm = () => {
     setError('');
     
     try {
-      const response = await fetch('http://localhost:5001/api/quotes', {
+      const response = await fetch(`${config.API_URL}/api/quotes`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

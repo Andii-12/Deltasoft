@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { FaEdit, FaTrash, FaPlus } from 'react-icons/fa';
+import config from '../../config';
 
-const API_URL = 'http://localhost:5001/api/news';
+const API_URL = `${config.API_URL}/api/news`;
 
 const NewsManagement = () => {
   const [showModal, setShowModal] = useState(false);

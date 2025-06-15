@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
+import config from '../config';
 
 const NewsSingle = () => {
   const { id } = useParams();
@@ -13,7 +14,7 @@ const NewsSingle = () => {
       setLoading(true);
       setError('');
       try {
-        const response = await fetch(`http://localhost:5001/api/news`);
+        const response = await fetch(`${config.API_URL}/api/news`);
         const data = await response.json();
         if (response.ok) {
           const found = data.find(n => n._id === id);

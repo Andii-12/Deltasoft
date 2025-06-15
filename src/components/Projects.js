@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { FaGlobe, FaVideo, FaPaperPlane, FaDesktop, FaCode, FaCloud, FaMobileAlt, FaNetworkWired, FaServer, FaWifi } from 'react-icons/fa';
+import config from '../config';
 
 const iconMap = {
   'fa-globe': FaGlobe,
@@ -35,7 +36,7 @@ const Projects = () => {
   useEffect(() => {
     const fetchProjects = async () => {
       try {
-        const response = await fetch('http://localhost:5001/api/projects?category=main');
+        const response = await fetch(`${config.API_URL}/api/projects?category=main`);
         if (!response.ok) {
           throw new Error('Failed to fetch projects');
         }

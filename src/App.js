@@ -24,6 +24,7 @@ import { FaGlobe, FaVideo, FaPaperPlane, FaDesktop, FaCode, FaCloud, FaMobileAlt
 import TeamManagement from './components/admin/TeamManagement';
 import WorkerManagement from './components/admin/WorkerManagement';
 import * as XLSX from 'xlsx';
+import config from './config';
 
 // Protected Route component
 const ProtectedRoute = ({ children }) => {
@@ -103,7 +104,7 @@ function AdminProjectManagement() {
   const fetchProjects = async () => {
     try {
       const token = localStorage.getItem('adminToken');
-      const response = await fetch('http://localhost:5001/api/projects', {
+      const response = await fetch(`${config.API_URL}/api/projects`, {
         headers: {
           'x-auth-token': token
         }
@@ -149,7 +150,7 @@ function AdminProjectManagement() {
     setError('');
     try {
       const token = localStorage.getItem('adminToken');
-      const response = await fetch('http://localhost:5001/api/projects', {
+      const response = await fetch(`${config.API_URL}/api/projects`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -179,7 +180,7 @@ function AdminProjectManagement() {
     setWebError('');
     try {
       const token = localStorage.getItem('adminToken');
-      const response = await fetch('http://localhost:5001/api/projects', {
+      const response = await fetch(`${config.API_URL}/api/projects`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -216,7 +217,7 @@ function AdminProjectManagement() {
       if (networkImageFile) {
         formData.append('image', networkImageFile);
       }
-      const response = await fetch('http://localhost:5001/api/projects', {
+      const response = await fetch(`${config.API_URL}/api/projects`, {
         method: 'POST',
         headers: {
           'x-auth-token': token
@@ -240,7 +241,7 @@ function AdminProjectManagement() {
   const handleDelete = async (projectId) => {
     try {
       const token = localStorage.getItem('adminToken');
-      const response = await fetch(`http://localhost:5001/api/projects/${projectId}`, {
+      const response = await fetch(`${config.API_URL}/api/projects/${projectId}`, {
         method: 'DELETE',
         headers: {
           'x-auth-token': token
@@ -506,7 +507,7 @@ function AdminSchedule() {
     const fetchWorkers = async () => {
       try {
         const token = localStorage.getItem('adminToken');
-        const response = await fetch('http://localhost:5001/api/workers', {
+        const response = await fetch(`${config.API_URL}/api/workers`, {
           headers: { 'x-auth-token': token }
         });
         const data = await response.json();
@@ -537,7 +538,7 @@ function AdminSchedule() {
     const fetchAllTimeEntries = async () => {
       try {
         const token = localStorage.getItem('adminToken');
-        const response = await fetch('http://localhost:5001/api/workers/all-time-entries', {
+        const response = await fetch(`${config.API_URL}/api/workers/all-time-entries`, {
           headers: { 'x-auth-token': token }
         });
         const data = await response.json();
@@ -565,7 +566,7 @@ function AdminSchedule() {
     setError('');
     try {
       const token = localStorage.getItem('adminToken');
-      const response = await fetch(`http://localhost:5001/api/workers/${workerId}/schedule`, {
+      const response = await fetch(`${config.API_URL}/api/workers/${workerId}/schedule`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -578,7 +579,7 @@ function AdminSchedule() {
         setError(data.message || 'Хадгалах үед алдаа гарлаа');
       } else {
         // Re-fetch workers to update UI
-        const response2 = await fetch('http://localhost:5001/api/workers', {
+        const response2 = await fetch(`${config.API_URL}/api/workers`, {
           headers: { 'x-auth-token': token }
         });
         const data2 = await response2.json();
@@ -610,13 +611,13 @@ function AdminSchedule() {
     setDeletingId(entryId);
     try {
       const token = localStorage.getItem('adminToken');
-      const response = await fetch(`http://localhost:5001/api/workers/time-entry/${entryId}`, {
+      const response = await fetch(`${config.API_URL}/api/workers/time-entry/${entryId}`, {
         method: 'DELETE',
         headers: { 'x-auth-token': token }
       });
       if (response.ok) {
         // Refresh all time entries
-        const res = await fetch('http://localhost:5001/api/workers/all-time-entries', {
+        const res = await fetch(`${config.API_URL}/api/workers/all-time-entries`, {
           headers: { 'x-auth-token': token }
         });
         const data = await res.json();

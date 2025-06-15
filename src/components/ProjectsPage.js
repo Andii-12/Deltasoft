@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Navbar from './Navbar';
 import { FaGlobe, FaVideo, FaPaperPlane, FaDesktop, FaCode, FaCloud, FaMobileAlt, FaNetworkWired, FaServer, FaWifi } from 'react-icons/fa';
+import config from '../config';
 
 const iconMap = {
   'fa-globe': FaGlobe,
@@ -29,7 +30,7 @@ const ProjectsPage = () => {
   useEffect(() => {
     const fetchProjects = async () => {
       try {
-        const response = await fetch('http://localhost:5001/api/projects');
+        const response = await fetch(`${config.API_URL}/api/projects`);
         if (!response.ok) {
           throw new Error('Failed to fetch projects');
         }
@@ -77,7 +78,7 @@ const ProjectsPage = () => {
       setShowGlobe(false);
       if (project.link) {
         setOgLoading(true);
-        fetch(`http://localhost:5001/api/projects/og-image?url=${encodeURIComponent(project.link)}`)
+        fetch(`${config.API_URL}/api/projects/og-image?url=${encodeURIComponent(project.link)}`)
           .then(res => res.json())
           .then(data => {
             if (isMounted && data.image) setOgImage(data.image);
@@ -156,7 +157,7 @@ const ProjectsPage = () => {
     // Fix image URL if needed
     let imageUrl = project.image;
     if (imageUrl && imageUrl.startsWith('/uploads/')) {
-      imageUrl = `http://localhost:5001${imageUrl}`;
+      imageUrl = `${config.API_URL}${imageUrl}`;
     }
     return (
       <div className="bg-[#181818] rounded-2xl p-8 flex flex-col items-center text-center shadow-lg shadow-neon-green/5 hover:shadow-neon-green/20 transition-all">
