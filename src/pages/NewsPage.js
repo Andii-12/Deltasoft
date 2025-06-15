@@ -102,6 +102,7 @@ const NewsPage = () => {
         </div>
       </div>
       <Footer />
+      {error && <div style={{ color: 'red', margin: '1em 0' }}>{error}</div>}
     </div>
   );
 };
