@@ -19,13 +19,13 @@ app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 // CORS configuration
 const allowedOrigins = [
   'http://localhost:3000',
-  'https://deltasoft.vercel.app', // Add your Vercel frontend URL
-  process.env.FRONTEND_URL // Add any other frontend URLs
-];
+  'https://deltasoft.vercel.app',  // Add your Vercel frontend URL here
+  process.env.FRONTEND_URL
+].filter(Boolean);
 
 app.use(cors({
   origin: function(origin, callback) {
-    if (!origin || allowedOrigins.indexOf(origin) !== -1) {
+    if (!origin || allowedOrigins.includes(origin)) {
       callback(null, true);
     } else {
       callback(new Error('Not allowed by CORS'));
