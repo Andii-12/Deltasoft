@@ -91,7 +91,7 @@ const Features = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-24">
           <h2 className="text-3xl md:text-4xl font-bold text-white mb-16">
-            <span className="text-neon-green">ЯГААД БИД</span> ГЭЖ ?
+            <span className="text-neon-green">ЯАГААД БИД</span> ГЭЖ ?
           </h2>
           <div className="max-w-5xl mx-auto">
             <p className="text-white text-lg leading-relaxed">
