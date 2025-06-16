@@ -6,6 +6,17 @@
   body {
     @apply bg-darker text-white;
   }
+  
+  /* Improve touch targets on mobile */
+  @media (max-width: 768px) {
+    button, a {
+      @apply min-h-[44px] min-w-[44px];
+    }
+    
+    input, select, textarea {
+      @apply text-base;
+    }
+  }
 }
 
 /* Custom scrollbar */
@@ -66,7 +77,7 @@
 
 /* Custom card styles */
 .card {
-  @apply bg-[#111111] rounded-xl p-6 transition-all duration-300;
+  @apply bg-[#111111] rounded-xl p-4 sm:p-6 transition-all duration-300;
 }
 
 .card-hover {
@@ -88,25 +99,25 @@
 
 /* Custom input styles */
 .input {
-  @apply w-full px-4 py-2 rounded-lg bg-dark border border-gray-800 focus:border-neon-green focus:ring-1 focus:ring-neon-green transition-all duration-300;
+  @apply w-full px-4 py-3 rounded-lg bg-dark border border-gray-800 focus:border-neon-green focus:ring-1 focus:ring-neon-green transition-all duration-300;
 }
 
 /* Custom section styles */
 .section {
-  @apply py-20 relative overflow-hidden;
+  @apply py-12 sm:py-20 relative overflow-hidden;
 }
 
 .section-title {
-  @apply text-3xl md:text-4xl font-bold text-white mb-4;
+  @apply text-2xl sm:text-3xl md:text-4xl font-bold text-white mb-4;
 }
 
 .section-subtitle {
-  @apply text-gray-400 text-lg max-w-2xl mx-auto;
+  @apply text-gray-400 text-base sm:text-lg max-w-2xl mx-auto px-4 sm:px-0;
 }
 
 /* Decorative elements */
 .decorative-blur {
-  @apply absolute w-96 h-96 bg-neon-green/5 rounded-full filter blur-[128px];
+  @apply absolute w-64 sm:w-96 h-64 sm:h-96 bg-neon-green/5 rounded-full filter blur-[128px];
 }
 
 /* Custom styles for licenses carousel */
@@ -165,4 +176,19 @@
 
 .animate-float-y {
   animation: float-y 2.5s ease-in-out infinite;
+}
+
+/* Mobile-specific styles */
+@media (max-width: 768px) {
+  .card {
+    @apply mx-4;
+  }
+  
+  .section {
+    @apply px-4;
+  }
+  
+  .btn {
+    @apply w-full sm:w-auto;
+  }
 } 

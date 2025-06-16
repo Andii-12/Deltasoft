@@ -112,32 +112,34 @@ const Navbar = () => {
 
       {/* Mobile menu */}
       {isOpen && (
-        <div className="md:hidden bg-darker border-t border-gray-800">
-          <div className="px-2 pt-2 pb-3 space-y-1">
+        <div className="md:hidden bg-darker border-t border-gray-800 fixed w-full top-20 animate-fade-in-up">
+          <div className="px-4 pt-4 pb-6 space-y-3">
             {menuItems.map((item) => (
               <Link
                 key={item.label}
                 to={item.href}
-                className="text-gray-300 hover:text-neon-green block px-3 py-2 text-base font-medium transition-colors"
+                className="text-gray-300 hover:text-neon-green block px-4 py-3 text-base font-medium transition-colors rounded-lg hover:bg-gray-800/50"
                 onClick={item.onClick}
               >
                 {item.label}
               </Link>
             ))}
-            <Link
-              to="/quote"
-              className="bg-neon-green text-darker hover:bg-neon-green/90 block px-3 py-2 rounded-lg text-base font-medium transition-all mt-2"
-              onClick={() => setIsOpen(false)}
-            >
-              Үнийн санал
-            </Link>
-            <Link
-              to="/worker/login"
-              className="bg-neon-green text-darker hover:bg-neon-green/90 block px-3 py-2 rounded-lg text-base font-medium transition-all mt-2"
-              onClick={() => setIsOpen(false)}
-            >
-              Нэвтрэх
-            </Link>
+            <div className="space-y-3 pt-2">
+              <Link
+                to="/quote"
+                className="bg-neon-green text-darker hover:bg-neon-green/90 block px-4 py-3 rounded-lg text-base font-medium transition-all text-center"
+                onClick={() => setIsOpen(false)}
+              >
+                Үнийн санал
+              </Link>
+              <Link
+                to="/worker/login"
+                className="bg-neon-green text-darker hover:bg-neon-green/90 block px-4 py-3 rounded-lg text-base font-medium transition-all text-center"
+                onClick={() => setIsOpen(false)}
+              >
+                Нэвтрэх
+              </Link>
+            </div>
           </div>
         </div>
       )}

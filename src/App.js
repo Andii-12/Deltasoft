@@ -52,14 +52,16 @@ function HomeWithScroll() {
       <AnimatedBackground />
       <div className="relative z-10">
         <Navbar />
-        <Hero />
-        <About />
-        <Features />
-        <Projects />
-        <Partners />
-        <News />
-        <Team />
-        <Footer />
+        <main className="pt-20">
+          <Hero />
+          <About />
+          <Features />
+          <Projects />
+          <Partners />
+          <News />
+          <Team />
+          <Footer />
+        </main>
       </div>
     </div>
   );
