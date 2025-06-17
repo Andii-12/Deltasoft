@@ -2,16 +2,16 @@ import React from 'react';
 
 const Partners = () => {
   const partners = [
-    { name: "NUBIA", image: "/images/partners/1.png" },
-    { name: "KTM", image: "/images/partners/2.png" },
-    { name: "IDL", image: "/images/partners/3.png" },
-    { name: "MONBAKERY", image: "/images/partners/4.png" },
-    { name: "TOUS LES JOURS", image: "/images/partners/5.png" },
-    { name: "EMUN NAST", image: "/images/partners/6.png" },
-    { name: "SAIN ELECTRONICS", image: "/images/partners/7.png" },
-    { name: "MONKHIIN TUN", image: "/images/partners/8.png" },
-    { name: "NTG", image: "/images/partners/9.png" },
-    { name: "CENTRAL CAPITAL", image: "/images/partners/10.png" }
+    { name: "NUBIA", image: "/images/partners/nubia.png" },
+    { name: "KTM", image: "/images/partners/cosmos.png" },
+    { name: "IDL", image: "/images/partners/idl.png" },
+    { name: "MONBAKERY", image: "/images/partners/mon.png" },
+    { name: "TOUS LES JOURS", image: "/images/partners/tous.png" },
+    { name: "EMUN NAST", image: "/images/partners/zuun.png" },
+    { name: "SAIN ELECTRONICS", image: "/images/partners/sain.png" },
+    { name: "MONKHIIN TUN", image: "/images/partners/munh.png" },
+    { name: "NTG", image: "/images/partners/ntg.png" },
+    { name: "CENTRAL CAPITAL", image: "/images/partners/central.png" }
   ];
 
   return (
