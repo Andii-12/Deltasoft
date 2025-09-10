@@ -5,7 +5,6 @@ import Hero from './components/Hero';
 import About from './components/About';
 import Features from './components/Features';
 import Projects from './components/Projects';
-import Partners from './components/Partners';
 import News from './components/News';
 import Team from './components/Team';
 import Footer from './components/Footer';
@@ -54,7 +53,6 @@ function HomeWithScroll() {
         <About />
         <Features />
         <Projects />
-        <Partners />
         <News />
         <Team />
         <Footer />

@@ -30,35 +30,42 @@ const NewsSingle = () => {
     fetchNews();
   }, [id]);
 
-  if (loading) return <div className="min-h-screen flex items-center justify-center text-white">Уншиж байна...</div>;
+  if (loading) return <div className="min-h-screen flex items-center justify-center text-text-secondary">Уншиж байна...</div>;
   if (error) return <div className="min-h-screen flex items-center justify-center text-red-500">{error}</div>;
-  if (!news) return <div className="min-h-screen flex items-center justify-center text-gray-400">Мэдээ олдсонгүй.</div>;
+  if (!news) return <div className="min-h-screen flex items-center justify-center text-text-light">Мэдээ олдсонгүй.</div>;
 
   return (
-    <section className="min-h-screen bg-dark flex flex-col items-center justify-center py-16 px-4">
-      <div className="max-w-2xl w-full bg-darker rounded-xl shadow-lg overflow-hidden">
-        <div className="p-8 pb-0 flex items-center">
+    <div className="min-h-screen bg-background text-text-primary">
+      <div className="max-w-4xl mx-auto px-6 py-12">
+        <div className="mb-6">
           <button
             onClick={() => navigate(-1)}
-            className="inline-block px-6 py-2 bg-neon-green text-darker font-semibold rounded-lg hover:bg-neon-green/90 transition-all mb-4"
+            className="btn btn-secondary mb-6"
           >
-            Буцах
+            ← Буцах
           </button>
         </div>
-        {news.image && (
-          <img
-            src={news.image}
-            alt={news.title}
-            className="w-full h-72 object-cover object-center"
-          />
-        )}
-        <div className="p-8 pt-4">
-          <div className="text-gray-400 text-sm mb-2">{new Date(news.date).toLocaleDateString('mn-MN')}</div>
-          <h1 className="text-3xl font-bold text-white mb-4">{news.title}</h1>
-          <div className="text-gray-300 mb-6 whitespace-pre-line">{news.content}</div>
-        </div>
+        
+        <article className="card">
+          {news.image && (
+            <img
+              src={news.image}
+              alt={news.title}
+              className="w-full h-64 md:h-80 object-cover rounded mb-6"
+            />
+          )}
+          
+          <div className="mb-4">
+            <div className="text-text-light text-sm mb-3">{new Date(news.date).toLocaleDateString('mn-MN')}</div>
+            <h1 className="text-2xl md:text-3xl font-semibold text-text-primary mb-4 leading-tight">{news.title}</h1>
+          </div>
+          
+          <div className="prose prose-lg max-w-none">
+            <div className="text-text-primary text-base leading-relaxed whitespace-pre-line">{news.content}</div>
+          </div>
+        </article>
       </div>
-    </section>
+    </div>
   );
 };
 
