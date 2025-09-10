@@ -3,10 +3,10 @@
 @tailwind utilities;
 
 @layer base {
-  body {
-    @apply bg-background text-text-primary;
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', sans-serif;
-  }
+body {
+  @apply bg-background dark:bg-dark-bg text-text-primary dark:text-dark-text;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', sans-serif;
+}
   
   /* Improve touch targets on mobile */
   @media (max-width: 768px) {
@@ -26,7 +26,7 @@
 }
 
 ::-webkit-scrollbar-track {
-  @apply bg-surface;
+  @apply bg-surface dark:bg-dark-surface;
 }
 
 ::-webkit-scrollbar-thumb {
@@ -38,43 +38,43 @@
   @apply duration-200 ease-in-out;
 }
 
-/* Ultra-minimal card styles */
+/* Professional card styles */
 .card {
-  @apply bg-background rounded p-4 border border-border transition-all duration-200;
+  @apply bg-background dark:bg-dark-surface rounded-xl p-6 border border-border dark:border-dark-border transition-all duration-300 shadow-soft hover:shadow-medium;
 }
 
 .card-hover {
-  @apply hover:border-primary/50;
+  @apply hover:border-primary/50 dark:hover:border-primary/50 hover:shadow-lg hover:-translate-y-1;
 }
 
 .card-simple {
-  @apply bg-background p-4 border-l-2 border-primary;
+  @apply bg-background dark:bg-dark-surface p-6 border-l-4 border-primary shadow-soft;
 }
 
-/* Ultra-minimal button styles */
+/* Professional button styles */
 .btn {
-  @apply px-4 py-2 rounded font-medium transition-all duration-200;
+  @apply px-6 py-3 rounded-lg font-semibold transition-all duration-300 shadow-soft hover:shadow-medium;
 }
 
 .btn-primary {
-  @apply bg-primary text-white hover:bg-primary-dark;
+  @apply bg-primary text-white hover:bg-primary-dark hover:scale-105 active:scale-95;
 }
 
 .btn-secondary {
-  @apply bg-surface text-text-primary border border-border hover:bg-accent;
+  @apply bg-surface dark:bg-dark-surface text-text-primary dark:text-dark-text border border-border dark:border-dark-border hover:bg-accent dark:hover:bg-dark-bg hover:scale-105 active:scale-95;
 }
 
 .btn-outline {
-  @apply border border-primary text-primary hover:bg-primary hover:text-white;
+  @apply border-2 border-primary text-primary hover:bg-primary hover:text-white hover:scale-105 active:scale-95;
 }
 
 .btn-simple {
-  @apply text-primary hover:text-primary-dark transition-colors;
+  @apply text-primary hover:text-primary-dark transition-colors hover:scale-105;
 }
 
 /* Ultra-minimal input styles */
 .input {
-  @apply w-full px-3 py-2 rounded border border-border focus:border-primary focus:outline-none transition-colors;
+  @apply w-full px-3 py-2 rounded border border-border dark:border-dark-border bg-background dark:bg-dark-surface text-text-primary dark:text-dark-text focus:border-primary focus:outline-none transition-colors;
 }
 
 /* Ultra-minimal section styles */
@@ -83,11 +83,11 @@
 }
 
 .section-title {
-  @apply text-2xl md:text-3xl font-semibold text-text-primary mb-4;
+  @apply text-2xl md:text-3xl font-semibold text-text-primary dark:text-dark-text mb-4;
 }
 
 .section-subtitle {
-  @apply text-text-secondary text-base max-w-xl mx-auto;
+  @apply text-text-secondary dark:text-dark-text-secondary text-base max-w-xl mx-auto;
 }
 
 /* Minimal decorative elements */

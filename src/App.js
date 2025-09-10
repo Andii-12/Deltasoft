@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate, useLocation } from 'react-router-dom';
+import { DarkModeProvider } from './contexts/DarkModeContext';
+import StartupAnimation from './components/StartupAnimation';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
 import About from './components/About';
@@ -35,7 +37,14 @@ const ProtectedRoute = ({ children }) => {
 
 function HomeWithScroll() {
   const location = useLocation();
+  const [isVisible, setIsVisible] = useState(false);
+
   useEffect(() => {
+    // Trigger fade-in animation after component mounts
+    const timer = setTimeout(() => {
+      setIsVisible(true);
+    }, 100);
+
     const params = new URLSearchParams(location.search);
     const scroll = params.get('scroll');
     if (scroll) {
@@ -44,9 +53,12 @@ function HomeWithScroll() {
         if (el) el.scrollIntoView({ behavior: 'smooth' });
       }, 100);
     }
+
+    return () => clearTimeout(timer);
   }, [location]);
+
   return (
-    <div className="min-h-screen bg-background text-text-primary">
+    <div className={`min-h-screen bg-background dark:bg-dark-bg text-text-primary dark:text-dark-text transition-all duration-1000 ${isVisible ? 'opacity-100' : 'opacity-0'}`}>
       <Navbar />
       <main>
         <Hero />
@@ -782,9 +794,20 @@ function formatDuration(duration) {
 }
 
 function App() {
+  const [showStartup, setShowStartup] = useState(true);
+
+  const handleStartupComplete = () => {
+    setShowStartup(false);
+  };
+
+  if (showStartup) {
+    return <StartupAnimation onComplete={handleStartupComplete} />;
+  }
+
   return (
-    <Router>
-      <Routes>
+    <DarkModeProvider>
+      <Router>
+        <Routes>
         {/* Public Routes */}
         <Route path="/" element={<HomeWithScroll />} />
         <Route path="/quote" element={<QuoteForm />} />
@@ -813,8 +836,9 @@ function App() {
 
         {/* Worker Routes */}
         <Route path="/worker/*" element={<WorkerRoutes />} />
-      </Routes>
-    </Router>
+        </Routes>
+      </Router>
+    </DarkModeProvider>
   );
 }
 

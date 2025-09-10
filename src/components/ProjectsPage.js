@@ -53,10 +53,10 @@ const ProjectsPage = () => {
   const renderProjectCard = (project) => {
     const IconComponent = iconMap[project.icon];
     return (
-      <div key={project._id} className="bg-[#181818] rounded-2xl p-8 flex flex-col items-center text-center shadow-lg shadow-neon-green/5 hover:shadow-neon-green/20 transition-all">
-        {IconComponent && <IconComponent className="w-12 h-12 text-neon-green mb-4" />}
-        <h3 className="text-xl font-bold mb-2 text-white">{project.title}</h3>
-        <p className="text-gray-300 text-base">{project.description}</p>
+      <div key={project._id} className="card card-hover">
+        {IconComponent && <IconComponent className="w-12 h-12 text-primary mb-4" />}
+        <h3 className="text-xl font-bold mb-2 text-text-primary dark:text-dark-text">{project.title}</h3>
+        <p className="text-text-secondary dark:text-dark-text-secondary text-base">{project.description}</p>
       </div>
     );
   };
@@ -113,10 +113,10 @@ const ProjectsPage = () => {
     };
 
     return (
-      <div className="relative bg-[#181818] rounded-2xl p-0 flex flex-col items-center text-center shadow-lg shadow-neon-green/5 hover:shadow-neon-green/20 transition-all group overflow-hidden">
-        <div className="w-full h-56 bg-white flex items-center justify-center overflow-hidden">
+      <div className="relative card card-hover group overflow-hidden">
+        <div className="w-full h-56 bg-white dark:bg-dark-surface flex items-center justify-center overflow-hidden">
           {ogLoading ? (
-            <div className="w-12 h-12 animate-spin border-t-2 border-b-2 border-neon-green rounded-full" />
+            <div className="w-12 h-12 animate-spin border-t-2 border-b-2 border-primary rounded-full" />
           ) : ogImage && !showScreenshot ? (
             <img
               src={ogImage}
@@ -134,7 +134,7 @@ const ProjectsPage = () => {
               onError={handleScreenshotError}
             />
           ) : (
-            <FaGlobe className="w-20 h-20 text-neon-green mx-auto my-auto" />
+            <FaGlobe className="w-20 h-20 text-primary mx-auto my-auto" />
           )}
           {project.link && (
             <a
@@ -143,11 +143,11 @@ const ProjectsPage = () => {
               rel="noopener noreferrer"
               className="absolute inset-0 flex items-center justify-center bg-black bg-opacity-60 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
             >
-              <span className="px-6 py-3 bg-neon-green text-darker font-bold rounded-lg text-lg shadow-lg hover:bg-neon-green/90 transition">Очих</span>
+              <span className="px-6 py-3 bg-primary text-white font-bold rounded-lg text-lg shadow-lg hover:bg-primary-dark transition">Очих</span>
             </a>
           )}
         </div>
-        <h3 className="text-xl font-bold mt-4 mb-2 text-white">{project.title}</h3>
+        <h3 className="text-xl font-bold mt-4 mb-2 text-text-primary dark:text-dark-text">{project.title}</h3>
       </div>
     );
   };
@@ -160,14 +160,14 @@ const ProjectsPage = () => {
       imageUrl = `${config.API_URL}${imageUrl}`;
     }
     return (
-      <div className="bg-[#181818] rounded-2xl p-8 flex flex-col items-center text-center shadow-lg shadow-neon-green/5 hover:shadow-neon-green/20 transition-all">
+      <div className="card card-hover">
         {imageUrl && (
-          <div className="w-40 h-40 bg-white flex items-center justify-center rounded mb-4 overflow-hidden">
+          <div className="w-40 h-40 bg-white dark:bg-dark-surface flex items-center justify-center rounded mb-4 overflow-hidden">
             <img src={imageUrl} alt={project.title} className="max-w-full max-h-full object-contain" />
           </div>
         )}
-        <h3 className="text-xl font-bold mb-2 text-white">{project.title}</h3>
-        <p className="text-gray-300 text-base">{project.description}</p>
+        <h3 className="text-xl font-bold mb-2 text-text-primary dark:text-dark-text">{project.title}</h3>
+        <p className="text-text-secondary dark:text-dark-text-secondary text-base">{project.description}</p>
       </div>
     );
   };
@@ -176,8 +176,8 @@ const ProjectsPage = () => {
     return (
       <>
         <Navbar />
-        <div className="min-h-screen bg-darker text-white flex items-center justify-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-neon-green"></div>
+        <div className="min-h-screen bg-background dark:bg-dark-bg text-text-primary dark:text-dark-text flex items-center justify-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-primary"></div>
         </div>
       </>
     );
@@ -187,7 +187,7 @@ const ProjectsPage = () => {
     return (
       <>
         <Navbar />
-        <div className="min-h-screen bg-darker text-white flex items-center justify-center">
+        <div className="min-h-screen bg-background dark:bg-dark-bg text-text-primary dark:text-dark-text flex items-center justify-center">
           <div className="text-red-500">{error}</div>
         </div>
       </>
@@ -197,7 +197,7 @@ const ProjectsPage = () => {
   return (
     <>
       <Navbar />
-      <section className="min-h-screen bg-background text-text-primary py-12 px-6">
+      <section className="min-h-screen bg-background dark:bg-dark-bg text-text-primary dark:text-dark-text py-12 px-6">
         <div className="max-w-6xl mx-auto">
           <h1 className="text-2xl md:text-3xl font-semibold mb-8 text-center">
             <span className="text-primary">БИДНИЙ ХИЙСЭН</span> ТОМООХОН АЖЛУУД

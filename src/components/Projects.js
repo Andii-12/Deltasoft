@@ -22,8 +22,8 @@ const ProjectCard = ({ title, description, icon }) => {
       <div className="w-12 h-12 mb-4 text-primary">
         {IconComponent && <IconComponent className="w-full h-full" />}
       </div>
-      <h3 className="text-lg font-medium mb-3 text-text-primary">{title}</h3>
-      <p className="text-text-secondary text-sm leading-relaxed">{description}</p>
+      <h3 className="text-lg font-medium mb-3 text-text-primary dark:text-dark-text">{title}</h3>
+      <p className="text-text-secondary dark:text-dark-text-secondary text-sm leading-relaxed">{description}</p>
     </div>
   );
 };
@@ -54,10 +54,10 @@ const Projects = () => {
 
   if (loading) {
     return (
-      <section className="py-12 bg-background relative">
+      <section className="py-12 bg-background dark:bg-dark-bg relative">
         <div className="max-w-6xl mx-auto px-6">
           <div className="text-center mb-8">
-            <h2 className="text-2xl md:text-3xl font-semibold text-text-primary mb-4">
+            <h2 className="text-2xl md:text-3xl font-semibold text-text-primary dark:text-dark-text mb-4">
               <span className="text-primary">БИДНИЙ ХИЙСЭН</span> ТОМООХОН АЖЛУУД
             </h2>
           </div>
@@ -71,10 +71,10 @@ const Projects = () => {
 
   if (error) {
     return (
-      <section className="py-12 bg-background relative">
+      <section className="py-12 bg-background dark:bg-dark-bg relative">
         <div className="max-w-6xl mx-auto px-6">
           <div className="text-center mb-8">
-            <h2 className="text-2xl md:text-3xl font-semibold text-text-primary mb-4">
+            <h2 className="text-2xl md:text-3xl font-semibold text-text-primary dark:text-dark-text mb-4">
               <span className="text-primary">БИДНИЙ ХИЙСЭН</span> ТОМООХОН АЖЛУУД
             </h2>
           </div>
@@ -85,15 +85,18 @@ const Projects = () => {
   }
 
   return (
-    <section className="py-12 bg-background relative">
+    <section className="py-16 bg-background dark:bg-dark-bg">
       <div className="max-w-6xl mx-auto px-6">
         <div className="text-center mb-12">
-          <h2 className="text-2xl md:text-3xl font-semibold text-text-primary mb-4">
+          <h2 className="text-3xl md:text-4xl font-bold text-text-primary dark:text-dark-text mb-4">
             <span className="text-primary">БИДНИЙ ХИЙСЭН</span> ТОМООХОН АЖЛУУД
           </h2>
+          <p className="text-lg text-text-secondary dark:text-dark-text-secondary max-w-2xl mx-auto">
+            Мэргэжлийн баг маань хийсэн амжилттай төслүүд болон шийдлүүд
+          </p>
         </div>
         
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-4 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
           {projects
             .filter(project => project.category === 'main' && project.icon)
             .map((project) => (
@@ -101,7 +104,6 @@ const Projects = () => {
             ))}
         </div>
       </div>
-
     </section>
   );
 };
