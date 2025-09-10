@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const Visitor = require('../models/Visitor');
-const auth = require('../middleware/auth');
+const { auth } = require('./auth');
 
 // Get visitor statistics
 router.get('/visitors', auth, async (req, res) => {

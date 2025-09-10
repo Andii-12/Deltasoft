@@ -9,7 +9,6 @@ const LogoManagement = () => {
   const [editingLogo, setEditingLogo] = useState(null);
   const [formData, setFormData] = useState({
     name: '',
-    displayOrder: 0,
     image: null,
     imagePreview: null
   });
@@ -64,7 +63,6 @@ const LogoManagement = () => {
       const formDataToSend = new FormData();
       
       formDataToSend.append('name', formData.name);
-      formDataToSend.append('displayOrder', formData.displayOrder);
       
       if (formData.image) {
         formDataToSend.append('image', formData.image);
@@ -102,7 +100,6 @@ const LogoManagement = () => {
     setEditingLogo(logo);
     setFormData({
       name: logo.name,
-      displayOrder: logo.displayOrder,
       image: null,
       imagePreview: logo.imageType === 'file' ? `${config.API_URL}${logo.image}` : logo.image
     });
@@ -150,7 +147,6 @@ const LogoManagement = () => {
   const resetForm = () => {
     setFormData({
       name: '',
-      displayOrder: 0,
       image: null,
       imagePreview: null
     });
@@ -216,8 +212,7 @@ const LogoManagement = () => {
             </div>
             <div className="p-4">
               <h3 className="font-semibold text-gray-900 dark:text-dark-text mb-1">{logo.name}</h3>
-              <div className="flex items-center justify-between text-xs text-gray-500 dark:text-dark-text-light mb-3">
-                <span>Order: {logo.displayOrder}</span>
+              <div className="flex items-center justify-end text-xs text-gray-500 dark:text-dark-text-light mb-3">
                 <span className={`px-2 py-1 rounded ${logo.isActive ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'}`}>
                   {logo.isActive ? 'Active' : 'Inactive'}
                 </span>
@@ -286,19 +281,6 @@ const LogoManagement = () => {
                   onChange={handleInputChange}
                   className="w-full px-3 py-2 border border-gray-300 dark:border-dark-border rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent dark:bg-dark-bg dark:text-dark-text"
                   required
-                />
-              </div>
-
-              <div>
-                <label className="block text-sm font-medium text-gray-700 dark:text-dark-text-secondary mb-1">
-                  Display Order
-                </label>
-                <input
-                  type="number"
-                  name="displayOrder"
-                  value={formData.displayOrder}
-                  onChange={handleInputChange}
-                  className="w-full px-3 py-2 border border-gray-300 dark:border-dark-border rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent dark:bg-dark-bg dark:text-dark-text"
                 />
               </div>
 

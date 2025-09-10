@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const Logo = require('../models/Logo');
-const auth = require('../middleware/auth');
+const { auth } = require('./auth');
 const multer = require('multer');
 const path = require('path');
 const fs = require('fs');
@@ -78,7 +78,7 @@ router.get('/:id', auth, async (req, res) => {
 // Create new logo
 router.post('/', auth, upload.single('image'), async (req, res) => {
   try {
-    const { name, displayOrder } = req.body;
+    const { name } = req.body;
     
     let imageData = '';
     let imageType = 'base64';
@@ -99,7 +99,6 @@ router.post('/', auth, upload.single('image'), async (req, res) => {
       name,
       image: imageData,
       imageType,
-      displayOrder: parseInt(displayOrder) || 0,
       uploadedBy: req.user.id
     });
 
@@ -114,7 +113,7 @@ router.post('/', auth, upload.single('image'), async (req, res) => {
 // Update logo
 router.put('/:id', auth, upload.single('image'), async (req, res) => {
   try {
-    const { name, displayOrder, isActive } = req.body;
+    const { name, isActive } = req.body;
     
     const logo = await Logo.findById(req.params.id);
     if (!logo) {
@@ -123,7 +122,6 @@ router.put('/:id', auth, upload.single('image'), async (req, res) => {
 
     // Update fields
     logo.name = name || logo.name;
-    logo.displayOrder = displayOrder !== undefined ? parseInt(displayOrder) : logo.displayOrder;
     logo.isActive = isActive !== undefined ? isActive === 'true' : logo.isActive;
 
     // Handle image update
@@ -193,21 +191,5 @@ router.patch('/:id/toggle', auth, async (req, res) => {
   }
 });
 
-// Reorder logos
-router.patch('/reorder', auth, async (req, res) => {
-  try {
-    const { logos } = req.body; // Array of { id, displayOrder }
-    
-    const updatePromises = logos.map(logo => 
-      Logo.findByIdAndUpdate(logo.id, { displayOrder: logo.displayOrder })
-    );
-    
-    await Promise.all(updatePromises);
-    res.json({ message: 'Logos reordered successfully' });
-  } catch (error) {
-    console.error('Error reordering logos:', error);
-    res.status(500).json({ message: 'Error reordering logos' });
-  }
-});
 
 module.exports = router;
