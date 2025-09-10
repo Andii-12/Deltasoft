@@ -38,7 +38,16 @@ const Navbar = () => {
       <div className="max-w-6xl mx-auto px-6">
         <div className="flex items-center justify-between h-16">
           <Link to="/" className="flex items-center space-x-3" onClick={handleNavClick('top')}>
-            <div className="h-8 w-8 bg-primary rounded flex items-center justify-center">
+            <img
+              src="/images/Logo/Logo.png"
+              alt="DeltaSoft Logo"
+              className="h-8 w-auto"
+              onError={(e) => {
+                e.target.style.display = 'none';
+                e.target.nextSibling.style.display = 'block';
+              }}
+            />
+            <div className="h-8 w-8 bg-primary rounded flex items-center justify-center" style={{display: 'none'}}>
               <span className="text-white font-bold text-sm">DS</span>
             </div>
             <span className="text-lg font-semibold text-text-primary">
