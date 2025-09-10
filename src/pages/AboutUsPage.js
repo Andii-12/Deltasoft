@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { FaCheckCircle, FaLightbulb, FaUsers, FaHandshake, FaRocket, FaChartLine, FaCode, FaSmile, FaAward, FaShieldAlt, FaClock, FaHeart } from 'react-icons/fa';
+import { FaCheckCircle, FaLightbulb, FaUsers, FaHandshake, FaRocket, FaChartLine, FaCode, FaAward, FaShieldAlt, FaHeart } from 'react-icons/fa';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 
