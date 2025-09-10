@@ -3,14 +3,9 @@
   "name": "Deltasoft App",
   "icons": [
     {
-      "src": "/images/Logo/Logo.png",
-      "sizes": "192x192",
-      "type": "image/png"
-    },
-    {
-      "src": "/images/Logo/Logo.png",
-      "sizes": "512x512",
-      "type": "image/png"
+      "src": "/images/Logo/Logo2.svg",
+      "sizes": "any",
+      "type": "image/svg+xml"
     }
   ],
   "start_url": ".",
