@@ -50,7 +50,7 @@ const Navbar = () => {
         <div className="flex items-center justify-between h-16">
           <Link to="/" className="flex items-center space-x-3 group" onClick={handleNavClick('top')}>
             <img
-              src={`/images/Logo/Logo2.svg?v=${Date.now()}`}
+              src={`/images/Logo/Logo.svg?v=${Date.now()}`}
               alt="DeltaSoft Logo"
               className="h-8 w-auto transition-transform duration-300 group-hover:scale-110"
               onError={(e) => {
