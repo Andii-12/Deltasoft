@@ -39,7 +39,7 @@ const Navbar = () => {
         <div className="flex items-center justify-between h-16">
           <Link to="/" className="flex items-center space-x-3" onClick={handleNavClick('top')}>
             <img
-              src={`${process.env.PUBLIC_URL || ''}/images/Logo/logo2.png`}
+              src={`${process.env.PUBLIC_URL || ''}/images/Logo/Logo.png`}
               alt="DeltaSoft Logo"
               className="h-8 w-auto"
             />

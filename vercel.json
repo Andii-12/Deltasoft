@@ -23,6 +23,10 @@
       "dest": "/favicon.ico"
     },
     {
+      "src": "/images/Logo/Logo.png",
+      "dest": "/images/Logo/Logo.png"
+    },
+    {
       "src": "/manifest.json",
       "dest": "/manifest.json"
     },
