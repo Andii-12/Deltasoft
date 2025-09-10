@@ -38,11 +38,9 @@ const Navbar = () => {
       <div className="max-w-6xl mx-auto px-6">
         <div className="flex items-center justify-between h-16">
           <Link to="/" className="flex items-center space-x-3" onClick={handleNavClick('top')}>
-            <img
-              src={`${process.env.PUBLIC_URL || ''}/images/Logo/Logo.png`}
-              alt="DeltaSoft Logo"
-              className="h-8 w-auto"
-            />
+            <div className="h-8 w-8 bg-primary rounded flex items-center justify-center">
+              <span className="text-white font-bold text-sm">DS</span>
+            </div>
             <span className="text-lg font-semibold text-text-primary">
               Deltasoft
             </span>
