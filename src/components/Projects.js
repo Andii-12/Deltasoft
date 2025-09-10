@@ -85,11 +85,11 @@ const Projects = () => {
   }
 
   return (
-    <section className="py-20 bg-darker relative">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-24">
-          <h2 className="text-3xl md:text-4xl font-bold text-white mb-16">
-            <span className="text-neon-green">БИДНИЙ ХИЙСЭН</span> ТОМООХОН АЖЛУУД
+    <section className="py-12 bg-background relative">
+      <div className="max-w-6xl mx-auto px-6">
+        <div className="text-center mb-12">
+          <h2 className="text-2xl md:text-3xl font-semibold text-text-primary mb-4">
+            <span className="text-primary">БИДНИЙ ХИЙСЭН</span> ТОМООХОН АЖЛУУД
           </h2>
         </div>
         
@@ -102,9 +102,6 @@ const Projects = () => {
         </div>
       </div>
 
-      {/* Decorative elements */}
-      <div className="absolute left-0 top-1/4 w-96 h-96 bg-neon-green/5 rounded-full filter blur-[128px]" />
-      <div className="absolute right-0 bottom-1/4 w-96 h-96 bg-neon-green/5 rounded-full filter blur-[128px]" />
     </section>
   );
 };

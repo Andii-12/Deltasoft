@@ -9,7 +9,6 @@ import Partners from './components/Partners';
 import News from './components/News';
 import Team from './components/Team';
 import Footer from './components/Footer';
-import AnimatedBackground from './components/AnimatedBackground';
 import AdminLayout from './components/admin/AdminLayout';
 import Login from './components/admin/Login';
 import ResetPassword from './components/admin/ResetPassword';
@@ -48,21 +47,18 @@ function HomeWithScroll() {
     }
   }, [location]);
   return (
-    <div className="min-h-screen bg-darker text-white relative">
-      <AnimatedBackground />
-      <div className="relative z-10">
-        <Navbar />
-        <main className="pt-20">
-          <Hero />
-          <About />
-          <Features />
-          <Projects />
-          <Partners />
-          <News />
-          <Team />
-          <Footer />
-        </main>
-      </div>
+    <div className="min-h-screen bg-background text-text-primary">
+      <Navbar />
+      <main>
+        <Hero />
+        <About />
+        <Features />
+        <Projects />
+        <Partners />
+        <News />
+        <Team />
+        <Footer />
+      </main>
     </div>
   );
 }

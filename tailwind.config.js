@@ -6,50 +6,35 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        'darker': '#0a0a0a',
-        'dark': '#1a1a1a',
-        'neon-green': '#2eff00',
+        'primary': '#22c55e', // Clean green
+        'primary-dark': '#16a34a', // Darker green
+        'primary-light': '#86efac', // Light green
+        'accent': '#f0fdf4', // Very light green background
+        'text-primary': '#1f2937', // Dark gray for text
+        'text-secondary': '#6b7280', // Medium gray
+        'text-light': '#9ca3af', // Light gray
+        'background': '#ffffff', // Pure white
+        'surface': '#f9fafb', // Light gray surface
+        'border': '#e5e7eb', // Light border
       },
       animation: {
-        'pulse': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
-        'float': 'float 10s ease-in-out infinite',
-        'grid-move': 'grid-move 20s linear infinite',
-        'glow': 'glow 2s ease-in-out infinite',
-        'slide-up': 'slide-up 0.5s ease-out',
         'fade-in': 'fade-in 0.5s ease-out',
+        'slide-up': 'slide-up 0.3s ease-out',
       },
       keyframes: {
-        pulse: {
-          '0%, 100%': { opacity: '0.4' },
-          '50%': { opacity: '0.2' }
-        },
-        float: {
-          '0%, 100%': { transform: 'translateY(0)' },
-          '50%': { transform: 'translateY(-20px)' }
-        },
-        'grid-move': {
-          '0%': { transform: 'translateY(0)' },
-          '100%': { transform: 'translateY(50px)' }
-        },
-        glow: {
-          '0%, 100%': { textShadow: '0 0 10px rgba(46, 255, 0, 0.5)' },
-          '50%': { textShadow: '0 0 20px rgba(46, 255, 0, 0.8)' }
-        },
-        'slide-up': {
-          '0%': { transform: 'translateY(20px)', opacity: '0' },
-          '100%': { transform: 'translateY(0)', opacity: '1' }
-        },
         'fade-in': {
           '0%': { opacity: '0' },
           '100%': { opacity: '1' }
+        },
+        'slide-up': {
+          '0%': { transform: 'translateY(10px)', opacity: '0' },
+          '100%': { transform: 'translateY(0)', opacity: '1' }
         }
       },
-      backdropBlur: {
-        xs: '2px',
-      },
       boxShadow: {
-        'glow': '0 0 20px rgba(46, 255, 0, 0.3)',
-        'glow-lg': '0 0 30px rgba(46, 255, 0, 0.5)',
+        'soft': '0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06)',
+        'medium': '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)',
+        'large': '0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)',
       }
     },
   },

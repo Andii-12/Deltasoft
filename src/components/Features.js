@@ -1,12 +1,12 @@
 import React from 'react';
 
 const FeatureCard = ({ title, description, icon }) => (
-  <div className="p-8 rounded-2xl bg-[#111111] hover:bg-opacity-80 transition-all transform hover:-translate-y-1 border border-neon-green/5">
-    <div className="w-16 h-16 mb-6 text-neon-green">
+  <div className="card card-hover">
+    <div className="w-12 h-12 mb-4 text-primary">
       {icon}
     </div>
-    <h3 className="text-xl font-semibold mb-3 text-white">{title}</h3>
-    <p className="text-gray-400 text-base leading-relaxed">{description}</p>
+    <h3 className="text-lg font-medium mb-2 text-text-primary">{title}</h3>
+    <p className="text-text-secondary text-sm leading-relaxed">{description}</p>
   </div>
 );
 
@@ -87,16 +87,16 @@ const Features = () => {
   ];
 
   return (
-    <section className="py-20 bg-darker relative">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-24">
-          <h2 className="text-3xl md:text-4xl font-bold text-white mb-16">
-            <span className="text-neon-green">ЯАГААД БИД</span> ГЭЖ ?
+    <section className="py-12 bg-background relative">
+      <div className="max-w-6xl mx-auto px-6">
+        <div className="text-center mb-8">
+          <h2 className="text-2xl md:text-3xl font-semibold text-text-primary mb-6">
+            <span className="text-primary">ЯАГААД БИД</span> ГЭЖ ?
           </h2>
-          <div className="max-w-5xl mx-auto">
-            <p className="text-white text-lg leading-relaxed">
+          <div className="max-w-4xl mx-auto">
+            <p className="text-text-secondary text-base leading-relaxed">
               Мэдээллийн технологийн эрин зуунд аливааа бизнесүүд IT-ийн оновчтой зөв шийдэлгүйгээр амжилттай урагшлах боломжгүй болсон. Бид таны хэрэгцээ шаардлагад нийцсэн{' '}
-              <span className="text-neon-green font-bold">
+              <span className="text-primary font-medium">
                 ОРЧИН ҮЕИЙН ШИНЭЛЭГ ТЕХНОЛОГИ, ШИЙДЛИЙГ САНАЛ БОЛГОНО
               </span>
               . Ингэснээр та бизнесийнхээ үйл ажиллагаанд анхаарч IT-ийн оновчтой шийдлийг ашиглан амжилттай ажиллах үндэс суурь бий болно.
@@ -104,16 +104,12 @@ const Features = () => {
           </div>
         </div>
         
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
           {features.map((feature, index) => (
             <FeatureCard key={index} {...feature} />
           ))}
         </div>
       </div>
-
-      {/* Decorative elements */}
-      <div className="absolute left-0 top-1/4 w-96 h-96 bg-neon-green/5 rounded-full filter blur-[128px]" />
-      <div className="absolute right-0 bottom-1/4 w-96 h-96 bg-neon-green/5 rounded-full filter blur-[128px]" />
     </section>
   );
 };

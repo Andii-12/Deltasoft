@@ -31,29 +31,29 @@ const News = () => {
   const visibleNews = featuredNews.slice(0, 3);
 
   return (
-    <section id="news" className="py-20 bg-dark relative">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-16">
-          <h2 className="text-3xl md:text-4xl font-bold text-white">
-            <span className="text-neon-green">ШИНЭ</span> МЭДЭЭ
+    <section id="news" className="py-12 bg-background relative">
+      <div className="max-w-6xl mx-auto px-6">
+        <div className="text-center mb-8">
+          <h2 className="text-2xl md:text-3xl font-semibold text-text-primary">
+            <span className="text-primary">ШИНЭ</span> МЭДЭЭ
           </h2>
         </div>
         {error && <div className="text-red-500 text-center mb-4">{error}</div>}
         {loading ? (
-          <div className="text-center text-white">Уншиж байна...</div>
+          <div className="text-center text-text-secondary">Уншиж байна...</div>
         ) : (
           <>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {visibleNews.length === 0 ? (
-                <div className="col-span-3 text-center text-gray-400">Одоогоор нийтлэгдсэн мэдээ алга байна.</div>
+                <div className="col-span-3 text-center text-text-light">Одоогоор нийтлэгдсэн мэдээ алга байна.</div>
               ) : (
                 visibleNews.map((item, index) => (
                   <Link
                     to={`/news/${item._id}`}
                     key={item._id || index}
-                    className="bg-darker rounded-xl overflow-hidden hover:shadow-xl hover:shadow-neon-green/10 transition-all duration-300 block"
+                    className="card card-hover block"
                   >
-                    <div className="relative h-48 overflow-hidden bg-black flex items-center justify-center">
+                    <div className="relative h-40 overflow-hidden bg-surface flex items-center justify-center rounded">
                       {item.image ? (
                         <img
                           src={item.image}
@@ -61,27 +61,27 @@ const News = () => {
                           className="w-full h-full object-cover"
                         />
                       ) : (
-                        <span className="text-gray-700">No Image</span>
+                        <span className="text-text-light">No Image</span>
                       )}
-                      <div className="absolute top-4 right-4 bg-neon-green px-3 py-1 rounded-full text-darker text-sm font-medium">
+                      <div className="absolute top-2 right-2 bg-primary px-2 py-1 rounded text-white text-xs">
                         {item.category || 'Мэдээ'}
                       </div>
                     </div>
-                    <div className="p-6">
-                      <div className="text-gray-400 text-sm mb-2">{new Date(item.date).toLocaleDateString('mn-MN')}</div>
-                      <h3 className="text-xl font-semibold text-white mb-3 hover:text-neon-green transition-colors">
+                    <div className="p-4">
+                      <div className="text-text-light text-xs mb-2">{new Date(item.date).toLocaleDateString('mn-MN')}</div>
+                      <h3 className="text-lg font-medium text-text-primary mb-2 hover:text-primary transition-colors">
                         {item.title}
                       </h3>
-                      <p className="text-gray-400 mb-4">{item.content?.slice(0, 100)}...</p>
+                      <p className="text-text-light text-sm">{item.content?.slice(0, 100)}...</p>
                     </div>
                   </Link>
                 ))
               )}
             </div>
-            <div className="flex justify-center mt-8">
+            <div className="flex justify-center mt-6">
               <Link
                 to="/news"
-                className="px-8 py-3 bg-neon-green text-darker font-bold rounded-lg hover:bg-neon-green/90 transition-all text-lg shadow-lg"
+                className="btn btn-primary"
               >
                 Бүх мэдээ үзэх
               </Link>
@@ -89,9 +89,6 @@ const News = () => {
           </>
         )}
       </div>
-      {/* Decorative elements */}
-      <div className="absolute left-0 top-1/4 w-96 h-96 bg-neon-green/5 rounded-full filter blur-[128px]" />
-      <div className="absolute right-0 bottom-1/4 w-96 h-96 bg-neon-green/5 rounded-full filter blur-[128px]" />
     </section>
   );
 };

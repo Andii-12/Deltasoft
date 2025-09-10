@@ -9,45 +9,41 @@ const About = () => {
   ];
 
   return (
-    <section id="about" className="py-20 bg-dark">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-12">
-          <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
-            Бидний <span className="text-neon-green">тухай</span>
+    <section id="about" className="py-12 bg-background">
+      <div className="max-w-6xl mx-auto px-6">
+        <div className="text-center mb-8">
+          <h2 className="text-2xl md:text-3xl font-semibold text-text-primary mb-4">
+            Бидний <span className="text-primary">тухай</span>
           </h2>
         </div>
         
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
           {/* Left side - Main text */}
-          <div className="space-y-6">
-            <p className="text-gray-300 leading-relaxed">
+          <div className="space-y-4">
+            <p className="text-text-secondary leading-relaxed">
               Дельтасофт компани нь 2012 онд байгуулагдсан цагаасаа хойш мэдээллийн технологийн салбарт тасралтгүй үйл ажиллагаа явуулж байна. Бид салбартаа олон жил ажилласан дадлага туршлагатай инженерүүдээр багаа бүрдүүлэн ажиллаж байна.
             </p>
           </div>
 
           {/* Right side - Services list */}
-          <div className="bg-darker rounded-2xl p-8 shadow-lg shadow-neon-green/5">
-            <h3 className="text-xl font-semibold text-neon-green mb-6">
+          <div className="card">
+            <h3 className="text-lg font-medium text-primary mb-4">
               Манайх:
             </h3>
-            <ul className="space-y-4">
+            <ul className="space-y-3">
               {services.map((service, index) => (
                 <li key={index} className="flex items-start space-x-3">
-                  <span className="text-neon-green mt-1">•</span>
-                  <span className="text-gray-300">{service}</span>
+                  <div className="w-2 h-2 bg-primary rounded-full mt-2 flex-shrink-0"></div>
+                  <span className="text-text-secondary text-sm">{service}</span>
                 </li>
               ))}
             </ul>
-            <p className="text-gray-300 mt-6">
+            <p className="text-text-secondary text-sm mt-4">
               хийж гүйцэтгэн ажиллаж байна.
             </p>
           </div>
         </div>
       </div>
-
-      {/* Decorative elements */}
-      <div className="absolute -left-20 w-40 h-40 bg-neon-green/5 rounded-full filter blur-3xl" />
-      <div className="absolute right-0 w-40 h-40 bg-neon-green/10 rounded-full filter blur-3xl" />
     </section>
   );
 };

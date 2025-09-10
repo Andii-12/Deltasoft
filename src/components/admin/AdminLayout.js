@@ -38,60 +38,57 @@ const AdminLayout = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-gray-100">
+    <div className="min-h-screen bg-surface">
       <div className="flex h-screen overflow-hidden">
         {/* Sidebar */}
-        <aside className={`${sidebarOpen ? 'w-64' : 'w-20'} bg-gray-800 text-white transition-all duration-300 ease-in-out flex-shrink-0`}>
-          <div className="p-4 flex justify-between items-center">
-            <h2 className={`${!sidebarOpen && 'hidden'} font-bold text-xl`}>Удирдлага</h2>
+        <aside className={`${sidebarOpen ? 'w-56' : 'w-16'} bg-background border-r border-border transition-all duration-200 flex-shrink-0`}>
+          <div className="p-4 flex justify-between items-center border-b border-border">
+            <h2 className={`${!sidebarOpen && 'hidden'} font-semibold text-text-primary`}>Admin</h2>
             <button 
               onClick={() => setSidebarOpen(!sidebarOpen)}
-              className="p-2 rounded-lg hover:bg-gray-700 transition-colors"
+              className="p-1 hover:bg-accent rounded transition-colors text-text-secondary hover:text-primary"
             >
-              {sidebarOpen ? <FaTimes /> : <FaBars />}
+              {sidebarOpen ? <FaTimes className="w-4 h-4" /> : <FaBars className="w-4 h-4" />}
             </button>
           </div>
-          <nav className="mt-8">
+          <nav className="mt-2">
             {menuItems.map((item) => (
               <Link
                 key={item.path}
                 to={item.path}
-                className={`flex items-center p-4 hover:bg-gray-700 transition-colors ${
-                  location.pathname === item.path ? 'bg-gray-700' : ''
+                className={`flex items-center p-3 hover:bg-accent transition-colors ${
+                  location.pathname === item.path ? 'bg-accent text-primary' : 'text-text-secondary hover:text-primary'
                 }`}
               >
-                <item.icon className="w-6 h-6 flex-shrink-0" />
-                {sidebarOpen && <span className="ml-4">{item.label}</span>}
+                <item.icon className="w-4 h-4 flex-shrink-0" />
+                {sidebarOpen && <span className="ml-3 text-sm">{item.label}</span>}
               </Link>
             ))}
             <button
               onClick={handleLogout}
-              className="w-full flex items-center p-4 hover:bg-gray-700 transition-colors text-red-400 hover:text-red-300"
+              className="w-full flex items-center p-3 hover:bg-red-50 transition-colors text-red-500 hover:text-red-600 mt-2"
             >
-              <FaSignOutAlt className="w-6 h-6 flex-shrink-0" />
-              {sidebarOpen && <span className="ml-4">Гарах</span>}
+              <FaSignOutAlt className="w-4 h-4 flex-shrink-0" />
+              {sidebarOpen && <span className="ml-3 text-sm">Гарах</span>}
             </button>
           </nav>
         </aside>
 
         {/* Main Content */}
-        <main className="flex-1 overflow-auto bg-gray-100">
+        <main className="flex-1 overflow-auto bg-surface">
           {/* Header */}
-          <header className="bg-white shadow-sm">
-            <div className="px-4 py-4">
+          <header className="bg-background border-b border-border">
+            <div className="px-6 py-3">
               <div className="flex justify-between items-center">
-                <h1 className="text-2xl font-semibold text-gray-800">
-                  {menuItems.find(item => item.path === location.pathname)?.label || 'Удирдлага'}
+                <h1 className="text-lg font-medium text-text-primary">
+                  {menuItems.find(item => item.path === location.pathname)?.label || 'Admin'}
                 </h1>
-                <div className="flex items-center space-x-4">
-                  <button 
-                    onClick={handleLogout}
-                    className="px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors flex items-center space-x-2"
-                  >
-                    <FaSignOutAlt />
-                    <span>Гарах</span>
-                  </button>
-                </div>
+                <button 
+                  onClick={handleLogout}
+                  className="text-red-500 hover:text-red-600 text-sm transition-colors"
+                >
+                  <FaSignOutAlt className="w-4 h-4" />
+                </button>
               </div>
             </div>
           </header>

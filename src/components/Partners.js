@@ -15,33 +15,29 @@ const Partners = () => {
   ];
 
   return (
-    <section className="py-20 bg-dark relative">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-24">
-          <h2 className="text-3xl md:text-4xl font-bold text-white mb-16">
-            <span className="text-neon-green">ХАМТРАГЧ ТҮНШ</span> БАЙГУУЛЛАГУУД
+    <section className="py-12 bg-background relative">
+      <div className="max-w-6xl mx-auto px-6">
+        <div className="text-center mb-8">
+          <h2 className="text-2xl md:text-3xl font-semibold text-text-primary mb-6">
+            <span className="text-primary">ХАМТРАГЧ ТҮНШ</span> БАЙГУУЛЛАГУУД
           </h2>
         </div>
         
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-8 items-center">
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6 items-center">
           {partners.map((partner, index) => (
             <div 
               key={index} 
-              className="p-6 bg-[#111111] rounded-xl hover:bg-opacity-80 transition-all duration-300 flex items-center justify-center"
+              className="card flex items-center justify-center p-4"
             >
               <img
                 src={partner.image}
                 alt={partner.name}
-                className="max-h-16 w-auto object-contain"
+                className="max-h-12 w-auto object-contain"
               />
             </div>
           ))}
         </div>
       </div>
-
-      {/* Decorative elements */}
-      <div className="absolute left-0 top-1/4 w-96 h-96 bg-neon-green/5 rounded-full filter blur-[128px]" />
-      <div className="absolute right-0 bottom-1/4 w-96 h-96 bg-neon-green/5 rounded-full filter blur-[128px]" />
     </section>
   );
 };

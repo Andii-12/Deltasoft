@@ -1,25 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { FaBars, FaTimes } from 'react-icons/fa';
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const [isScrolled, setIsScrolled] = useState(false);
   const location = useLocation();
   const navigate = useNavigate();
-
-  useEffect(() => {
-    const handleScroll = () => {
-      if (window.scrollY > 0) {
-        setIsScrolled(true);
-      } else {
-        setIsScrolled(false);
-      }
-    };
-
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
 
   const handleNavClick = (section) => (e) => {
     e.preventDefault();
@@ -48,62 +34,56 @@ const Navbar = () => {
   ];
 
   return (
-    <nav className={`fixed w-full z-50 transition-all duration-300 ${
-      isScrolled ? 'bg-darker shadow-lg' : 'bg-transparent'
-    }`}>
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-20">
-          <div className="flex-shrink-0">
-            <Link to="/" className="flex items-center space-x-2" onClick={handleNavClick('top')}>
-              <img
-                src="/images/Logo/logo2.png"
-                alt="DeltaSoft Logo"
-                className="h-12 w-auto"
-              />
-              <span className="text-2xl font-bold text-neon-green">
-                Deltasoft LLC
-              </span>
-            </Link>
-          </div>
+    <nav className="fixed w-full z-50 bg-background border-b border-border">
+      <div className="max-w-6xl mx-auto px-6">
+        <div className="flex items-center justify-between h-16">
+          <Link to="/" className="flex items-center space-x-3" onClick={handleNavClick('top')}>
+            <img
+              src="/images/Logo/logo2.png"
+              alt="DeltaSoft Logo"
+              className="h-8 w-auto"
+            />
+            <span className="text-lg font-semibold text-text-primary">
+              Deltasoft
+            </span>
+          </Link>
           
           {/* Desktop menu */}
-          <div className="hidden md:block">
-            <div className="ml-10 flex items-center space-x-8">
-              {menuItems.map((item) => (
-                <Link
-                  key={item.label}
-                  to={item.href}
-                  className="text-gray-300 hover:text-neon-green px-3 py-2 text-sm font-medium transition-colors"
-                  onClick={item.onClick}
-                >
-                  {item.label}
-                </Link>
-              ))}
+          <div className="hidden md:flex items-center space-x-8">
+            {menuItems.map((item) => (
               <Link
-                to="/quote"
-                className="bg-neon-green text-darker hover:bg-neon-green/90 px-4 py-2 rounded-lg text-sm font-medium transition-all transform hover:scale-105 hover:shadow-glow"
+                key={item.label}
+                to={item.href}
+                className="text-text-secondary hover:text-primary text-sm transition-colors"
+                onClick={item.onClick}
               >
-                Үнийн санал
+                {item.label}
               </Link>
-              <Link
-                to="/worker/login"
-                className="bg-neon-green text-darker hover:bg-neon-green/90 px-4 py-2 rounded-lg text-sm font-medium transition-all transform hover:scale-105 hover:shadow-glow"
-              >
-                Нэвтрэх
-              </Link>
-            </div>
+            ))}
+            <Link
+              to="/quote"
+              className="bg-primary text-white px-4 py-2 rounded text-sm hover:bg-primary-dark transition-colors"
+            >
+              Quote
+            </Link>
+            <Link
+              to="/worker/login"
+              className="text-primary text-sm hover:text-primary-dark transition-colors"
+            >
+              Login
+            </Link>
           </div>
 
           {/* Mobile menu button */}
           <div className="md:hidden">
             <button
               onClick={() => setIsOpen(!isOpen)}
-              className="text-gray-400 hover:text-neon-green focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-darker focus:ring-neon-green p-2 rounded-md"
+              className="text-text-secondary hover:text-primary p-2"
             >
               {isOpen ? (
-                <FaTimes className="h-6 w-6" />
+                <FaTimes className="h-5 w-5" />
               ) : (
-                <FaBars className="h-6 w-6" />
+                <FaBars className="h-5 w-5" />
               )}
             </button>
           </div>
@@ -112,32 +92,32 @@ const Navbar = () => {
 
       {/* Mobile menu */}
       {isOpen && (
-        <div className="md:hidden bg-darker border-t border-gray-800 fixed w-full top-20 animate-fade-in-up">
-          <div className="px-4 pt-4 pb-6 space-y-3">
+        <div className="md:hidden bg-background border-t border-border">
+          <div className="px-6 py-4 space-y-3">
             {menuItems.map((item) => (
               <Link
                 key={item.label}
                 to={item.href}
-                className="text-gray-300 hover:text-neon-green block px-4 py-3 text-base font-medium transition-colors rounded-lg hover:bg-gray-800/50"
+                className="text-text-secondary hover:text-primary block py-2 text-sm transition-colors"
                 onClick={item.onClick}
               >
                 {item.label}
               </Link>
             ))}
-            <div className="space-y-3 pt-2">
+            <div className="pt-2 space-y-2">
               <Link
                 to="/quote"
-                className="bg-neon-green text-darker hover:bg-neon-green/90 block px-4 py-3 rounded-lg text-base font-medium transition-all text-center"
+                className="bg-primary text-white px-4 py-2 rounded text-sm block text-center hover:bg-primary-dark transition-colors"
                 onClick={() => setIsOpen(false)}
               >
-                Үнийн санал
+                Quote
               </Link>
               <Link
                 to="/worker/login"
-                className="bg-neon-green text-darker hover:bg-neon-green/90 block px-4 py-3 rounded-lg text-base font-medium transition-all text-center"
+                className="text-primary text-sm block py-2 hover:text-primary-dark transition-colors"
                 onClick={() => setIsOpen(false)}
               >
-                Нэвтрэх
+                Login
               </Link>
             </div>
           </div>
