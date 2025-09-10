@@ -23,15 +23,8 @@
       "dest": "/favicon.ico"
     },
     {
-      "src": "/images/Logo/Logo.svg",
-      "dest": "/images/Logo/Logo.svg",
-      "headers": {
-        "Cache-Control": "public, max-age=31536000, immutable"
-      }
-    },
-    {
-      "src": "/images/Logo/Logo2.svg",
-      "dest": "/images/Logo/Logo2.svg",
+      "src": "/images/Logo/Logo.png",
+      "dest": "/images/Logo/Logo.png",
       "headers": {
         "Cache-Control": "public, max-age=31536000, immutable"
       }

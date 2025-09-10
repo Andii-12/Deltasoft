@@ -22,7 +22,6 @@ import ProjectsPage from './components/ProjectsPage';
 import WorkerRoutes from './components/worker/WorkerRoutes';
 import NewsPage from './pages/NewsPage';
 import Dashboard from './components/admin/Dashboard';
-import LogoManagement from './components/admin/LogoManagement';
 import { FaGlobe, FaVideo, FaPaperPlane, FaDesktop, FaCode, FaCloud, FaMobileAlt, FaNetworkWired, FaServer, FaWifi, FaTrash, FaTimes } from 'react-icons/fa';
 import TeamManagement from './components/admin/TeamManagement';
 import WorkerManagement from './components/admin/WorkerManagement';
@@ -827,7 +826,6 @@ function App() {
           <Route index element={<Navigate to="dashboard" replace />} />
           <Route path="dashboard" element={<Dashboard />} />
           <Route path="news" element={<NewsManagement />} />
-          <Route path="logos" element={<LogoManagement />} />
           <Route path="quotes" element={<QuotesDashboard />} />
           <Route path="projects" element={<AdminProjects />} />
           <Route path="partners" element={<AdminPartners />} />
