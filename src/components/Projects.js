@@ -18,12 +18,12 @@ const iconMap = {
 const ProjectCard = ({ title, description, icon }) => {
   const IconComponent = iconMap[icon];
   return (
-    <div className="bg-[#111111] rounded-2xl p-8 hover:bg-opacity-80 transition-all transform hover:-translate-y-1 border border-neon-green/5">
-      <div className="w-16 h-16 mb-6 text-neon-green">
+    <div className="card card-hover">
+      <div className="w-12 h-12 mb-4 text-primary">
         {IconComponent && <IconComponent className="w-full h-full" />}
       </div>
-      <h3 className="text-xl font-semibold mb-4 text-white">{title}</h3>
-      <p className="text-gray-400 text-base leading-relaxed">{description}</p>
+      <h3 className="text-lg font-medium mb-3 text-text-primary">{title}</h3>
+      <p className="text-text-secondary text-sm leading-relaxed">{description}</p>
     </div>
   );
 };
@@ -54,15 +54,15 @@ const Projects = () => {
 
   if (loading) {
     return (
-      <section className="py-20 bg-darker relative">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-24">
-            <h2 className="text-3xl md:text-4xl font-bold text-white mb-16">
-              <span className="text-neon-green">БИДНИЙ ХИЙСЭН</span> ТОМООХОН АЖЛУУД
+      <section className="py-12 bg-background relative">
+        <div className="max-w-6xl mx-auto px-6">
+          <div className="text-center mb-8">
+            <h2 className="text-2xl md:text-3xl font-semibold text-text-primary mb-4">
+              <span className="text-primary">БИДНИЙ ХИЙСЭН</span> ТОМООХОН АЖЛУУД
             </h2>
           </div>
           <div className="flex justify-center">
-            <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-neon-green"></div>
+            <div className="animate-spin rounded-full h-8 w-8 border-t-2 border-b-2 border-primary"></div>
           </div>
         </div>
       </section>
@@ -71,11 +71,11 @@ const Projects = () => {
 
   if (error) {
     return (
-      <section className="py-20 bg-darker relative">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-24">
-            <h2 className="text-3xl md:text-4xl font-bold text-white mb-16">
-              <span className="text-neon-green">БИДНИЙ ХИЙСЭН</span> ТОМООХОН АЖЛУУД
+      <section className="py-12 bg-background relative">
+        <div className="max-w-6xl mx-auto px-6">
+          <div className="text-center mb-8">
+            <h2 className="text-2xl md:text-3xl font-semibold text-text-primary mb-4">
+              <span className="text-primary">БИДНИЙ ХИЙСЭН</span> ТОМООХОН АЖЛУУД
             </h2>
           </div>
           <div className="text-center text-red-500">{error}</div>
