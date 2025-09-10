@@ -6,10 +6,6 @@ const logoSchema = new mongoose.Schema({
     required: true,
     trim: true
   },
-  description: {
-    type: String,
-    default: ''
-  },
   image: {
     type: String, // Base64 encoded image or file path
     required: true
@@ -19,11 +15,6 @@ const logoSchema = new mongoose.Schema({
     enum: ['base64', 'file'],
     default: 'base64'
   },
-  category: {
-    type: String,
-    enum: ['partner', 'client', 'certification', 'award'],
-    default: 'partner'
-  },
   isActive: {
     type: Boolean,
     default: true
@@ -31,10 +22,6 @@ const logoSchema = new mongoose.Schema({
   displayOrder: {
     type: Number,
     default: 0
-  },
-  website: {
-    type: String,
-    default: ''
   },
   uploadedBy: {
     type: mongoose.Schema.Types.ObjectId,
@@ -46,27 +33,22 @@ const logoSchema = new mongoose.Schema({
 });
 
 // Index for better query performance
-logoSchema.index({ category: 1, isActive: 1 });
+logoSchema.index({ isActive: 1 });
 logoSchema.index({ displayOrder: 1 });
 
-// Static method to get active logos by category
-logoSchema.statics.getActiveLogos = async function(category = null) {
-  const query = { isActive: true };
-  if (category) {
-    query.category = category;
-  }
-  
-  return this.find(query)
+// Static method to get active logos
+logoSchema.statics.getActiveLogos = async function() {
+  return this.find({ isActive: true })
     .sort({ displayOrder: 1, createdAt: -1 })
-    .select('name description image imageType category website displayOrder');
+    .select('name image imageType displayOrder');
 };
 
 // Static method to get all logos for admin
 logoSchema.statics.getAllLogos = async function() {
   return this.find()
-    .sort({ category: 1, displayOrder: 1, createdAt: -1 })
+    .sort({ displayOrder: 1, createdAt: -1 })
     .populate('uploadedBy', 'name email')
-    .select('name description image imageType category isActive displayOrder website uploadedBy createdAt');
+    .select('name image imageType isActive displayOrder uploadedBy createdAt');
 };
 
 module.exports = mongoose.model('Logo', logoSchema);

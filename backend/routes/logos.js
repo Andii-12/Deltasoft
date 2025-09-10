@@ -50,11 +50,10 @@ router.get('/', auth, async (req, res) => {
   }
 });
 
-// Get active logos by category (public)
+// Get active logos (public)
 router.get('/active', async (req, res) => {
   try {
-    const { category } = req.query;
-    const logos = await Logo.getActiveLogos(category);
+    const logos = await Logo.getActiveLogos();
     res.json(logos);
   } catch (error) {
     console.error('Error fetching active logos:', error);
@@ -79,7 +78,7 @@ router.get('/:id', auth, async (req, res) => {
 // Create new logo
 router.post('/', auth, upload.single('image'), async (req, res) => {
   try {
-    const { name, description, category, website, displayOrder } = req.body;
+    const { name, displayOrder } = req.body;
     
     let imageData = '';
     let imageType = 'base64';
@@ -98,11 +97,8 @@ router.post('/', auth, upload.single('image'), async (req, res) => {
 
     const logo = new Logo({
       name,
-      description: description || '',
       image: imageData,
       imageType,
-      category: category || 'partner',
-      website: website || '',
       displayOrder: parseInt(displayOrder) || 0,
       uploadedBy: req.user.id
     });
@@ -118,7 +114,7 @@ router.post('/', auth, upload.single('image'), async (req, res) => {
 // Update logo
 router.put('/:id', auth, upload.single('image'), async (req, res) => {
   try {
-    const { name, description, category, website, displayOrder, isActive } = req.body;
+    const { name, displayOrder, isActive } = req.body;
     
     const logo = await Logo.findById(req.params.id);
     if (!logo) {
@@ -127,9 +123,6 @@ router.put('/:id', auth, upload.single('image'), async (req, res) => {
 
     // Update fields
     logo.name = name || logo.name;
-    logo.description = description !== undefined ? description : logo.description;
-    logo.category = category || logo.category;
-    logo.website = website !== undefined ? website : logo.website;
     logo.displayOrder = displayOrder !== undefined ? parseInt(displayOrder) : logo.displayOrder;
     logo.isActive = isActive !== undefined ? isActive === 'true' : logo.isActive;
 

@@ -9,9 +9,6 @@ const LogoManagement = () => {
   const [editingLogo, setEditingLogo] = useState(null);
   const [formData, setFormData] = useState({
     name: '',
-    description: '',
-    category: 'partner',
-    website: '',
     displayOrder: 0,
     image: null,
     imagePreview: null
@@ -67,9 +64,6 @@ const LogoManagement = () => {
       const formDataToSend = new FormData();
       
       formDataToSend.append('name', formData.name);
-      formDataToSend.append('description', formData.description);
-      formDataToSend.append('category', formData.category);
-      formDataToSend.append('website', formData.website);
       formDataToSend.append('displayOrder', formData.displayOrder);
       
       if (formData.image) {
@@ -108,9 +102,6 @@ const LogoManagement = () => {
     setEditingLogo(logo);
     setFormData({
       name: logo.name,
-      description: logo.description,
-      category: logo.category,
-      website: logo.website,
       displayOrder: logo.displayOrder,
       image: null,
       imagePreview: logo.imageType === 'file' ? `${config.API_URL}${logo.image}` : logo.image
@@ -159,9 +150,6 @@ const LogoManagement = () => {
   const resetForm = () => {
     setFormData({
       name: '',
-      description: '',
-      category: 'partner',
-      website: '',
       displayOrder: 0,
       image: null,
       imagePreview: null
@@ -228,9 +216,8 @@ const LogoManagement = () => {
             </div>
             <div className="p-4">
               <h3 className="font-semibold text-gray-900 dark:text-dark-text mb-1">{logo.name}</h3>
-              <p className="text-sm text-gray-600 dark:text-dark-text-secondary mb-2">{logo.description}</p>
               <div className="flex items-center justify-between text-xs text-gray-500 dark:text-dark-text-light mb-3">
-                <span className="capitalize">{logo.category}</span>
+                <span>Order: {logo.displayOrder}</span>
                 <span className={`px-2 py-1 rounded ${logo.isActive ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'}`}>
                   {logo.isActive ? 'Active' : 'Inactive'}
                 </span>
@@ -304,57 +291,12 @@ const LogoManagement = () => {
 
               <div>
                 <label className="block text-sm font-medium text-gray-700 dark:text-dark-text-secondary mb-1">
-                  Description
-                </label>
-                <textarea
-                  name="description"
-                  value={formData.description}
-                  onChange={handleInputChange}
-                  rows={2}
-                  className="w-full px-3 py-2 border border-gray-300 dark:border-dark-border rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent dark:bg-dark-bg dark:text-dark-text"
-                />
-              </div>
-
-              <div className="grid grid-cols-2 gap-4">
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 dark:text-dark-text-secondary mb-1">
-                    Category
-                  </label>
-                  <select
-                    name="category"
-                    value={formData.category}
-                    onChange={handleInputChange}
-                    className="w-full px-3 py-2 border border-gray-300 dark:border-dark-border rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent dark:bg-dark-bg dark:text-dark-text"
-                  >
-                    <option value="partner">Partner</option>
-                    <option value="client">Client</option>
-                    <option value="certification">Certification</option>
-                    <option value="award">Award</option>
-                  </select>
-                </div>
-
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 dark:text-dark-text-secondary mb-1">
-                    Display Order
-                  </label>
-                  <input
-                    type="number"
-                    name="displayOrder"
-                    value={formData.displayOrder}
-                    onChange={handleInputChange}
-                    className="w-full px-3 py-2 border border-gray-300 dark:border-dark-border rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent dark:bg-dark-bg dark:text-dark-text"
-                  />
-                </div>
-              </div>
-
-              <div>
-                <label className="block text-sm font-medium text-gray-700 dark:text-dark-text-secondary mb-1">
-                  Website URL
+                  Display Order
                 </label>
                 <input
-                  type="url"
-                  name="website"
-                  value={formData.website}
+                  type="number"
+                  name="displayOrder"
+                  value={formData.displayOrder}
                   onChange={handleInputChange}
                   className="w-full px-3 py-2 border border-gray-300 dark:border-dark-border rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent dark:bg-dark-bg dark:text-dark-text"
                 />

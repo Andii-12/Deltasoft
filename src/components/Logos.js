@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import { FaExternalLinkAlt } from 'react-icons/fa';
 import config from '../config';
 
 const Logos = () => {
@@ -48,87 +47,51 @@ const Logos = () => {
     return null; // Don't show section if no logos
   }
 
-  // Group logos by category
-  const groupedLogos = logos.reduce((acc, logo) => {
-    if (!acc[logo.category]) {
-      acc[logo.category] = [];
-    }
-    acc[logo.category].push(logo);
-    return acc;
-  }, {});
-
-  const categoryTitles = {
-    partner: 'Our Partners',
-    client: 'Our Clients',
-    certification: 'Certifications',
-    award: 'Awards & Recognition'
-  };
-
   return (
     <section className="py-16 bg-surface dark:bg-dark-surface">
       <div className="max-w-6xl mx-auto px-6">
-        {Object.entries(groupedLogos).map(([category, categoryLogos]) => (
-          <div key={category} className="mb-12 last:mb-0">
-            <div className="text-center mb-8">
-              <h2 className="text-3xl md:text-4xl font-bold text-text-primary dark:text-dark-text mb-4">
-                {categoryTitles[category] || category.charAt(0).toUpperCase() + category.slice(1)}
-              </h2>
+        <div className="text-center mb-12">
+          <h2 className="text-3xl md:text-4xl font-bold text-text-primary dark:text-dark-text mb-4">
+            Our <span className="text-primary">Partners</span>
+          </h2>
+        </div>
+        
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-6">
+          {logos.map((logo) => (
+            <div
+              key={logo._id}
+              className="group bg-white dark:bg-dark-bg rounded-lg p-4 shadow-sm hover:shadow-md transition-all duration-300 hover:scale-105"
+            >
+              <div className="aspect-square flex items-center justify-center mb-3">
+                {logo.imageType === 'file' ? (
+                  <img
+                    src={`${config.API_URL}${logo.image}`}
+                    alt={logo.name}
+                    className="max-w-full max-h-full object-contain filter grayscale group-hover:grayscale-0 transition-all duration-300"
+                    onError={(e) => {
+                      e.target.style.display = 'none';
+                    }}
+                  />
+                ) : (
+                  <img
+                    src={logo.image}
+                    alt={logo.name}
+                    className="max-w-full max-h-full object-contain filter grayscale group-hover:grayscale-0 transition-all duration-300"
+                    onError={(e) => {
+                      e.target.style.display = 'none';
+                    }}
+                  />
+                )}
+              </div>
+              
+              <div className="text-center">
+                <h3 className="text-sm font-medium text-text-primary dark:text-dark-text mb-1 group-hover:text-primary transition-colors">
+                  {logo.name}
+                </h3>
+              </div>
             </div>
-            
-            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-6">
-              {categoryLogos.map((logo) => (
-                <div
-                  key={logo._id}
-                  className="group bg-white dark:bg-dark-bg rounded-lg p-4 shadow-sm hover:shadow-md transition-all duration-300 hover:scale-105"
-                >
-                  <div className="aspect-square flex items-center justify-center mb-3">
-                    {logo.imageType === 'file' ? (
-                      <img
-                        src={`${config.API_URL}${logo.image}`}
-                        alt={logo.name}
-                        className="max-w-full max-h-full object-contain filter grayscale group-hover:grayscale-0 transition-all duration-300"
-                        onError={(e) => {
-                          e.target.style.display = 'none';
-                        }}
-                      />
-                    ) : (
-                      <img
-                        src={logo.image}
-                        alt={logo.name}
-                        className="max-w-full max-h-full object-contain filter grayscale group-hover:grayscale-0 transition-all duration-300"
-                        onError={(e) => {
-                          e.target.style.display = 'none';
-                        }}
-                      />
-                    )}
-                  </div>
-                  
-                  <div className="text-center">
-                    <h3 className="text-sm font-medium text-text-primary dark:text-dark-text mb-1 group-hover:text-primary transition-colors">
-                      {logo.name}
-                    </h3>
-                    {logo.description && (
-                      <p className="text-xs text-text-secondary dark:text-dark-text-secondary mb-2">
-                        {logo.description}
-                      </p>
-                    )}
-                    {logo.website && (
-                      <a
-                        href={logo.website}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="inline-flex items-center text-xs text-primary hover:text-primary-dark transition-colors"
-                      >
-                        Visit Website
-                        <FaExternalLinkAlt className="w-3 h-3 ml-1" />
-                      </a>
-                    )}
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        ))}
+          ))}
+        </div>
       </div>
     </section>
   );
