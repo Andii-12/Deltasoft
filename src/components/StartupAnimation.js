@@ -37,15 +37,24 @@ const StartupAnimation = ({ onComplete }) => {
       <div className="text-center">
         {/* Logo Animation */}
         <div className="mb-8 animate-bounce">
-          <div className="w-20 h-20 bg-primary rounded-full flex items-center justify-center mx-auto mb-4">
-            <span className="text-white font-bold text-2xl">DS</span>
+          <div className="w-32 h-32 flex items-center justify-center mx-auto mb-4">
+            <img
+              src="/logo192.png"
+              alt="Deltasoft Logo"
+              loading="lazy"
+              decoding="async"
+              className="w-full h-full object-contain"
+              onError={(e) => {
+                e.target.style.display = 'none';
+                e.target.nextSibling.style.display = 'flex';
+              }}
+            />
+            <div className="w-32 h-32 bg-primary rounded-full flex items-center justify-center" style={{display: 'none'}}>
+              <span className="text-white font-bold text-4xl">DS</span>
+            </div>
           </div>
         </div>
 
-        {/* Company Name */}
-        <h1 className="text-3xl md:text-4xl font-bold text-text-primary dark:text-dark-text mb-8 animate-fade-in">
-          Deltasoft
-        </h1>
 
         {/* Loading Animation */}
         <div className="w-64 h-2 bg-surface dark:bg-dark-surface rounded-full overflow-hidden mb-4">

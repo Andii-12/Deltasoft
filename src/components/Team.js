@@ -54,6 +54,8 @@ const Team = () => {
                     <img
                       src={member.animeImage.startsWith('data:') ? member.animeImage : `data:image/jpeg;base64,${member.animeImage}`}
                       alt={member.name + ' anime'}
+                      loading="lazy"
+                      decoding="async"
                       className="w-full h-full object-contain"
                     />
                   ) : (

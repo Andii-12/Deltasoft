@@ -180,13 +180,13 @@ const WorkerDashboard = () => {
           <div className="bg-white shadow rounded-lg p-6">
             <div className="flex justify-between items-center mb-6">
               <h1 className="text-2xl font-bold text-gray-900">
-                {workerName ? `Welcome, ${workerName}` : 'Worker Dashboard'}
+                {workerName ? `Тавтай морил, ${workerName}` : 'Ажилчдын самбар'}
               </h1>
               <button
                 onClick={handleLogout}
                 className="px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-red-600 hover:bg-red-700"
               >
-                Logout
+                Гарах
               </button>
             </div>
 
@@ -199,7 +199,7 @@ const WorkerDashboard = () => {
                   {currentTime.toLocaleDateString()}
                 </p>
                 <p className="text-lg font-semibold text-indigo-700">
-                  {getTodayCompany() || 'No company assigned for today'}
+                  {getTodayCompany() || 'Өнөөдөр томилогдсон компани алга'}
                 </p>
               </div>
 
@@ -213,7 +213,7 @@ const WorkerDashboard = () => {
                       : 'bg-green-600 hover:bg-green-700'
                   }`}
                 >
-                  Clock In
+                  Ажил эхлүүлэх
                 </button>
                 <button
                   onClick={handleClockOut}
@@ -224,7 +224,7 @@ const WorkerDashboard = () => {
                       : 'bg-red-600 hover:bg-red-700'
                   }`}
                 >
-                  Clock Out
+                  Ажил дуусгах
                 </button>
               </div>
               {/* Emergency Section */}
@@ -248,16 +248,16 @@ const WorkerDashboard = () => {
                         Date
                       </th>
                       <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                        Clock In
+                        Ажил эхлүүлэх
                       </th>
                       <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                        Clock Out
+                        Ажил дуусгах
                       </th>
                       <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                        Duration
+                        Үргэлжлэх хугацаа
                       </th>
                       <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                        Company
+                        Компани
                       </th>
                     </tr>
                   </thead>
@@ -299,13 +299,13 @@ const WorkerDashboard = () => {
             >
               &times;
             </button>
-            <h2 className="text-xl font-bold mb-4 text-center text-black">Custom Clock In</h2>
+            <h2 className="text-xl font-bold mb-4 text-center text-black">Тусгай ажил эхлүүлэх</h2>
             <div className="mb-4 text-center">
               <div className="text-3xl font-bold text-black">{modalTime.toLocaleTimeString()}</div>
               <div className="text-gray-800">{modalTime.toLocaleDateString()}</div>
             </div>
             <div className="mb-4">
-              <label className="block text-sm font-medium text-gray-700 mb-1">Select Company</label>
+              <label className="block text-sm font-medium text-gray-700 mb-1">Компани сонгох</label>
               <select
                 className="w-full border border-gray-300 rounded px-3 py-2 text-black"
                 value={modalCompany}

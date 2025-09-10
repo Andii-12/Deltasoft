@@ -4,11 +4,9 @@ import { DarkModeProvider } from './contexts/DarkModeContext';
 import StartupAnimation from './components/StartupAnimation';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
-import About from './components/About';
 import Features from './components/Features';
 import Projects from './components/Projects';
 import News from './components/News';
-import Team from './components/Team';
 import Logos from './components/Logos';
 import Footer from './components/Footer';
 import AdminLayout from './components/admin/AdminLayout';
@@ -21,6 +19,7 @@ import NewsSingle from './components/NewsSingle';
 import ProjectsPage from './components/ProjectsPage';
 import WorkerRoutes from './components/worker/WorkerRoutes';
 import NewsPage from './pages/NewsPage';
+import AboutUsPage from './pages/AboutUsPage';
 import Dashboard from './components/admin/Dashboard';
 import { FaGlobe, FaVideo, FaPaperPlane, FaDesktop, FaCode, FaCloud, FaMobileAlt, FaNetworkWired, FaServer, FaWifi, FaTrash, FaTimes } from 'react-icons/fa';
 import TeamManagement from './components/admin/TeamManagement';
@@ -64,11 +63,9 @@ function HomeWithScroll() {
       <Navbar />
       <main>
         <Hero />
-        <About />
         <Features />
         <Projects />
         <News />
-        <Team />
         <Logos />
         <Footer />
       </main>
@@ -813,6 +810,7 @@ function App() {
         <Routes>
         {/* Public Routes */}
         <Route path="/" element={<HomeWithScroll />} />
+        <Route path="/about" element={<AboutUsPage />} />
         <Route path="/quote" element={<QuoteForm />} />
 
         {/* Admin Routes */}

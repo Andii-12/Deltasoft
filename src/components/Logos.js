@@ -67,6 +67,8 @@ const Logos = () => {
                   <img
                     src={`${config.API_URL}${logo.image}`}
                     alt={logo.name}
+                    loading="lazy"
+                    decoding="async"
                     className="max-w-full max-h-full object-contain filter grayscale group-hover:grayscale-0 transition-all duration-300"
                     onError={(e) => {
                       e.target.style.display = 'none';
@@ -76,6 +78,8 @@ const Logos = () => {
                   <img
                     src={logo.image}
                     alt={logo.name}
+                    loading="lazy"
+                    decoding="async"
                     className="max-w-full max-h-full object-contain filter grayscale group-hover:grayscale-0 transition-all duration-300"
                     onError={(e) => {
                       e.target.style.display = 'none';

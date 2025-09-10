@@ -50,7 +50,7 @@ const Login = () => {
     <div className="min-h-screen flex items-center justify-center bg-surface">
       <div className="max-w-sm w-full p-6 bg-background border border-border rounded">
         <h2 className="text-xl font-semibold text-center text-text-primary mb-6">
-          Admin Login
+          Админ нэвтрэх
         </h2>
         
         {error && (
@@ -62,7 +62,7 @@ const Login = () => {
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
             <label htmlFor="username" className="block text-sm text-text-primary mb-1">
-              Username
+              Нэвтрэх нэр
             </label>
             <input
               type="text"
@@ -77,7 +77,7 @@ const Login = () => {
 
           <div>
             <label htmlFor="password" className="block text-sm text-text-primary mb-1">
-              Password
+              Нууц үг
             </label>
             <input
               type="password"
@@ -94,7 +94,7 @@ const Login = () => {
             type="submit"
             className="btn btn-primary w-full"
           >
-            Login
+            Нэвтрэх
           </button>
         </form>
       </div>

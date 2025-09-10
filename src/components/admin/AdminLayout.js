@@ -29,11 +29,11 @@ const AdminLayout = () => {
   };
 
   const menuItems = [
-    { path: '/admin/dashboard', icon: FaTachometerAlt, label: 'Dashboard' },
+    { path: '/admin/dashboard', icon: FaTachometerAlt, label: 'Самбар' },
     { path: '/admin/news', icon: FaNewspaper, label: 'Мэдээ' },
     { path: '/admin/partners', icon: FaHandshake, label: 'Хамтрагчид' },
     { path: '/admin/quotes', icon: FaFileInvoiceDollar, label: 'Үнийн санал' },
-    { path: '/admin/project-management', icon: FaProjectDiagram, label: 'Project Management' },
+    { path: '/admin/project-management', icon: FaProjectDiagram, label: 'Төсөл удирдлага' },
     { path: '/admin/schedule', icon: FaClock, label: 'Цагийн хуваарь' },
     { path: '/admin/team', icon: FaUsers, label: 'Манай баг' },
     { path: '/admin/workers', icon: FaUsers, label: 'Ажилчдийн бүртгэл' },
@@ -45,7 +45,7 @@ const AdminLayout = () => {
         {/* Sidebar */}
         <aside className={`${sidebarOpen ? 'w-56' : 'w-16'} bg-background border-r border-border transition-all duration-200 flex-shrink-0`}>
           <div className="p-4 flex justify-between items-center border-b border-border">
-            <h2 className={`${!sidebarOpen && 'hidden'} font-semibold text-text-primary`}>Admin</h2>
+            <h2 className={`${!sidebarOpen && 'hidden'} font-semibold text-text-primary`}>Админ</h2>
             <button 
               onClick={() => setSidebarOpen(!sidebarOpen)}
               className="p-1 hover:bg-accent rounded transition-colors text-text-secondary hover:text-primary"
@@ -83,7 +83,7 @@ const AdminLayout = () => {
             <div className="px-6 py-3">
               <div className="flex justify-between items-center">
                 <h1 className="text-lg font-medium text-text-primary">
-                  {menuItems.find(item => item.path === location.pathname)?.label || 'Admin'}
+                  {menuItems.find(item => item.path === location.pathname)?.label || 'Админ'}
                 </h1>
                 <button 
                   onClick={handleLogout}

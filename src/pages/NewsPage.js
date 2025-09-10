@@ -49,7 +49,7 @@ const NewsPage = () => {
           <div className="lg:col-span-2">
             <Link to={`/news/${main._id}`} className="relative rounded-xl overflow-hidden shadow-lg group bg-dark block h-full min-h-[340px]">
               {main.image && (
-                <img src={main.image} alt={main.title} className="w-full h-80 object-cover group-hover:scale-105 transition-transform duration-300" />
+                <img src={main.image} alt={main.title} loading="lazy" decoding="async" className="w-full h-80 object-cover" />
               )}
               <div className="absolute inset-0 bg-gradient-to-t from-black/90 to-transparent" />
               <div className="absolute bottom-0 left-0 right-0 p-6 z-10">
@@ -65,7 +65,7 @@ const NewsPage = () => {
             {featured.map(item => (
               <Link to={`/news/${item._id}`} key={item._id} className="flex gap-4 bg-dark rounded-xl shadow hover:shadow-lg transition p-3 min-h-[100px] items-center">
                 {item.image && (
-                  <img src={item.image} alt={item.title} className="w-20 h-20 object-cover rounded-lg" />
+                  <img src={item.image} alt={item.title} loading="lazy" decoding="async" className="w-20 h-20 object-cover rounded-lg" />
                 )}
                 <div className="flex-1">
                   <div className="text-white font-semibold line-clamp-2 text-base">{item.title}</div>
@@ -87,7 +87,7 @@ const NewsPage = () => {
                 others.map(item => (
                   <Link to={`/news/${item._id}`} key={item._id} className="bg-dark rounded-xl shadow hover:shadow-lg transition overflow-hidden flex flex-col">
                     {item.image && (
-                      <img src={item.image} alt={item.title} className="w-full h-40 object-cover" />
+                      <img src={item.image} alt={item.title} loading="lazy" decoding="async" className="w-full h-40 object-cover" />
                     )}
                     <div className="p-4 flex-1 flex flex-col">
                       <div className="text-white font-semibold mb-2 line-clamp-2">{item.title}</div>

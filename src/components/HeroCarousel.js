@@ -3,33 +3,34 @@ import { FaChevronLeft, FaChevronRight } from 'react-icons/fa';
 
 const HeroCarousel = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
+  const [isFading, setIsFading] = useState(false);
   
   const slides = [
     {
-      title: "Deltasoft LLC",
-      subtitle: "IT Solutions & Digital Services",
-      description: "Transforming ideas into powerful digital solutions with cutting-edge technology and expert development teams.",
+      title: "Дельтасофт ХХК",
+      subtitle: "МТ шийдэл & Дижитал үйлчилгээ",
+      description: "Орчин үеийн технологи болон мэргэжлийн хөгжүүлэгчдийн багтайгаар санааг хүчирхэг дижитал шийдэл болгон хувиргах.",
       bgColor: "bg-gradient-to-br from-primary/10 to-primary/5",
       icon: "💻"
     },
     {
-      title: "Web Development",
-      subtitle: "Modern & Responsive Websites",
-      description: "Custom web applications built with the latest technologies for optimal performance and user experience.",
+      title: "Веб хөгжүүлэлт",
+      subtitle: "Орчин үеийн & Уян хатан вэбсайт",
+      description: "Хамгийн сүүлийн үеийн технологиор бүтээгдсэн, оновчтой гүйцэтгэл болон хэрэглэгчийн туршлагад зориулсан вэб аппликешн.",
       bgColor: "bg-gradient-to-br from-blue-500/10 to-blue-600/5",
       icon: "🌐"
     },
     {
-      title: "IT Consulting",
-      subtitle: "Strategic Technology Solutions",
-      description: "Expert guidance to help your business leverage technology for growth and efficiency.",
+      title: "МТ зөвлөгөө",
+      subtitle: "Стратегийн технологийн шийдэл",
+      description: "Таны бизнесийг өсөлт, үр ашигтай ажиллагаанд технологийг ашиглахад туслах мэргэжлийн зөвлөгөө.",
       bgColor: "bg-gradient-to-br from-green-500/10 to-green-600/5",
       icon: "🚀"
     },
     {
-      title: "24/7 Support",
-      subtitle: "Always Here When You Need Us",
-      description: "Round-the-clock technical support to keep your systems running smoothly.",
+      title: "24/7 дэмжлэг",
+      subtitle: "Хэрэгтэй үедээ энд байна",
+      description: "Таны системийг зохих байдлаар ажиллуулахын тулд өдөр шөнийн 24 цаг техникийн дэмжлэг үзүүлэх.",
       bgColor: "bg-gradient-to-br from-purple-500/10 to-purple-600/5",
       icon: "⚡"
     }
@@ -37,49 +38,52 @@ const HeroCarousel = () => {
 
   useEffect(() => {
     const timer = setInterval(() => {
-      setCurrentSlide((prev) => (prev + 1) % slides.length);
+      setIsFading(true);
+      setTimeout(() => {
+        setCurrentSlide((prev) => (prev + 1) % slides.length);
+        setIsFading(false);
+      }, 300);
     }, 5000);
     return () => clearInterval(timer);
   }, [slides.length]);
 
   const nextSlide = () => {
-    setCurrentSlide((prev) => (prev + 1) % slides.length);
+    setIsFading(true);
+    setTimeout(() => {
+      setCurrentSlide((prev) => (prev + 1) % slides.length);
+      setIsFading(false);
+    }, 300);
   };
 
   const prevSlide = () => {
-    setCurrentSlide((prev) => (prev - 1 + slides.length) % slides.length);
+    setIsFading(true);
+    setTimeout(() => {
+      setCurrentSlide((prev) => (prev - 1 + slides.length) % slides.length);
+      setIsFading(false);
+    }, 300);
   };
 
   return (
-    <div className="relative min-h-screen flex items-center justify-center bg-background dark:bg-dark-bg overflow-hidden">
+    <div className={`relative min-h-screen flex items-center justify-center overflow-hidden transition-all duration-500 ${slides[currentSlide].bgColor}`}>
       {/* Content with smooth transitions */}
       <div className="max-w-4xl mx-auto px-6 text-center">
-        <div className="mb-12">
-          <div className="text-6xl mb-6 animate-bounce">
-            <div className="transition-all duration-500 ease-in-out transform">
+        <div className={`mb-12 transition-opacity duration-300 ${isFading ? 'opacity-0' : 'opacity-100'}`}>
+          <div className="text-6xl mb-6">
+            <div className="transition-all duration-300 ease-in-out transform">
               {slides[currentSlide].icon}
             </div>
           </div>
-          <h1 className="text-4xl md:text-6xl font-bold mb-6 text-text-primary dark:text-dark-text transition-all duration-500 ease-in-out transform">
+          <h1 className="text-4xl md:text-6xl font-bold mb-6 text-text-primary dark:text-dark-text transition-all duration-300 ease-in-out transform">
             {slides[currentSlide].title}
           </h1>
-          <p className="text-xl md:text-2xl text-primary font-semibold mb-6 transition-all duration-500 ease-in-out transform">
+          <p className="text-xl md:text-2xl text-primary font-semibold mb-6 transition-all duration-300 ease-in-out transform">
             {slides[currentSlide].subtitle}
           </p>
-          <p className="text-lg text-text-secondary dark:text-dark-text-secondary max-w-3xl mx-auto leading-relaxed transition-all duration-500 ease-in-out transform">
+          <p className="text-lg text-text-secondary dark:text-dark-text-secondary max-w-3xl mx-auto leading-relaxed transition-all duration-300 ease-in-out transform">
             {slides[currentSlide].description}
           </p>
         </div>
 
-        {/* CTA Buttons with animation */}
-        <div className="flex flex-col sm:flex-row gap-4 justify-center items-center transition-all duration-500 ease-in-out transform">
-          <button className="btn btn-primary px-8 py-3 text-lg hover:scale-105 transition-transform duration-300">
-            Get Started
-          </button>
-          <button className="btn btn-outline px-8 py-3 text-lg hover:scale-105 transition-transform duration-300">
-            Learn More
-          </button>
-        </div>
       </div>
 
       {/* Navigation Arrows */}

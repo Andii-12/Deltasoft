@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { FaBars, FaTimes } from 'react-icons/fa';
+import { FaBars, FaTimes, FaUser } from 'react-icons/fa';
 import DarkModeToggle from './DarkModeToggle';
 
 const Navbar = () => {
@@ -39,40 +39,45 @@ const Navbar = () => {
 
   const menuItems = [
     { href: '/', label: 'Нүүр', onClick: handleNavClick('top') },
-    { href: '/about', label: 'Бидний тухай', onClick: handleNavClick('about') },
+    { href: '/about', label: 'Бидний тухай' },
     { href: '/projects', label: 'Төслүүд' },
     { href: '/news', label: 'Мэдээ мэдээлэл' },
   ];
 
+  const isActive = (href) => location.pathname === href;
+
   return (
-    <nav className={`fixed w-full z-50 bg-background dark:bg-dark-bg border-b border-border dark:border-dark-border transition-all duration-1000 ease-out transform ${isVisible ? 'translate-y-0 opacity-100' : '-translate-y-full opacity-0'}`}>
-      <div className="max-w-6xl mx-auto px-6">
-        <div className="flex items-center justify-between h-16">
-          <Link to="/" className="flex items-center space-x-3 group" onClick={handleNavClick('top')}>
+    <nav className={`fixed w-full z-50 bg-white/90 dark:bg-dark-bg/90 backdrop-blur-sm border-b border-gray-200/50 dark:border-dark-border/50 shadow-md transition-all duration-500 ease-out transform ${isVisible ? 'translate-y-0 opacity-100' : '-translate-y-full opacity-0'}`}>
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="flex items-center justify-between h-20">
+          <Link to="/" className="flex items-center group" onClick={handleNavClick('top')}>
             <img
-              src={`/images/Logo/Logo.png?v=${Date.now()}`}
-              alt="DeltaSoft Logo"
-              className="h-8 w-auto transition-transform duration-300 group-hover:scale-110"
+              src="/logo192.png"
+              alt="Deltasoft Logo"
+              loading="lazy"
+              decoding="async"
+              className="h-14 w-auto transition-colors duration-200"
               onError={(e) => {
                 e.target.style.display = 'none';
-                e.target.nextSibling.style.display = 'block';
+                e.target.nextSibling.style.display = 'flex';
               }}
             />
-            <div className="h-8 w-8 bg-primary rounded flex items-center justify-center transition-transform duration-300 group-hover:scale-110" style={{display: 'none'}}>
-              <span className="text-white font-bold text-sm">DS</span>
+            <div className="h-14 w-14 bg-gradient-to-br from-primary to-primary-dark rounded-lg flex items-center justify-center transition-all duration-300 group-hover:scale-110 group-hover:shadow-lg" style={{display: 'none'}}>
+              <span className="text-white font-bold text-xl">DS</span>
             </div>
-            <span className="text-lg font-semibold text-text-primary dark:text-dark-text transition-colors duration-300 group-hover:text-primary">
-              Deltasoft
-            </span>
           </Link>
           
           {/* Desktop menu */}
-          <div className="hidden md:flex items-center space-x-4">
+          <div className="hidden md:flex items-center space-x-1">
             {menuItems.map((item, index) => (
               <Link
                 key={item.label}
                 to={item.href}
-                className={`text-text-secondary dark:text-dark-text-secondary hover:text-primary dark:hover:text-primary text-sm transition-all duration-300 hover:scale-105 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-2'}`}
+                className={`px-3 py-2 rounded-lg text-sm font-medium transition-colors duration-200 ${
+                  isActive(item.href)
+                    ? 'text-primary bg-primary/10 dark:bg-primary/20'
+                    : 'text-gray-700 dark:text-gray-300 hover:text-primary dark:hover:text-primary hover:bg-primary/10 dark:hover:bg-primary/20'
+                } ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-2'}`}
                 style={{ transitionDelay: `${0.1 + index * 0.1}s` }}
                 onClick={item.onClick}
               >
@@ -81,17 +86,21 @@ const Navbar = () => {
             ))}
             <Link
               to="/quote"
-              className={`bg-primary text-white px-4 py-2 rounded text-sm hover:bg-primary-dark transition-all duration-300 hover:scale-105 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-2'}`}
+              className={`bg-gradient-to-r from-primary to-primary-dark text-white px-5 py-2.5 rounded-lg text-sm font-semibold hover:from-primary-dark hover:to-primary hover:shadow-lg transition-colors duration-300 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-2'}`}
               style={{ transitionDelay: '0.5s' }}
             >
-              Quote
+              Үнийн санал
             </Link>
             <Link
               to="/worker/login"
-              className={`text-primary text-sm hover:text-primary-dark transition-all duration-300 hover:scale-105 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-2'}`}
+              className={`text-gray-600 dark:text-gray-400 hover:text-primary dark:hover:text-primary transition-colors duration-200 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-2'}`}
               style={{ transitionDelay: '0.6s' }}
+              aria-label="Ажилчдын нэвтрэх"
+              title="Ажилчдын нэвтрэх"
             >
-              Login
+              <span className="inline-flex items-center justify-center p-2 rounded-full bg-gray-100 hover:bg-primary/10 dark:bg-dark-surface dark:hover:bg-primary/20">
+                <FaUser className="h-5 w-5" />
+              </span>
             </Link>
             <div className={`transition-all duration-300 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-2'}`} style={{ transitionDelay: '0.7s' }}>
               <DarkModeToggle />
@@ -117,32 +126,38 @@ const Navbar = () => {
 
       {/* Mobile menu */}
       {isOpen && (
-        <div className="md:hidden bg-background dark:bg-dark-bg border-t border-border dark:border-dark-border">
-          <div className="px-6 py-4 space-y-3">
+        <div className="md:hidden bg-white/95 dark:bg-dark-bg/95 backdrop-blur-md border-t border-gray-200/50 dark:border-dark-border/50 shadow-lg">
+          <div className="px-6 py-6 space-y-4">
             {menuItems.map((item) => (
               <Link
                 key={item.label}
                 to={item.href}
-                className="text-text-secondary dark:text-dark-text-secondary hover:text-primary dark:hover:text-primary block py-2 text-sm transition-colors"
+                className={`block py-3 px-4 rounded-lg text-sm font-medium transition-colors duration-200 ${
+                  isActive(item.href)
+                    ? 'text-primary bg-primary/10 dark:bg-primary/20'
+                    : 'text-gray-700 dark:text-gray-300 hover:text-primary dark:hover:text-primary hover:bg-primary/10 dark:hover:bg-primary/20'
+                }`}
                 onClick={item.onClick}
               >
                 {item.label}
               </Link>
             ))}
-            <div className="pt-2 space-y-2">
+            <div className="pt-4 space-y-3">
               <Link
                 to="/quote"
-                className="bg-primary text-white px-4 py-2 rounded text-sm block text-center hover:bg-primary-dark transition-colors"
+                className="bg-gradient-to-r from-primary to-primary-dark text-white px-6 py-3 rounded-lg text-sm font-semibold block text-center hover:from-primary-dark hover:to-primary hover:shadow-lg transition-all duration-300"
                 onClick={() => setIsOpen(false)}
               >
-                Quote
+                Үнийн санал
               </Link>
               <Link
                 to="/worker/login"
-                className="text-primary text-sm block py-2 hover:text-primary-dark transition-colors"
+                className="inline-flex items-center justify-center py-3 px-4 rounded-lg text-gray-600 dark:text-gray-400 hover:text-primary dark:hover:text-primary hover:bg-primary/10 dark:hover:bg-primary/20 transition-colors duration-200"
                 onClick={() => setIsOpen(false)}
+                aria-label="Ажилчдын нэвтрэх"
+                title="Ажилчдын нэвтрэх"
               >
-                Login
+                <FaUser className="h-5 w-5" />
               </Link>
             </div>
           </div>

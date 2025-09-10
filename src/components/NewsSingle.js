@@ -51,6 +51,8 @@ const NewsSingle = () => {
             <img
               src={news.image}
               alt={news.title}
+              loading="lazy"
+              decoding="async"
               className="w-full h-64 md:h-80 object-cover rounded mb-6"
             />
           )}

@@ -32,6 +32,8 @@ const Partners = () => {
               <img
                 src={partner.image}
                 alt={partner.name}
+                loading="lazy"
+                decoding="async"
                 className="max-h-12 w-auto object-contain"
               />
             </div>
