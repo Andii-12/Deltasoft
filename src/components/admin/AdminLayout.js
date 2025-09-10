@@ -9,7 +9,9 @@ import {
   FaFileInvoiceDollar,
   FaSignOutAlt,
   FaClock,
-  FaUsers
+  FaUsers,
+  FaTachometerAlt,
+  FaImages
 } from 'react-icons/fa';
 
 const AdminLayout = () => {
@@ -17,9 +19,9 @@ const AdminLayout = () => {
   const location = useLocation();
   const navigate = useNavigate();
 
-  // Redirect to /admin/news if we're at /admin exactly
+  // Redirect to /admin/dashboard if we're at /admin exactly
   if (location.pathname === '/admin') {
-    return <Navigate to="/admin/news" replace />;
+    return <Navigate to="/admin/dashboard" replace />;
   }
 
   const handleLogout = () => {
@@ -28,7 +30,9 @@ const AdminLayout = () => {
   };
 
   const menuItems = [
+    { path: '/admin/dashboard', icon: FaTachometerAlt, label: 'Dashboard' },
     { path: '/admin/news', icon: FaNewspaper, label: 'Мэдээ' },
+    { path: '/admin/logos', icon: FaImages, label: 'Logo Management' },
     { path: '/admin/partners', icon: FaHandshake, label: 'Хамтрагчид' },
     { path: '/admin/quotes', icon: FaFileInvoiceDollar, label: 'Үнийн санал' },
     { path: '/admin/project-management', icon: FaProjectDiagram, label: 'Project Management' },

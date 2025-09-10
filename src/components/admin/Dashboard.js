@@ -1,160 +1,325 @@
-import React from 'react';
-import { FaUsers, FaNewspaper, FaProjectDiagram, FaHandshake } from 'react-icons/fa';
-
-const StatCard = ({ icon: Icon, title, value, change }) => (
-  <div className="bg-white p-6 rounded-lg shadow-md">
-    <div className="flex items-center justify-between">
-      <div>
-        <p className="text-gray-500 text-sm">{title}</p>
-        <h3 className="text-2xl font-bold mt-1">{value}</h3>
-        <p className={`text-sm mt-2 ${change >= 0 ? 'text-green-500' : 'text-red-500'}`}>
-          {change >= 0 ? '↑' : '↓'} {Math.abs(change)}% from last month
-        </p>
-      </div>
-      <div className="p-3 bg-gray-100 rounded-full">
-        <Icon className="w-6 h-6 text-gray-600" />
-      </div>
-    </div>
-  </div>
-);
+import React, { useState, useEffect } from 'react';
+import { FaUsers, FaEye, FaNewspaper, FaProjectDiagram, FaQuoteLeft, FaClock, FaChartLine, FaServer, FaGlobe } from 'react-icons/fa';
+import config from '../../config';
 
 const Dashboard = () => {
-  const stats = [
-    {
-      icon: FaUsers,
-      title: 'Total Visitors',
-      value: '1,234',
-      change: 12.5
-    },
-    {
-      icon: FaNewspaper,
-      title: 'News Articles',
-      value: '45',
-      change: 8.3
-    },
-    {
-      icon: FaProjectDiagram,
-      title: 'Active Projects',
-      value: '23',
-      change: -2.4
-    },
-    {
-      icon: FaHandshake,
-      title: 'Partners',
-      value: '18',
-      change: 5.7
-    }
-  ];
+  const [stats, setStats] = useState({
+    totalVisitors: 0,
+    todayVisitors: 0,
+    totalNews: 0,
+    totalProjects: 0,
+    totalQuotes: 0,
+    totalTeamMembers: 0,
+    totalWorkers: 0,
+    systemUptime: '0 days',
+    lastUpdate: new Date().toLocaleString()
+  });
+  const [loading, setLoading] = useState(true);
+  const [recentActivity, setRecentActivity] = useState([]);
 
-  const recentNews = [
-    { title: 'Шинэ технологийн шийдэл', date: '2024.03.15', status: 'Нийтлэгдсэн' },
-    { title: 'Амжилттай хэрэгжүүлсэн төсөл', date: '2024.03.10', status: 'Нийтлэгдсэн' },
-    { title: 'Шинэ түншлэл', date: '2024.03.05', status: 'Ноорог' },
-  ];
+  useEffect(() => {
+    fetchDashboardData();
+    // Update data every 30 seconds
+    const interval = setInterval(fetchDashboardData, 30000);
+    return () => clearInterval(interval);
+  }, []);
+
+  const fetchDashboardData = async () => {
+    try {
+      const token = localStorage.getItem('adminToken');
+      
+      // Fetch all data in parallel
+      const [newsRes, projectsRes, quotesRes, teamRes, workersRes, analyticsRes, realTimeRes, systemRes, activityRes] = await Promise.all([
+        fetch(`${config.API_URL}/api/news`, { headers: { 'x-auth-token': token } }),
+        fetch(`${config.API_URL}/api/projects`, { headers: { 'x-auth-token': token } }),
+        fetch(`${config.API_URL}/api/quotes`, { headers: { 'x-auth-token': token } }),
+        fetch(`${config.API_URL}/api/team`, { headers: { 'x-auth-token': token } }),
+        fetch(`${config.API_URL}/api/workers`, { headers: { 'x-auth-token': token } }),
+        fetch(`${config.API_URL}/api/analytics/visitors`, { headers: { 'x-auth-token': token } }),
+        fetch(`${config.API_URL}/api/analytics/visitors/realtime`, { headers: { 'x-auth-token': token } }),
+        fetch(`${config.API_URL}/api/analytics/system/health`, { headers: { 'x-auth-token': token } }),
+        fetch(`${config.API_URL}/api/analytics/activity`, { headers: { 'x-auth-token': token } })
+      ]);
+
+      const [news, projects, quotes, team, workers, analytics, realTime, systemHealth, activities] = await Promise.all([
+        newsRes.json(),
+        projectsRes.json(),
+        quotesRes.json(),
+        teamRes.json(),
+        workersRes.json(),
+        analyticsRes.json(),
+        realTimeRes.json(),
+        systemRes.json(),
+        activityRes.json()
+      ]);
+
+      // Use real analytics data
+      setStats({
+        totalVisitors: analytics.totalVisitors || 0,
+        todayVisitors: analytics.todayVisitors || 0,
+        totalNews: news.length || 0,
+        totalProjects: projects.length || 0,
+        totalQuotes: quotes.length || 0,
+        totalTeamMembers: team.length || 0,
+        totalWorkers: workers.length || 0,
+        systemUptime: systemHealth?.server?.uptimeFormatted || 'Unknown',
+        lastUpdate: new Date().toLocaleString(),
+        // Additional real-time data
+        currentVisitors: realTime.currentVisitors || 0,
+        last5MinVisitors: realTime.last5MinVisitors || 0,
+        lastHourVisitors: realTime.lastHourVisitors || 0,
+        uniqueVisitors: analytics.uniqueVisitors || 0,
+        systemStatus: systemHealth?.database?.status || 'Unknown'
+      });
+
+      // Use real activity data
+      setRecentActivity(activities || []);
+      
+    } catch (error) {
+      console.error('Error fetching dashboard data:', error);
+      // Fallback to basic data if analytics fail
+      try {
+        const token = localStorage.getItem('adminToken');
+        const [newsRes, projectsRes, quotesRes, teamRes, workersRes] = await Promise.all([
+          fetch(`${config.API_URL}/api/news`, { headers: { 'x-auth-token': token } }),
+          fetch(`${config.API_URL}/api/projects`, { headers: { 'x-auth-token': token } }),
+          fetch(`${config.API_URL}/api/quotes`, { headers: { 'x-auth-token': token } }),
+          fetch(`${config.API_URL}/api/team`, { headers: { 'x-auth-token': token } }),
+          fetch(`${config.API_URL}/api/workers`, { headers: { 'x-auth-token': token } })
+        ]);
+
+        const [news, projects, quotes, team, workers] = await Promise.all([
+          newsRes.json(),
+          projectsRes.json(),
+          quotesRes.json(),
+          teamRes.json(),
+          workersRes.json()
+        ]);
+
+        setStats({
+          totalVisitors: 0,
+          todayVisitors: 0,
+          totalNews: news.length || 0,
+          totalProjects: projects.length || 0,
+          totalQuotes: quotes.length || 0,
+          totalTeamMembers: team.length || 0,
+          totalWorkers: workers.length || 0,
+          systemUptime: 'Unknown',
+          lastUpdate: new Date().toLocaleString()
+        });
+      } catch (fallbackError) {
+        console.error('Fallback data fetch failed:', fallbackError);
+      }
+    } finally {
+      setLoading(false);
+    }
+  };
+
+
+  const StatCard = ({ title, value, icon: Icon, color, subtitle }) => (
+    <div className="bg-white dark:bg-dark-surface rounded-lg shadow-md p-6 hover:shadow-lg transition-shadow">
+      <div className="flex items-center justify-between">
+        <div>
+          <p className="text-sm font-medium text-gray-600 dark:text-dark-text-secondary">{title}</p>
+          <p className="text-2xl font-bold text-gray-900 dark:text-dark-text">{value}</p>
+          {subtitle && <p className="text-xs text-gray-500 dark:text-dark-text-light">{subtitle}</p>}
+        </div>
+        <div className={`p-3 rounded-full ${color} bg-opacity-10`}>
+          <Icon className={`w-6 h-6 ${color}`} />
+        </div>
+      </div>
+    </div>
+  );
+
+  if (loading) {
+    return (
+      <div className="p-6">
+        <div className="animate-pulse">
+          <div className="h-8 bg-gray-300 dark:bg-dark-surface rounded w-1/4 mb-6"></div>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+            {[...Array(4)].map((_, i) => (
+              <div key={i} className="h-32 bg-gray-300 dark:bg-dark-surface rounded"></div>
+            ))}
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   return (
-    <div className="space-y-6">
-      <div className="flex justify-between items-center">
-        <h1 className="text-2xl font-bold text-white">Хянах самбар</h1>
-        <button className="px-4 py-2 bg-neon-green text-darker font-medium rounded-lg hover:bg-opacity-90 transition-all">
-          + Шинэ мэдээ нэмэх
-        </button>
+    <div className="p-6">
+      <div className="mb-8">
+        <h1 className="text-3xl font-bold text-gray-900 dark:text-dark-text mb-2">Dashboard</h1>
+        <p className="text-gray-600 dark:text-dark-text-secondary">
+          Welcome back! Here's what's happening with your website.
+        </p>
       </div>
 
       {/* Stats Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-        {stats.map((stat, index) => (
-          <StatCard key={index} {...stat} />
-        ))}
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+        <StatCard
+          title="Total Visitors"
+          value={stats.totalVisitors.toLocaleString()}
+          icon={FaUsers}
+          color="text-blue-500"
+          subtitle="All time"
+        />
+        <StatCard
+          title="Today's Visitors"
+          value={stats.todayVisitors}
+          icon={FaEye}
+          color="text-green-500"
+          subtitle="Last 24 hours"
+        />
+        <StatCard
+          title="Current Visitors"
+          value={stats.currentVisitors || 0}
+          icon={FaGlobe}
+          color="text-emerald-500"
+          subtitle="Online now"
+        />
+        <StatCard
+          title="Unique Visitors"
+          value={stats.uniqueVisitors || 0}
+          icon={FaUsers}
+          color="text-teal-500"
+          subtitle="Distinct sessions"
+        />
+        <StatCard
+          title="News Articles"
+          value={stats.totalNews}
+          icon={FaNewspaper}
+          color="text-purple-500"
+          subtitle="Published"
+        />
+        <StatCard
+          title="Projects"
+          value={stats.totalProjects}
+          icon={FaProjectDiagram}
+          color="text-orange-500"
+          subtitle="Completed"
+        />
+        <StatCard
+          title="Quote Requests"
+          value={stats.totalQuotes}
+          icon={FaQuoteLeft}
+          color="text-indigo-500"
+          subtitle="Received"
+        />
+        <StatCard
+          title="Team Members"
+          value={stats.totalTeamMembers}
+          icon={FaUsers}
+          color="text-pink-500"
+          subtitle="Active"
+        />
+        <StatCard
+          title="Workers"
+          value={stats.totalWorkers}
+          icon={FaClock}
+          color="text-cyan-500"
+          subtitle="Registered"
+        />
+        <StatCard
+          title="System Uptime"
+          value={stats.systemUptime}
+          icon={FaServer}
+          color="text-red-500"
+          subtitle="Current"
+        />
       </div>
 
-      {/* Recent News Table */}
-      <div className="bg-dark rounded-xl border border-neon-green/10 overflow-hidden">
-        <div className="p-6 border-b border-neon-green/10">
-          <h2 className="text-lg font-semibold text-white">Сүүлийн мэдээнүүд</h2>
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+        {/* Recent Activity */}
+        <div className="bg-white dark:bg-dark-surface rounded-lg shadow-md p-6">
+          <h2 className="text-xl font-semibold text-gray-900 dark:text-dark-text mb-4 flex items-center">
+            <FaChartLine className="w-5 h-5 mr-2 text-blue-500" />
+            Recent Activity
+          </h2>
+          <div className="space-y-4">
+            {recentActivity.length === 0 ? (
+              <p className="text-gray-500 dark:text-dark-text-light text-center py-4">No recent activity</p>
+            ) : (
+              recentActivity.map((activity) => (
+                <div key={activity.id} className="flex items-start space-x-3 p-3 rounded-lg hover:bg-gray-50 dark:hover:bg-dark-bg transition-colors">
+                  <div className={`p-2 rounded-full ${activity.color} bg-opacity-10`}>
+                    <activity.icon className={`w-4 h-4 ${activity.color}`} />
+                  </div>
+                  <div className="flex-1 min-w-0">
+                    <p className="text-sm font-medium text-gray-900 dark:text-dark-text">{activity.title}</p>
+                    <p className="text-xs text-gray-500 dark:text-dark-text-light">{activity.time}</p>
+                  </div>
+                </div>
+              ))
+            )}
+          </div>
         </div>
-        <div className="overflow-x-auto">
-          <table className="w-full">
-            <thead className="bg-darker">
-              <tr>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">Гарчиг</th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">Огноо</th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">Төлөв</th>
-                <th className="px-6 py-3 text-right text-xs font-medium text-gray-400 uppercase tracking-wider">Үйлдэл</th>
-              </tr>
-            </thead>
-            <tbody className="divide-y divide-neon-green/10">
-              {recentNews.map((news, index) => (
-                <tr key={index}>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm text-white">{news.title}</td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-400">{news.date}</td>
-                  <td className="px-6 py-4 whitespace-nowrap">
-                    <span className={`px-2 py-1 text-xs rounded-full ${
-                      news.status === 'Нийтлэгдсэн' 
-                        ? 'bg-neon-green/20 text-neon-green' 
-                        : 'bg-gray-500/20 text-gray-400'
-                    }`}>
-                      {news.status}
-                    </span>
-                  </td>
-                  <td className="px-6 py-4 whitespace-nowrap text-right text-sm">
-                    <button className="text-neon-green hover:text-neon-green/80 mr-3">Засах</button>
-                    <button className="text-red-500 hover:text-red-400">Устгах</button>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
+
+        {/* System Information */}
+        <div className="bg-white dark:bg-dark-surface rounded-lg shadow-md p-6">
+          <h2 className="text-xl font-semibold text-gray-900 dark:text-dark-text mb-4 flex items-center">
+            <FaServer className="w-5 h-5 mr-2 text-green-500" />
+            System Information
+          </h2>
+          <div className="space-y-4">
+            <div className="flex justify-between items-center py-2 border-b border-gray-200 dark:border-dark-border">
+              <span className="text-sm text-gray-600 dark:text-dark-text-secondary">Server Status</span>
+              <span className={`text-sm font-medium ${stats.systemStatus === 'Connected' ? 'text-green-600 dark:text-green-400' : 'text-red-600 dark:text-red-400'}`}>
+                {stats.systemStatus || 'Unknown'}
+              </span>
+            </div>
+            <div className="flex justify-between items-center py-2 border-b border-gray-200 dark:border-dark-border">
+              <span className="text-sm text-gray-600 dark:text-dark-text-secondary">Database</span>
+              <span className={`text-sm font-medium ${stats.systemStatus === 'Connected' ? 'text-green-600 dark:text-green-400' : 'text-red-600 dark:text-red-400'}`}>
+                {stats.systemStatus || 'Unknown'}
+              </span>
+            </div>
+            <div className="flex justify-between items-center py-2 border-b border-gray-200 dark:border-dark-border">
+              <span className="text-sm text-gray-600 dark:text-dark-text-secondary">Last Update</span>
+              <span className="text-sm font-medium text-gray-900 dark:text-dark-text">{stats.lastUpdate}</span>
+            </div>
+            <div className="flex justify-between items-center py-2 border-b border-gray-200 dark:border-dark-border">
+              <span className="text-sm text-gray-600 dark:text-dark-text-secondary">Version</span>
+              <span className="text-sm font-medium text-gray-900 dark:text-dark-text">v1.0.0</span>
+            </div>
+            <div className="flex justify-between items-center py-2 border-b border-gray-200 dark:border-dark-border">
+              <span className="text-sm text-gray-600 dark:text-dark-text-secondary">Environment</span>
+              <span className="text-sm font-medium text-blue-600 dark:text-blue-400">Production</span>
+            </div>
+            <div className="flex justify-between items-center py-2">
+              <span className="text-sm text-gray-600 dark:text-dark-text-secondary">Real-time Tracking</span>
+              <span className="text-sm font-medium text-green-600 dark:text-green-400">Active</span>
+            </div>
+          </div>
         </div>
       </div>
 
       {/* Quick Actions */}
-      <div className="mt-8 grid grid-cols-1 lg:grid-cols-2 gap-6">
-        {/* Recent Activity */}
-        <div className="bg-white p-6 rounded-lg shadow-md">
-          <h2 className="text-lg font-semibold mb-4">Recent Activity</h2>
-          <div className="space-y-4">
-            {[1, 2, 3, 4].map((_, index) => (
-              <div key={index} className="flex items-center py-2 border-b last:border-0">
-                <div className="w-2 h-2 rounded-full bg-blue-500 mr-3"></div>
-                <div className="flex-1">
-                  <p className="text-sm text-gray-600">
-                    New project added: Project {index + 1}
-                  </p>
-                  <p className="text-xs text-gray-400 mt-1">
-                    {index + 1} hour{index !== 0 ? 's' : ''} ago
-                  </p>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-
-        {/* Quick Actions */}
-        <div className="bg-white p-6 rounded-lg shadow-md">
-          <h2 className="text-lg font-semibold mb-4">Quick Actions</h2>
-          <div className="grid grid-cols-2 gap-4">
-            <button className="p-4 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors">
-              <FaNewspaper className="w-6 h-6 mx-auto text-gray-600" />
-              <span className="block mt-2 text-sm text-gray-600">Add News</span>
-            </button>
-            <button className="p-4 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors">
-              <FaProjectDiagram className="w-6 h-6 mx-auto text-gray-600" />
-              <span className="block mt-2 text-sm text-gray-600">New Project</span>
-            </button>
-            <button className="p-4 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors">
-              <FaHandshake className="w-6 h-6 mx-auto text-gray-600" />
-              <span className="block mt-2 text-sm text-gray-600">Add Partner</span>
-            </button>
-            <button className="p-4 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors">
-              <FaUsers className="w-6 h-6 mx-auto text-gray-600" />
-              <span className="block mt-2 text-sm text-gray-600">View Users</span>
-            </button>
-          </div>
+      <div className="mt-8 bg-white dark:bg-dark-surface rounded-lg shadow-md p-6">
+        <h2 className="text-xl font-semibold text-gray-900 dark:text-dark-text mb-4 flex items-center">
+          <FaGlobe className="w-5 h-5 mr-2 text-indigo-500" />
+          Quick Actions
+        </h2>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <button className="p-4 text-left rounded-lg border border-gray-200 dark:border-dark-border hover:bg-gray-50 dark:hover:bg-dark-bg transition-colors">
+            <FaNewspaper className="w-6 h-6 text-blue-500 mb-2" />
+            <h3 className="font-medium text-gray-900 dark:text-dark-text">Add News Article</h3>
+            <p className="text-sm text-gray-500 dark:text-dark-text-light">Create a new news post</p>
+          </button>
+          <button className="p-4 text-left rounded-lg border border-gray-200 dark:border-dark-border hover:bg-gray-50 dark:hover:bg-dark-bg transition-colors">
+            <FaProjectDiagram className="w-6 h-6 text-purple-500 mb-2" />
+            <h3 className="font-medium text-gray-900 dark:text-dark-text">Add Project</h3>
+            <p className="text-sm text-gray-500 dark:text-dark-text-light">Showcase new work</p>
+          </button>
+          <button className="p-4 text-left rounded-lg border border-gray-200 dark:border-dark-border hover:bg-gray-50 dark:hover:bg-dark-bg transition-colors">
+            <FaUsers className="w-6 h-6 text-green-500 mb-2" />
+            <h3 className="font-medium text-gray-900 dark:text-dark-text">Manage Team</h3>
+            <p className="text-sm text-gray-500 dark:text-dark-text-light">Update team members</p>
+          </button>
         </div>
       </div>
     </div>
   );
 };
 
-export default Dashboard; 
+export default Dashboard;
