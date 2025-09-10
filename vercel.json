@@ -24,7 +24,10 @@
     },
     {
       "src": "/images/Logo/Logo2.svg",
-      "dest": "/images/Logo/Logo2.svg"
+      "dest": "/images/Logo/Logo2.svg",
+      "headers": {
+        "Cache-Control": "public, max-age=31536000, immutable"
+      }
     },
     {
       "src": "/manifest.json",

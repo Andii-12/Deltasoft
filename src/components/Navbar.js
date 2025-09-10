@@ -39,7 +39,7 @@ const Navbar = () => {
         <div className="flex items-center justify-between h-16">
           <Link to="/" className="flex items-center space-x-3" onClick={handleNavClick('top')}>
             <img
-              src="/images/Logo/Logo2.svg"
+              src={`/images/Logo/Logo2.svg?v=${Date.now()}`}
               alt="DeltaSoft Logo"
               className="h-8 w-auto"
               onError={(e) => {
