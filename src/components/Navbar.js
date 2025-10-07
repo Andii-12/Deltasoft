@@ -58,6 +58,7 @@ const Navbar = () => {
               decoding="async"
               className="h-14 w-auto transition-colors duration-200"
               onError={(e) => {
+                console.log('Logo failed to load, showing fallback');
                 e.target.style.display = 'none';
                 e.target.nextSibling.style.display = 'flex';
               }}

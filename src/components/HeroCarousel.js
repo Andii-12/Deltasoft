@@ -9,7 +9,16 @@ const HeroCarousel = () => {
   // Static slides with image paths only
   const slides = [
     {
-      image: "/images/carousel/slide1.jpg"
+      image: "/images/carousel/slide1.jpg",
+      fallback: "https://via.placeholder.com/800x400/22c55e/ffffff?text=Deltasoft+Carousel"
+    },
+    {
+      image: "/images/carousel/slide2.jpg",
+      fallback: "https://via.placeholder.com/800x400/16a34a/ffffff?text=Deltasoft+Solutions"
+    },
+    {
+      image: "/images/carousel/slide3.jpg",
+      fallback: "https://via.placeholder.com/800x400/15803d/ffffff?text=Deltasoft+Innovation"
     }
   ];
 
@@ -62,9 +71,14 @@ const HeroCarousel = () => {
           }}
           onError={(e) => {
             console.log('Image failed to load:', slides[currentSlide].image);
+            console.log('Trying fallback image...');
             setImageLoaded(false);
-            // If image fails to load, hide the image
-            e.target.style.display = 'none';
+            // Try fallback image
+            if (slides[currentSlide].fallback && e.target.src !== slides[currentSlide].fallback) {
+              e.target.src = slides[currentSlide].fallback;
+            } else {
+              e.target.style.display = 'none';
+            }
           }}
         />
         {/* Fallback content when image fails to load */}
