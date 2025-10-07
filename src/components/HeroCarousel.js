@@ -83,22 +83,28 @@ const HeroCarousel = () => {
   };
 
   return (
-    <div className={`relative h-80 md:h-96 flex items-center justify-center overflow-hidden transition-all duration-500 ${slides[currentSlide].bgColor}`}>
+    <div className={`relative h-64 md:h-72 flex items-center justify-center overflow-hidden transition-all duration-700 ease-in-out ${slides[currentSlide].bgColor}`}>
+      {/* Animated background elements */}
+      <div className="absolute inset-0 overflow-hidden">
+        <div className={`absolute top-0 left-0 w-64 h-64 bg-primary/5 rounded-full blur-3xl transition-all duration-1000 ${isFading ? 'opacity-0 scale-50' : 'opacity-100 scale-100'}`} style={{ transform: 'translate(-50%, -50%)' }}></div>
+        <div className={`absolute bottom-0 right-0 w-96 h-96 bg-primary/5 rounded-full blur-3xl transition-all duration-1000 delay-100 ${isFading ? 'opacity-0 scale-50' : 'opacity-100 scale-100'}`} style={{ transform: 'translate(50%, 50%)' }}></div>
+      </div>
+
       {/* Content with smooth transitions */}
-      <div className="max-w-4xl mx-auto px-6 text-center">
-        <div className={`mb-6 transition-opacity duration-300 ${isFading ? 'opacity-0' : 'opacity-100'}`}>
-          <div className="text-4xl md:text-5xl mb-3">
-            <div className="transition-all duration-300 ease-in-out transform">
+      <div className="max-w-4xl mx-auto px-6 text-center relative z-10">
+        <div className={`mb-4 transition-all duration-500 ${isFading ? 'opacity-0 translate-y-4' : 'opacity-100 translate-y-0'}`}>
+          <div className={`text-3xl md:text-4xl mb-2 transition-all duration-500 ${isFading ? 'scale-75 rotate-12' : 'scale-100 rotate-0'}`}>
+            <div className="inline-block animate-bounce-slow">
               {slides[currentSlide].icon}
             </div>
           </div>
-          <h1 className="text-2xl md:text-4xl font-bold mb-3 text-text-primary dark:text-dark-text transition-all duration-300 ease-in-out transform">
+          <h1 className={`text-xl md:text-3xl font-bold mb-2 text-text-primary dark:text-dark-text transition-all duration-500 delay-75 ${isFading ? 'opacity-0 translate-x-8' : 'opacity-100 translate-x-0'}`}>
             {slides[currentSlide].title}
           </h1>
-          <p className="text-lg md:text-xl text-primary font-semibold mb-3 transition-all duration-300 ease-in-out transform">
+          <p className={`text-base md:text-lg text-primary font-semibold mb-2 transition-all duration-500 delay-100 ${isFading ? 'opacity-0 translate-x-8' : 'opacity-100 translate-x-0'}`}>
             {slides[currentSlide].subtitle}
           </p>
-          <p className="text-sm md:text-base text-text-secondary dark:text-dark-text-secondary max-w-2xl mx-auto leading-relaxed transition-all duration-300 ease-in-out transform">
+          <p className={`text-xs md:text-sm text-text-secondary dark:text-dark-text-secondary max-w-2xl mx-auto leading-relaxed transition-all duration-500 delay-150 ${isFading ? 'opacity-0 translate-y-4' : 'opacity-100 translate-y-0'}`}>
             {slides[currentSlide].description}
           </p>
         </div>
@@ -108,7 +114,7 @@ const HeroCarousel = () => {
       {/* Navigation Arrows */}
       <button
         onClick={prevSlide}
-        className="absolute left-4 top-1/2 transform -translate-y-1/2 z-20 p-3 rounded-full bg-white/20 dark:bg-dark-surface/20 backdrop-blur-sm hover:bg-white/30 dark:hover:bg-dark-surface/30 transition-all"
+        className="absolute left-4 top-1/2 transform -translate-y-1/2 z-20 p-3 rounded-full bg-white/20 dark:bg-dark-surface/20 backdrop-blur-sm hover:bg-white/30 dark:hover:bg-dark-surface/30 transition-all hover:scale-110 active:scale-95 hover:-translate-x-1"
         aria-label="Previous slide"
       >
         <FaChevronLeft className="w-6 h-6 text-text-primary dark:text-dark-text" />
@@ -116,22 +122,28 @@ const HeroCarousel = () => {
       
       <button
         onClick={nextSlide}
-        className="absolute right-4 top-1/2 transform -translate-y-1/2 z-20 p-3 rounded-full bg-white/20 dark:bg-dark-surface/20 backdrop-blur-sm hover:bg-white/30 dark:hover:bg-dark-surface/30 transition-all"
+        className="absolute right-4 top-1/2 transform -translate-y-1/2 z-20 p-3 rounded-full bg-white/20 dark:bg-dark-surface/20 backdrop-blur-sm hover:bg-white/30 dark:hover:bg-dark-surface/30 transition-all hover:scale-110 active:scale-95 hover:translate-x-1"
         aria-label="Next slide"
       >
         <FaChevronRight className="w-6 h-6 text-text-primary dark:text-dark-text" />
       </button>
 
       {/* Dots Indicator */}
-      <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 z-20 flex space-x-2">
+      <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 z-20 flex space-x-2">
         {slides.map((_, index) => (
           <button
             key={index}
-            onClick={() => setCurrentSlide(index)}
-            className={`w-3 h-3 rounded-full transition-all ${
+            onClick={() => {
+              setIsFading(true);
+              setTimeout(() => {
+                setCurrentSlide(index);
+                setIsFading(false);
+              }, 300);
+            }}
+            className={`rounded-full transition-all duration-300 ${
               index === currentSlide 
-                ? 'bg-primary scale-125' 
-                : 'bg-text-light dark:bg-dark-text-light hover:bg-primary/50'
+                ? 'w-8 h-3 bg-primary' 
+                : 'w-3 h-3 bg-text-light dark:bg-dark-text-light hover:bg-primary/50 hover:scale-125'
             }`}
             aria-label={`Go to slide ${index + 1}`}
           />

@@ -22,12 +22,12 @@ const iconMap = {
 const ProjectCard = ({ title, description, icon }) => {
   const IconComponent = iconMap[icon];
   return (
-    <div className="card card-hover">
-      <div className="w-10 h-10 mb-3 text-primary">
+    <div className="card card-hover p-3">
+      <div className="w-8 h-8 mb-2 text-primary">
         {IconComponent && <IconComponent className="w-full h-full" />}
       </div>
-      <h3 className="text-sm font-medium mb-2 text-text-primary dark:text-dark-text">{title}</h3>
-      <p className="text-text-secondary dark:text-dark-text-secondary text-xs leading-relaxed">{description}</p>
+      <h3 className="text-xs font-medium mb-1 text-text-primary dark:text-dark-text">{title}</h3>
+      <p className="text-text-secondary dark:text-dark-text-secondary text-xs leading-snug">{description}</p>
     </div>
   );
 };
@@ -135,15 +135,15 @@ const Projects = () => {
   }
 
   return (
-    <section className="py-6 bg-background dark:bg-dark-bg">
+    <section className="py-3 bg-background dark:bg-dark-bg">
       <div className="max-w-6xl mx-auto px-6">
-        <div className="text-center mb-6">
-          <p className="text-base text-text-secondary dark:text-dark-text-secondary max-w-2xl mx-auto">
+        <div className="text-center mb-3">
+          <p className="text-sm text-text-secondary dark:text-dark-text-secondary max-w-2xl mx-auto">
             Мэргэжлийн баг маань хийсэн амжилттай төслүүд болон шийдлүүд
           </p>
         </div>
         
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
           {projects
             .filter(project => project.category === 'main' && project.icon)
             .map((project) => (

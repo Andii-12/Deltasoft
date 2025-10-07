@@ -29,6 +29,7 @@ module.exports = {
         'fade-in': 'fade-in 0.6s ease-out',
         'slide-up': 'slide-up 0.4s ease-out',
         'bounce': 'bounce 2s infinite',
+        'bounce-slow': 'bounce-slow 3s ease-in-out infinite',
         'pulse': 'pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite',
         'float': 'float 3s ease-in-out infinite',
       },
@@ -45,6 +46,10 @@ module.exports = {
           '0%, 20%, 50%, 80%, 100%': { transform: 'translateY(0)' },
           '40%': { transform: 'translateY(-10px)' },
           '60%': { transform: 'translateY(-5px)' }
+        },
+        'bounce-slow': {
+          '0%, 100%': { transform: 'translateY(0)' },
+          '50%': { transform: 'translateY(-8px)' }
         },
         'float': {
           '0%, 100%': { transform: 'translateY(0px)' },
