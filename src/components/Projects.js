@@ -19,11 +19,11 @@ const ProjectCard = ({ title, description, icon }) => {
   const IconComponent = iconMap[icon];
   return (
     <div className="card card-hover">
-      <div className="w-12 h-12 mb-4 text-primary">
+      <div className="w-10 h-10 mb-3 text-primary">
         {IconComponent && <IconComponent className="w-full h-full" />}
       </div>
-      <h3 className="text-lg font-medium mb-3 text-text-primary dark:text-dark-text">{title}</h3>
-      <p className="text-text-secondary dark:text-dark-text-secondary text-sm leading-relaxed">{description}</p>
+      <h3 className="text-base font-medium mb-2 text-text-primary dark:text-dark-text">{title}</h3>
+      <p className="text-text-secondary dark:text-dark-text-secondary text-xs leading-relaxed">{description}</p>
     </div>
   );
 };
@@ -85,18 +85,18 @@ const Projects = () => {
   }
 
   return (
-    <section className="py-16 bg-background dark:bg-dark-bg">
+    <section className="py-8 bg-background dark:bg-dark-bg">
       <div className="max-w-6xl mx-auto px-6">
-        <div className="text-center mb-12">
-          <h2 className="text-3xl md:text-4xl font-bold text-text-primary dark:text-dark-text mb-4">
+        <div className="text-center mb-8">
+          <h2 className="text-2xl md:text-3xl font-bold text-text-primary dark:text-dark-text mb-3">
             <span className="text-primary">БИДНИЙ ХИЙСЭН</span> ТОМООХОН АЖЛУУД
           </h2>
-          <p className="text-lg text-text-secondary dark:text-dark-text-secondary max-w-2xl mx-auto">
+          <p className="text-base text-text-secondary dark:text-dark-text-secondary max-w-2xl mx-auto">
             Мэргэжлийн баг маань хийсэн амжилттай төслүүд болон шийдлүүд
           </p>
         </div>
         
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
           {projects
             .filter(project => project.category === 'main' && project.icon)
             .map((project) => (

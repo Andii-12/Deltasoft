@@ -64,7 +64,7 @@ const HeroCarousel = () => {
   };
 
   return (
-    <div className={`relative min-h-screen flex items-center justify-center overflow-hidden transition-all duration-500 ${slides[currentSlide].bgColor}`}>
+    <div className={`relative h-96 md:h-[500px] flex items-center justify-center overflow-hidden transition-all duration-500 ${slides[currentSlide].bgColor}`}>
       {/* Content with smooth transitions */}
       <div className="max-w-4xl mx-auto px-6 text-center">
         <div className={`mb-12 transition-opacity duration-300 ${isFading ? 'opacity-0' : 'opacity-100'}`}>

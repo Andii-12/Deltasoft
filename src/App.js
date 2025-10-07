@@ -4,9 +4,7 @@ import { DarkModeProvider } from './contexts/DarkModeContext';
 import StartupAnimation from './components/StartupAnimation';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
-import Features from './components/Features';
 import Projects from './components/Projects';
-import News from './components/News';
 import Logos from './components/Logos';
 import Footer from './components/Footer';
 import AdminLayout from './components/admin/AdminLayout';
@@ -63,9 +61,7 @@ function HomeWithScroll() {
       <Navbar />
       <main>
         <Hero />
-        <Features />
         <Projects />
-        <News />
         <Logos />
         <Footer />
       </main>
