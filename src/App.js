@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate, useLocation } from 'react-router-dom';
 import { DarkModeProvider } from './contexts/DarkModeContext';
-import StartupAnimation from './components/StartupAnimation';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
 import Projects from './components/Projects';
@@ -791,20 +790,6 @@ function formatDuration(duration) {
 }
 
 function App() {
-  const [showStartup, setShowStartup] = useState(() => {
-    // Don't show startup animation for admin or worker routes
-    const path = window.location.pathname;
-    return !path.startsWith('/admin') && !path.startsWith('/worker');
-  });
-
-  const handleStartupComplete = () => {
-    setShowStartup(false);
-  };
-
-  if (showStartup) {
-    return <StartupAnimation onComplete={handleStartupComplete} />;
-  }
-
   return (
     <DarkModeProvider>
       <Router>

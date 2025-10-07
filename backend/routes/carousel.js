@@ -2,13 +2,21 @@ const express = require('express');
 const router = express.Router();
 const multer = require('multer');
 const path = require('path');
+const fs = require('fs');
 const Carousel = require('../models/Carousel');
 const { auth } = require('./auth');
+
+// Ensure upload directory exists
+const uploadDir = path.join(__dirname, '../uploads/carousel');
+if (!fs.existsSync(uploadDir)) {
+  fs.mkdirSync(uploadDir, { recursive: true });
+  console.log('Created carousel upload directory:', uploadDir);
+}
 
 // Configure multer for file uploads
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null, 'uploads/carousel/');
+    cb(null, uploadDir);
   },
   filename: function (req, file, cb) {
     const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9);
@@ -59,7 +67,12 @@ router.get('/:id', auth, async (req, res) => {
 // Create new slide (admin)
 router.post('/', auth, upload.single('image'), async (req, res) => {
   try {
+    console.log('Carousel POST request received');
+    console.log('File:', req.file);
+    console.log('Body:', req.body);
+
     if (!req.file) {
+      console.error('No file uploaded');
       return res.status(400).json({ message: 'Image is required' });
     }
 
@@ -72,15 +85,20 @@ router.post('/', auth, upload.single('image'), async (req, res) => {
       icon: '🖼️',
       bgColor: 'bg-gradient-to-br from-primary/10 to-primary/5',
       image: '/uploads/carousel/' + req.file.filename,
-      order: order || 0
+      order: parseInt(order) || 0
     };
+
+    console.log('Creating slide with data:', slideData);
 
     const slide = new Carousel(slideData);
     await slide.save();
+    
+    console.log('Slide saved successfully:', slide._id);
     res.status(201).json(slide);
   } catch (error) {
     console.error('Error creating slide:', error);
-    res.status(500).json({ message: 'Server error' });
+    console.error('Error stack:', error.stack);
+    res.status(500).json({ message: error.message || 'Server error' });
   }
 });
 

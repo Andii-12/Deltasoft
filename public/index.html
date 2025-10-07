@@ -16,6 +16,16 @@
     <link rel="apple-touch-icon" sizes="512x512" href="/logo512.png" />
     <link rel="manifest" href="/manifest.json" />
     <title>Дельтасофт - Орчин үеийн програм хангамжийн шийдэл</title>
+    <script>
+      // Set dark mode immediately to prevent flash
+      (function() {
+        const saved = localStorage.getItem('darkMode');
+        const isDark = saved !== null ? JSON.parse(saved) : true;
+        if (isDark) {
+          document.documentElement.classList.add('dark');
+        }
+      })();
+    </script>
   </head>
   <body>
     <noscript>Энэ аппликешнийг ажиллуулахын тулд JavaScript-ийг идэвхжүүлэх хэрэгтэй.</noscript>
