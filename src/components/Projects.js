@@ -56,11 +56,6 @@ const Projects = () => {
     return (
       <section className="py-12 bg-background dark:bg-dark-bg relative">
         <div className="max-w-6xl mx-auto px-6">
-          <div className="text-center mb-8">
-            <h2 className="text-2xl md:text-3xl font-semibold text-text-primary dark:text-dark-text mb-4">
-              <span className="text-primary">БИДНИЙ ХИЙСЭН</span> ТОМООХОН АЖЛУУД
-            </h2>
-          </div>
           <div className="flex justify-center">
             <div className="animate-spin rounded-full h-8 w-8 border-t-2 border-b-2 border-primary"></div>
           </div>
@@ -73,11 +68,6 @@ const Projects = () => {
     return (
       <section className="py-12 bg-background dark:bg-dark-bg relative">
         <div className="max-w-6xl mx-auto px-6">
-          <div className="text-center mb-8">
-            <h2 className="text-2xl md:text-3xl font-semibold text-text-primary dark:text-dark-text mb-4">
-              <span className="text-primary">БИДНИЙ ХИЙСЭН</span> ТОМООХОН АЖЛУУД
-            </h2>
-          </div>
           <div className="text-center text-red-500">{error}</div>
         </div>
       </section>
@@ -88,9 +78,6 @@ const Projects = () => {
     <section className="py-8 bg-background dark:bg-dark-bg">
       <div className="max-w-6xl mx-auto px-6">
         <div className="text-center mb-8">
-          <h2 className="text-2xl md:text-3xl font-bold text-text-primary dark:text-dark-text mb-3">
-            <span className="text-primary">БИДНИЙ ХИЙСЭН</span> ТОМООХОН АЖЛУУД
-          </h2>
           <p className="text-base text-text-secondary dark:text-dark-text-secondary max-w-2xl mx-auto">
             Мэргэжлийн баг маань хийсэн амжилттай төслүүд болон шийдлүүд
           </p>
