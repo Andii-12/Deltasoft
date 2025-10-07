@@ -1,59 +1,45 @@
 import React, { useState, useEffect } from 'react';
 import { FaChevronLeft, FaChevronRight } from 'react-icons/fa';
-import config from '../config';
 
 const HeroCarousel = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [isFading, setIsFading] = useState(false);
-  const [slides, setSlides] = useState([
+  
+  // Static slides with image paths
+  const slides = [
     {
       title: "Дельтасофт ХХК",
       subtitle: "МТ шийдэл & Дижитал үйлчилгээ",
       description: "Орчин үеийн технологи болон мэргэжлийн хөгжүүлэгчдийн багтайгаар санааг хүчирхэг дижитал шийдэл болгон хувиргах.",
       bgColor: "bg-gradient-to-br from-primary/10 to-primary/5",
-      icon: "💻"
+      icon: "💻",
+      image: "/images/carousel/slide1.jpg" // You can upload your image here
     },
     {
       title: "Веб хөгжүүлэлт",
       subtitle: "Орчин үеийн & Уян хатан вэбсайт",
       description: "Хамгийн сүүлийн үеийн технологиор бүтээгдсэн, оновчтой гүйцэтгэл болон хэрэглэгчийн туршлагад зориулсан вэб аппликешн.",
       bgColor: "bg-gradient-to-br from-blue-500/10 to-blue-600/5",
-      icon: "🌐"
+      icon: "🌐",
+      image: "/images/carousel/slide2.jpg" // You can upload your image here
     },
     {
       title: "МТ зөвлөгөө",
       subtitle: "Стратегийн технологийн шийдэл",
       description: "Таны бизнесийг өсөлт, үр ашигтай ажиллагаанд технологийг ашиглахад туслах мэргэжлийн зөвлөгөө.",
       bgColor: "bg-gradient-to-br from-green-500/10 to-green-600/5",
-      icon: "🚀"
+      icon: "🚀",
+      image: "/images/carousel/slide3.jpg" // You can upload your image here
     },
     {
       title: "24/7 дэмжлэг",
       subtitle: "Хэрэгтэй үедээ энд байна",
       description: "Таны системийг зохих байдлаар ажиллуулахын тулд өдөр шөнийн 24 цаг техникийн дэмжлэг үзүүлэх.",
       bgColor: "bg-gradient-to-br from-purple-500/10 to-purple-600/5",
-      icon: "⚡"
+      icon: "⚡",
+      image: "/images/carousel/slide4.jpg" // You can upload your image here
     }
-  ]);
-  
-  useEffect(() => {
-    // Fetch slides from API
-    const fetchSlides = async () => {
-      try {
-        const response = await fetch(`${config.API_URL}/api/carousel`);
-        if (response.ok) {
-          const data = await response.json();
-          if (data && data.length > 0) {
-            setSlides(data);
-          }
-        }
-      } catch (error) {
-        console.log('Using default slides');
-      }
-    };
-    
-    fetchSlides();
-  }, []);
+  ];
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -88,9 +74,14 @@ const HeroCarousel = () => {
       {slides[currentSlide].image ? (
         <div className="absolute inset-0">
           <img
-            src={`${config.API_URL}${slides[currentSlide].image}`}
+            src={slides[currentSlide].image}
             alt={slides[currentSlide].title}
             className={`w-full h-full object-cover transition-all duration-700 ${isFading ? 'opacity-0 scale-110' : 'opacity-100 scale-100'}`}
+            onError={(e) => {
+              // If image fails to load, hide the image and show gradient background
+              e.target.style.display = 'none';
+              e.target.parentElement.style.background = slides[currentSlide].bgColor;
+            }}
           />
           <div className="absolute inset-0 bg-black/30"></div>
         </div>
