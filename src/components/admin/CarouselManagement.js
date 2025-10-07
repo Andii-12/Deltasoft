@@ -1,32 +1,14 @@
 import React, { useState, useEffect } from 'react';
-import { FaPlus, FaTrash, FaEdit, FaSave, FaTimes, FaArrowUp, FaArrowDown } from 'react-icons/fa';
+import { FaPlus, FaTrash, FaArrowUp, FaArrowDown } from 'react-icons/fa';
 import config from '../../config';
 
 const CarouselManagement = () => {
   const [slides, setSlides] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
-  const [editingSlide, setEditingSlide] = useState(null);
-  const [newSlide, setNewSlide] = useState({
-    title: '',
-    subtitle: '',
-    description: '',
-    icon: '',
-    bgColor: 'bg-gradient-to-br from-primary/10 to-primary/5',
-    image: null,
-    order: 0
-  });
+  const [imageFile, setImageFile] = useState(null);
+  const [imagePreview, setImagePreview] = useState(null);
   const [showAddForm, setShowAddForm] = useState(false);
-
-  const iconOptions = ['💻', '🌐', '🚀', '⚡', '🔒', '📱', '🎯', '✨', '🎨', '📊'];
-  const bgColorOptions = [
-    { value: 'bg-gradient-to-br from-primary/10 to-primary/5', label: 'Green' },
-    { value: 'bg-gradient-to-br from-blue-500/10 to-blue-600/5', label: 'Blue' },
-    { value: 'bg-gradient-to-br from-green-500/10 to-green-600/5', label: 'Light Green' },
-    { value: 'bg-gradient-to-br from-purple-500/10 to-purple-600/5', label: 'Purple' },
-    { value: 'bg-gradient-to-br from-orange-500/10 to-orange-600/5', label: 'Orange' },
-    { value: 'bg-gradient-to-br from-pink-500/10 to-pink-600/5', label: 'Pink' }
-  ];
 
   useEffect(() => {
     fetchSlides();
@@ -51,21 +33,31 @@ const CarouselManagement = () => {
     }
   };
 
+  const handleImageChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      setImageFile(file);
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setImagePreview(reader.result);
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
   const handleAddSlide = async (e) => {
     e.preventDefault();
+    if (!imageFile) {
+      setError('Please select an image');
+      return;
+    }
+
     setLoading(true);
     try {
       const token = localStorage.getItem('adminToken');
       const formData = new FormData();
-      formData.append('title', newSlide.title);
-      formData.append('subtitle', newSlide.subtitle);
-      formData.append('description', newSlide.description);
-      formData.append('icon', newSlide.icon);
-      formData.append('bgColor', newSlide.bgColor);
+      formData.append('image', imageFile);
       formData.append('order', slides.length);
-      if (newSlide.image) {
-        formData.append('image', newSlide.image);
-      }
 
       const response = await fetch(`${config.API_URL}/api/carousel`, {
         method: 'POST',
@@ -74,15 +66,8 @@ const CarouselManagement = () => {
       });
 
       if (response.ok) {
-        setNewSlide({
-          title: '',
-          subtitle: '',
-          description: '',
-          icon: '',
-          bgColor: 'bg-gradient-to-br from-primary/10 to-primary/5',
-          image: null,
-          order: 0
-        });
+        setImageFile(null);
+        setImagePreview(null);
         setShowAddForm(false);
         fetchSlides();
       } else {
@@ -91,32 +76,6 @@ const CarouselManagement = () => {
       }
     } catch (err) {
       setError('Error adding slide');
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  const handleUpdateSlide = async (slideId) => {
-    setLoading(true);
-    try {
-      const token = localStorage.getItem('adminToken');
-      const response = await fetch(`${config.API_URL}/api/carousel/${slideId}`, {
-        method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json',
-          'x-auth-token': token
-        },
-        body: JSON.stringify(editingSlide)
-      });
-
-      if (response.ok) {
-        setEditingSlide(null);
-        fetchSlides();
-      } else {
-        setError('Failed to update slide');
-      }
-    } catch (err) {
-      setError('Error updating slide');
     } finally {
       setLoading(false);
     }
@@ -204,95 +163,34 @@ const CarouselManagement = () => {
       {/* Add New Slide Form */}
       {showAddForm && (
         <div className="bg-white dark:bg-dark-surface rounded-lg shadow-md p-6 mb-6">
-          <h3 className="text-xl font-semibold mb-4 text-gray-900 dark:text-dark-text">Add New Slide</h3>
+          <h3 className="text-xl font-semibold mb-4 text-gray-900 dark:text-dark-text">Add New Carousel Image</h3>
           <form onSubmit={handleAddSlide} className="space-y-4">
             <div>
               <label className="block text-sm font-medium text-gray-700 dark:text-dark-text-secondary mb-2">
-                Title
-              </label>
-              <input
-                type="text"
-                value={newSlide.title}
-                onChange={(e) => setNewSlide({ ...newSlide, title: e.target.value })}
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-primary focus:border-primary text-gray-900"
-                required
-              />
-            </div>
-
-            <div>
-              <label className="block text-sm font-medium text-gray-700 dark:text-dark-text-secondary mb-2">
-                Subtitle
-              </label>
-              <input
-                type="text"
-                value={newSlide.subtitle}
-                onChange={(e) => setNewSlide({ ...newSlide, subtitle: e.target.value })}
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-primary focus:border-primary text-gray-900"
-                required
-              />
-            </div>
-
-            <div>
-              <label className="block text-sm font-medium text-gray-700 dark:text-dark-text-secondary mb-2">
-                Description
-              </label>
-              <textarea
-                value={newSlide.description}
-                onChange={(e) => setNewSlide({ ...newSlide, description: e.target.value })}
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-primary focus:border-primary text-gray-900"
-                rows="3"
-                required
-              />
-            </div>
-
-            <div>
-              <label className="block text-sm font-medium text-gray-700 dark:text-dark-text-secondary mb-2">
-                Icon (Emoji)
-              </label>
-              <div className="flex flex-wrap gap-2">
-                {iconOptions.map((icon) => (
-                  <button
-                    key={icon}
-                    type="button"
-                    onClick={() => setNewSlide({ ...newSlide, icon })}
-                    className={`text-2xl p-2 border rounded-lg ${
-                      newSlide.icon === icon ? 'border-primary bg-primary/10' : 'border-gray-300'
-                    }`}
-                  >
-                    {icon}
-                  </button>
-                ))}
-              </div>
-            </div>
-
-            <div>
-              <label className="block text-sm font-medium text-gray-700 dark:text-dark-text-secondary mb-2">
-                Background Color
-              </label>
-              <select
-                value={newSlide.bgColor}
-                onChange={(e) => setNewSlide({ ...newSlide, bgColor: e.target.value })}
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-primary focus:border-primary text-gray-900"
-              >
-                {bgColorOptions.map((option) => (
-                  <option key={option.value} value={option.value}>
-                    {option.label}
-                  </option>
-                ))}
-              </select>
-            </div>
-
-            <div>
-              <label className="block text-sm font-medium text-gray-700 dark:text-dark-text-secondary mb-2">
-                Background Image (Optional)
+                Upload Image
               </label>
               <input
                 type="file"
                 accept="image/*"
-                onChange={(e) => setNewSlide({ ...newSlide, image: e.target.files[0] })}
+                onChange={handleImageChange}
                 className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-primary focus:border-primary text-gray-900"
+                required
               />
+              <p className="text-xs text-gray-500 mt-1">Recommended size: 1920x600px or similar wide format</p>
             </div>
+
+            {imagePreview && (
+              <div className="mt-4">
+                <label className="block text-sm font-medium text-gray-700 dark:text-dark-text-secondary mb-2">
+                  Preview:
+                </label>
+                <img
+                  src={imagePreview}
+                  alt="Preview"
+                  className="w-full h-48 object-cover rounded-lg border border-gray-300"
+                />
+              </div>
+            )}
 
             <div className="flex gap-2">
               <button
@@ -304,7 +202,11 @@ const CarouselManagement = () => {
               </button>
               <button
                 type="button"
-                onClick={() => setShowAddForm(false)}
+                onClick={() => {
+                  setShowAddForm(false);
+                  setImageFile(null);
+                  setImagePreview(null);
+                }}
                 className="bg-gray-300 text-gray-700 px-4 py-2 rounded-lg hover:bg-gray-400 transition-colors"
               >
                 Cancel
@@ -315,94 +217,49 @@ const CarouselManagement = () => {
       )}
 
       {/* Slides List */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4">
         {slides.map((slide, index) => (
           <div
             key={slide._id}
-            className={`bg-white dark:bg-dark-surface rounded-lg shadow-md p-6 ${slide.bgColor}`}
+            className="bg-white dark:bg-dark-surface rounded-lg shadow-md overflow-hidden"
           >
-            {editingSlide && editingSlide._id === slide._id ? (
-              // Edit Mode
-              <div className="space-y-3">
-                <input
-                  type="text"
-                  value={editingSlide.title}
-                  onChange={(e) => setEditingSlide({ ...editingSlide, title: e.target.value })}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg text-gray-900"
-                />
-                <input
-                  type="text"
-                  value={editingSlide.subtitle}
-                  onChange={(e) => setEditingSlide({ ...editingSlide, subtitle: e.target.value })}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg text-gray-900"
-                />
-                <textarea
-                  value={editingSlide.description}
-                  onChange={(e) => setEditingSlide({ ...editingSlide, description: e.target.value })}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg text-gray-900"
-                  rows="2"
-                />
+            {slide.image && (
+              <img
+                src={`${config.API_URL}${slide.image}`}
+                alt={`Slide ${index + 1}`}
+                className="w-full h-48 object-cover"
+              />
+            )}
+            <div className="p-3">
+              <div className="flex items-center justify-between">
+                <span className="text-sm text-gray-600 dark:text-dark-text-secondary">Slide {index + 1}</span>
                 <div className="flex gap-2">
                   <button
-                    onClick={() => handleUpdateSlide(slide._id)}
-                    className="bg-primary text-white px-3 py-1 rounded hover:bg-primary-dark flex items-center"
+                    onClick={() => moveSlide(slide._id, 'up')}
+                    disabled={index === 0}
+                    className="p-1.5 text-gray-600 hover:text-primary disabled:opacity-30"
+                    title="Move up"
                   >
-                    <FaSave className="mr-1" /> Save
+                    <FaArrowUp />
                   </button>
                   <button
-                    onClick={() => setEditingSlide(null)}
-                    className="bg-gray-300 text-gray-700 px-3 py-1 rounded hover:bg-gray-400 flex items-center"
+                    onClick={() => moveSlide(slide._id, 'down')}
+                    disabled={index === slides.length - 1}
+                    className="p-1.5 text-gray-600 hover:text-primary disabled:opacity-30"
+                    title="Move down"
                   >
-                    <FaTimes className="mr-1" /> Cancel
+                    <FaArrowDown />
+                  </button>
+                  <button
+                    onClick={() => handleDeleteSlide(slide._id)}
+                    className="p-1.5 text-red-600 hover:text-red-800"
+                    title="Delete"
+                  >
+                    <FaTrash />
                   </button>
                 </div>
               </div>
-            ) : (
-              // View Mode
-              <>
-                <div className="flex items-center justify-between mb-3">
-                  <span className="text-3xl">{slide.icon}</span>
-                  <div className="flex gap-2">
-                    <button
-                      onClick={() => moveSlide(slide._id, 'up')}
-                      disabled={index === 0}
-                      className="p-2 text-gray-600 hover:text-primary disabled:opacity-30"
-                    >
-                      <FaArrowUp />
-                    </button>
-                    <button
-                      onClick={() => moveSlide(slide._id, 'down')}
-                      disabled={index === slides.length - 1}
-                      className="p-2 text-gray-600 hover:text-primary disabled:opacity-30"
-                    >
-                      <FaArrowDown />
-                    </button>
-                    <button
-                      onClick={() => setEditingSlide(slide)}
-                      className="p-2 text-blue-600 hover:text-blue-800"
-                    >
-                      <FaEdit />
-                    </button>
-                    <button
-                      onClick={() => handleDeleteSlide(slide._id)}
-                      className="p-2 text-red-600 hover:text-red-800"
-                    >
-                      <FaTrash />
-                    </button>
-                  </div>
-                </div>
-                <h3 className="text-xl font-bold mb-2 text-gray-900 dark:text-dark-text">{slide.title}</h3>
-                <p className="text-primary font-semibold mb-2">{slide.subtitle}</p>
-                <p className="text-gray-700 dark:text-dark-text-secondary text-sm">{slide.description}</p>
-                {slide.image && (
-                  <img
-                    src={`${config.API_URL}${slide.image}`}
-                    alt={slide.title}
-                    className="mt-3 w-full h-32 object-cover rounded"
-                  />
-                )}
-              </>
-            )}
+            </div>
           </div>
         ))}
       </div>

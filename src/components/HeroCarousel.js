@@ -84,11 +84,23 @@ const HeroCarousel = () => {
 
   return (
     <div className={`relative flex-shrink-0 h-80 md:h-96 lg:h-[40vh] flex items-center justify-center overflow-hidden transition-all duration-700 ease-in-out ${slides[currentSlide].bgColor}`}>
-      {/* Animated background elements */}
-      <div className="absolute inset-0 overflow-hidden">
-        <div className={`absolute top-0 left-0 w-64 h-64 bg-primary/5 rounded-full blur-3xl transition-all duration-1000 ${isFading ? 'opacity-0 scale-50' : 'opacity-100 scale-100'}`} style={{ transform: 'translate(-50%, -50%)' }}></div>
-        <div className={`absolute bottom-0 right-0 w-96 h-96 bg-primary/5 rounded-full blur-3xl transition-all duration-1000 delay-100 ${isFading ? 'opacity-0 scale-50' : 'opacity-100 scale-100'}`} style={{ transform: 'translate(50%, 50%)' }}></div>
-      </div>
+      {/* Background Image or Gradient */}
+      {slides[currentSlide].image ? (
+        <div className="absolute inset-0">
+          <img
+            src={`${config.API_URL}${slides[currentSlide].image}`}
+            alt={slides[currentSlide].title}
+            className={`w-full h-full object-cover transition-all duration-700 ${isFading ? 'opacity-0 scale-110' : 'opacity-100 scale-100'}`}
+          />
+          <div className="absolute inset-0 bg-black/30"></div>
+        </div>
+      ) : (
+        /* Animated background elements */
+        <div className="absolute inset-0 overflow-hidden">
+          <div className={`absolute top-0 left-0 w-64 h-64 bg-primary/5 rounded-full blur-3xl transition-all duration-1000 ${isFading ? 'opacity-0 scale-50' : 'opacity-100 scale-100'}`} style={{ transform: 'translate(-50%, -50%)' }}></div>
+          <div className={`absolute bottom-0 right-0 w-96 h-96 bg-primary/5 rounded-full blur-3xl transition-all duration-1000 delay-100 ${isFading ? 'opacity-0 scale-50' : 'opacity-100 scale-100'}`} style={{ transform: 'translate(50%, 50%)' }}></div>
+        </div>
+      )}
 
       {/* Content with smooth transitions */}
       <div className="max-w-4xl mx-auto px-6 text-center relative z-10">

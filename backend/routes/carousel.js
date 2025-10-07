@@ -58,20 +58,21 @@ router.get('/:id', auth, async (req, res) => {
 // Create new slide (admin)
 router.post('/', auth, upload.single('image'), async (req, res) => {
   try {
-    const { title, subtitle, description, icon, bgColor, order } = req.body;
+    if (!req.file) {
+      return res.status(400).json({ message: 'Image is required' });
+    }
+
+    const { order } = req.body;
     
     const slideData = {
-      title,
-      subtitle,
-      description,
-      icon,
-      bgColor,
+      title: 'Carousel Image',
+      subtitle: 'Image Slide',
+      description: 'Carousel image slide',
+      icon: '🖼️',
+      bgColor: 'bg-gradient-to-br from-primary/10 to-primary/5',
+      image: '/uploads/carousel/' + req.file.filename,
       order: order || 0
     };
-
-    if (req.file) {
-      slideData.image = '/uploads/carousel/' + req.file.filename;
-    }
 
     const slide = new Carousel(slideData);
     await slide.save();
