@@ -124,7 +124,7 @@ const CarouselManagement = () => {
     try {
       const token = localStorage.getItem('adminToken');
       await fetch(`${config.API_URL}/api/carousel/reorder`, {
-        method: 'PUT',
+        method: 'POST',
         headers: {
           'Content-Type': 'application/json',
           'x-auth-token': token

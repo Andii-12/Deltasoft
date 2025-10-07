@@ -34,10 +34,11 @@ const upload = multer({
 router.get('/', async (req, res) => {
   try {
     const slides = await Carousel.find({ active: true }).sort({ order: 1 });
-    res.json(slides);
+    res.json(slides || []);
   } catch (error) {
     console.error('Error fetching carousel slides:', error);
-    res.status(500).json({ message: 'Server error' });
+    // Return empty array instead of error for public route
+    res.json([]);
   }
 });
 
@@ -110,7 +111,7 @@ router.put('/:id', auth, async (req, res) => {
 });
 
 // Reorder slides (admin)
-router.put('/reorder', auth, async (req, res) => {
+router.post('/reorder', auth, async (req, res) => {
   try {
     const { slides } = req.body;
     

@@ -3,15 +3,15 @@ const mongoose = require('mongoose');
 const carouselSchema = new mongoose.Schema({
   title: {
     type: String,
-    required: true
+    default: 'Carousel Image'
   },
   subtitle: {
     type: String,
-    required: true
+    default: 'Image Slide'
   },
   description: {
     type: String,
-    required: true
+    default: 'Carousel image slide'
   },
   icon: {
     type: String,
