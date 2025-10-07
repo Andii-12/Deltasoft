@@ -64,19 +64,19 @@ const HeroCarousel = () => {
   };
 
   return (
-    <div className={`relative h-64 md:h-80 flex items-center justify-center overflow-hidden transition-all duration-500 ${slides[currentSlide].bgColor}`}>
+    <div className={`relative h-80 md:h-96 flex items-center justify-center overflow-hidden transition-all duration-500 ${slides[currentSlide].bgColor}`}>
       {/* Content with smooth transitions */}
       <div className="max-w-4xl mx-auto px-6 text-center">
-        <div className={`mb-4 transition-opacity duration-300 ${isFading ? 'opacity-0' : 'opacity-100'}`}>
-          <div className="text-3xl md:text-4xl mb-2">
+        <div className={`mb-6 transition-opacity duration-300 ${isFading ? 'opacity-0' : 'opacity-100'}`}>
+          <div className="text-4xl md:text-5xl mb-3">
             <div className="transition-all duration-300 ease-in-out transform">
               {slides[currentSlide].icon}
             </div>
           </div>
-          <h1 className="text-xl md:text-3xl font-bold mb-2 text-text-primary dark:text-dark-text transition-all duration-300 ease-in-out transform">
+          <h1 className="text-2xl md:text-4xl font-bold mb-3 text-text-primary dark:text-dark-text transition-all duration-300 ease-in-out transform">
             {slides[currentSlide].title}
           </h1>
-          <p className="text-base md:text-lg text-primary font-semibold mb-2 transition-all duration-300 ease-in-out transform">
+          <p className="text-lg md:text-xl text-primary font-semibold mb-3 transition-all duration-300 ease-in-out transform">
             {slides[currentSlide].subtitle}
           </p>
           <p className="text-sm md:text-base text-text-secondary dark:text-dark-text-secondary max-w-2xl mx-auto leading-relaxed transition-all duration-300 ease-in-out transform">
