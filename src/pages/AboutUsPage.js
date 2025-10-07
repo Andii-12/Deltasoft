@@ -79,12 +79,12 @@ const AboutUsPage = () => {
               Бидний <span className="text-primary bg-gradient-to-r from-primary to-primary-dark bg-clip-text text-transparent">тухай</span>
             </h1>
             <p className="text-xl md:text-2xl text-text-secondary dark:text-dark-text-secondary max-w-4xl mx-auto leading-relaxed mb-8">
-              Мэдээллийн технологийн салбарт 12+ жилийн туршлагатай мэргэжлийн баг
+              Мэдээллийн технологийн салбарт 120+ жилийн туршлагатай мэргэжлийн баг
             </p>
             <div className="flex flex-wrap justify-center gap-4 text-sm text-text-secondary dark:text-dark-text-secondary">
               <div className="flex items-center gap-2">
                 <FaCheckCircle className="text-primary" />
-                <span>12+ жилийн туршлага</span>
+                <span>120+ жилийн туршлага</span>
               </div>
               <div className="flex items-center gap-2">
                 <FaUsers className="text-primary" />
