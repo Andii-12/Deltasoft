@@ -105,7 +105,6 @@ app.use('/api/projects', require('./routes/projects'));
 app.use('/api/team', teamRouter);
 app.use('/api/analytics', require('./routes/analytics'));
 app.use('/api/logos', require('./routes/logos'));
-app.use('/api/carousel', require('./routes/carousel'));
 
 // Error handling middleware
 app.use((err, req, res, next) => {

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link, Outlet, useLocation, Navigate, useNavigate } from 'react-router-dom';
-import { 
+import {
   FaNewspaper,
   FaBars,
   FaTimes,
@@ -10,8 +10,7 @@ import {
   FaSignOutAlt,
   FaClock,
   FaUsers,
-  FaTachometerAlt,
-  FaImages
+  FaTachometerAlt
 } from 'react-icons/fa';
 
 const AdminLayout = () => {
@@ -31,7 +30,6 @@ const AdminLayout = () => {
 
   const menuItems = [
     { path: '/admin/dashboard', icon: FaTachometerAlt, label: 'Самбар' },
-    { path: '/admin/carousel', icon: FaImages, label: 'Карусел удирдлага' },
     { path: '/admin/news', icon: FaNewspaper, label: 'Мэдээ' },
     { path: '/admin/partners', icon: FaHandshake, label: 'Хамтрагчид' },
     { path: '/admin/quotes', icon: FaFileInvoiceDollar, label: 'Үнийн санал' },
