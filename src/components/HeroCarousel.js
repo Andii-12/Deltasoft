@@ -5,6 +5,7 @@ const HeroCarousel = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [isFading, setIsFading] = useState(false);
   const [imageLoaded, setImageLoaded] = useState(false);
+  // const [imageError, setImageError] = useState(false);
   
   // Static slides with image paths only
   const slides = [
@@ -25,7 +26,34 @@ const HeroCarousel = () => {
   // Reset image loaded state when slide changes
   useEffect(() => {
     setImageLoaded(false);
+    // setImageError(false);
   }, [currentSlide]);
+
+  // Preload images
+  useEffect(() => {
+    const preloadImage = (src) => {
+      return new Promise((resolve, reject) => {
+        const img = new Image();
+        img.onload = () => resolve(img);
+        img.onerror = reject;
+        img.src = src;
+      });
+    };
+
+    const preloadAllImages = async () => {
+      try {
+        console.log('🔄 Preloading carousel images...');
+        await Promise.all(slides.map(slide => preloadImage(slide.image)));
+        console.log('✅ All carousel images preloaded successfully');
+        setImageLoaded(true);
+      } catch (error) {
+        console.log('❌ Some images failed to preload, will try fallbacks');
+        setImageLoaded(false);
+      }
+    };
+
+    preloadAllImages();
+  }, [slides]);
 
   useEffect(() => {
     // Only auto-rotate if there are multiple slides
@@ -66,28 +94,32 @@ const HeroCarousel = () => {
           alt={`Carousel slide ${currentSlide + 1}`}
           className={`w-full h-full object-cover transition-all duration-700 ${isFading ? 'opacity-0 scale-110' : 'opacity-100 scale-100'}`}
           onLoad={() => {
-            console.log('Image loaded successfully:', slides[currentSlide].image);
+            console.log('✅ Image loaded successfully:', slides[currentSlide].image);
             setImageLoaded(true);
           }}
           onError={(e) => {
-            console.log('Image failed to load:', slides[currentSlide].image);
-            console.log('Trying fallback image...');
-            setImageLoaded(false);
+            console.log('❌ Image failed to load:', slides[currentSlide].image);
+            console.log('🔄 Trying fallback image...');
+            // setImageError(true);
             // Try fallback image
             if (slides[currentSlide].fallback && e.target.src !== slides[currentSlide].fallback) {
               e.target.src = slides[currentSlide].fallback;
+              console.log('🔄 Switched to fallback:', slides[currentSlide].fallback);
             } else {
+              console.log('❌ Fallback also failed, showing fallback content');
               e.target.style.display = 'none';
+              setImageLoaded(false);
             }
           }}
         />
         {/* Fallback content when image fails to load */}
         {!imageLoaded && (
-          <div className="absolute inset-0 flex items-center justify-center text-gray-500 dark:text-gray-400 bg-gray-200 dark:bg-gray-700">
+          <div className="absolute inset-0 flex items-center justify-center text-gray-500 dark:text-gray-400 bg-gradient-to-br from-primary/20 to-primary/10">
             <div className="text-center">
-              <div className="text-4xl mb-2">🖼️</div>
-              <p className="text-sm">Upload images to /public/images/carousel/</p>
-              <p className="text-xs">Name them: slide1.jpg, slide2.jpg, slide3.jpg, slide4.jpg</p>
+              <div className="text-6xl mb-4">🚀</div>
+              <h2 className="text-2xl font-bold text-primary mb-2">Deltasoft</h2>
+              <p className="text-sm mb-2">Орчин үеийн програм хангамжийн шийдэл</p>
+              <p className="text-xs text-gray-400">Loading carousel images...</p>
             </div>
           </div>
         )}
