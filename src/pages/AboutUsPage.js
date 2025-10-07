@@ -84,7 +84,7 @@ const AboutUsPage = () => {
             <div className="flex flex-wrap justify-center gap-4 text-sm text-text-secondary dark:text-dark-text-secondary">
               <div className="flex items-center gap-2">
                 <FaCheckCircle className="text-primary" />
-                <span>12+ жилийн туршлага</span>
+                <span>15+ жилийн туршлага</span>
               </div>
               <div className="flex items-center gap-2">
                 <FaUsers className="text-primary" />
