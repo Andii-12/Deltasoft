@@ -53,7 +53,7 @@ const HeroCarousel = () => {
     };
 
     preloadAllImages();
-  }, []); // Empty dependency array since slides is memoized and stable
+  }, [slides]); // Include slides dependency since it's memoized
 
   useEffect(() => {
     // Only auto-rotate if there are multiple slides
