@@ -790,7 +790,11 @@ function formatDuration(duration) {
 }
 
 function App() {
-  const [showStartup, setShowStartup] = useState(true);
+  const [showStartup, setShowStartup] = useState(() => {
+    // Don't show startup animation for admin or worker routes
+    const path = window.location.pathname;
+    return !path.startsWith('/admin') && !path.startsWith('/worker');
+  });
 
   const handleStartupComplete = () => {
     setShowStartup(false);

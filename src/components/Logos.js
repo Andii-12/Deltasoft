@@ -48,21 +48,21 @@ const Logos = () => {
   }
 
   return (
-    <section className="py-16 bg-surface dark:bg-dark-surface">
+    <section className="py-4 bg-surface dark:bg-dark-surface">
       <div className="max-w-6xl mx-auto px-6">
-        <div className="text-center mb-12">
-          <h2 className="text-3xl md:text-4xl font-bold text-text-primary dark:text-dark-text mb-4">
+        <div className="text-center mb-4">
+          <h2 className="text-xl md:text-2xl font-bold text-text-primary dark:text-dark-text mb-2">
             Our <span className="text-primary">Partners</span>
           </h2>
         </div>
         
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-6">
+        <div className="grid grid-cols-3 md:grid-cols-4 lg:grid-cols-6 xl:grid-cols-6 gap-3">
           {logos.map((logo) => (
             <div
               key={logo._id}
-              className="group bg-white dark:bg-dark-bg rounded-lg p-4 shadow-sm hover:shadow-md transition-all duration-300 hover:scale-105"
+              className="group bg-white dark:bg-dark-bg rounded-lg p-2 shadow-sm hover:shadow-md transition-all duration-300 hover:scale-105"
             >
-              <div className="aspect-square flex items-center justify-center mb-3">
+              <div className="aspect-square flex items-center justify-center mb-1">
                 {logo.imageType === 'file' ? (
                   <img
                     src={`${config.API_URL}${logo.image}`}
