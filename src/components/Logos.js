@@ -48,21 +48,21 @@ const Logos = () => {
   }
 
   return (
-    <section className="py-2 bg-surface dark:bg-dark-surface">
+    <section className="py-1.5 bg-surface dark:bg-dark-surface">
       <div className="max-w-6xl mx-auto px-6">
-        <div className="text-center mb-2">
-          <h2 className="text-lg md:text-xl font-bold text-text-primary dark:text-dark-text mb-2">
+        <div className="text-center mb-1.5">
+          <h2 className="text-sm md:text-base font-bold text-text-primary dark:text-dark-text">
             Our <span className="text-primary">Partners</span>
           </h2>
         </div>
         
-        <div className="grid grid-cols-4 md:grid-cols-6 lg:grid-cols-8 gap-2">
+        <div className="grid grid-cols-6 md:grid-cols-8 lg:grid-cols-10 gap-1.5">
           {logos.map((logo) => (
             <div
               key={logo._id}
-              className="group bg-white dark:bg-dark-bg rounded-lg p-2 shadow-sm hover:shadow-md transition-all duration-300 hover:scale-105"
+              className="group bg-white dark:bg-dark-bg rounded p-1.5 shadow-sm hover:shadow-md transition-all duration-300 hover:scale-105"
             >
-              <div className="aspect-square flex items-center justify-center mb-1">
+              <div className="aspect-square flex items-center justify-center">
                 {logo.imageType === 'file' ? (
                   <img
                     src={`${config.API_URL}${logo.image}`}
@@ -86,12 +86,6 @@ const Logos = () => {
                     }}
                   />
                 )}
-              </div>
-              
-              <div className="text-center">
-                <h3 className="text-sm font-medium text-text-primary dark:text-dark-text mb-1 group-hover:text-primary transition-colors">
-                  {logo.name}
-                </h3>
               </div>
             </div>
           ))}
