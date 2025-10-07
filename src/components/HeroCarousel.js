@@ -4,6 +4,7 @@ import { FaChevronLeft, FaChevronRight } from 'react-icons/fa';
 const HeroCarousel = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [isFading, setIsFading] = useState(false);
+  const [imageLoaded, setImageLoaded] = useState(false);
   
   // Static slides with image paths only
   const slides = [
@@ -20,6 +21,11 @@ const HeroCarousel = () => {
       image: "/images/carousel/slide4.jpg"
     }
   ];
+
+  // Reset image loaded state when slide changes
+  useEffect(() => {
+    setImageLoaded(false);
+  }, [currentSlide]);
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -56,11 +62,27 @@ const HeroCarousel = () => {
           src={slides[currentSlide].image}
           alt={`Carousel slide ${currentSlide + 1}`}
           className={`w-full h-full object-cover transition-all duration-700 ${isFading ? 'opacity-0 scale-110' : 'opacity-100 scale-100'}`}
+          onLoad={() => {
+            console.log('Image loaded successfully:', slides[currentSlide].image);
+            setImageLoaded(true);
+          }}
           onError={(e) => {
+            console.log('Image failed to load:', slides[currentSlide].image);
+            setImageLoaded(false);
             // If image fails to load, hide the image
             e.target.style.display = 'none';
           }}
         />
+        {/* Fallback content when image fails to load */}
+        {!imageLoaded && (
+          <div className="absolute inset-0 flex items-center justify-center text-gray-500 dark:text-gray-400 bg-gray-200 dark:bg-gray-700">
+            <div className="text-center">
+              <div className="text-4xl mb-2">🖼️</div>
+              <p className="text-sm">Upload images to /public/images/carousel/</p>
+              <p className="text-xs">Name them: slide1.jpg, slide2.jpg, slide3.jpg, slide4.jpg</p>
+            </div>
+          </div>
+        )}
       </div>
 
       {/* Navigation Arrows */}
