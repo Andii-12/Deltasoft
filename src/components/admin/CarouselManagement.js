@@ -53,11 +53,15 @@ const CarouselManagement = () => {
     }
 
     setLoading(true);
+    setError('');
     try {
       const token = localStorage.getItem('adminToken');
       const formData = new FormData();
       formData.append('image', imageFile);
       formData.append('order', slides.length);
+
+      console.log('Uploading to:', `${config.API_URL}/api/carousel`);
+      console.log('File:', imageFile.name, imageFile.type);
 
       const response = await fetch(`${config.API_URL}/api/carousel`, {
         method: 'POST',
@@ -65,17 +69,28 @@ const CarouselManagement = () => {
         body: formData
       });
 
+      console.log('Response status:', response.status);
+
       if (response.ok) {
+        const data = await response.json();
+        console.log('Success:', data);
         setImageFile(null);
         setImagePreview(null);
         setShowAddForm(false);
         fetchSlides();
       } else {
-        const data = await response.json();
-        setError(data.message || 'Failed to add slide');
+        const errorText = await response.text();
+        console.error('Error response:', errorText);
+        try {
+          const errorData = JSON.parse(errorText);
+          setError(errorData.message || 'Failed to add slide');
+        } catch {
+          setError(`Server error: ${response.status}. Make sure the backend is deployed with carousel routes.`);
+        }
       }
     } catch (err) {
-      setError('Error adding slide');
+      console.error('Fetch error:', err);
+      setError('Error connecting to server. Make sure the backend is running and deployed.');
     } finally {
       setLoading(false);
     }
