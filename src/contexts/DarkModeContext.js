@@ -12,16 +12,14 @@ export const useDarkMode = () => {
 
 export const DarkModeProvider = ({ children }) => {
   const [isDarkMode, setIsDarkMode] = useState(() => {
-    // Check localStorage first, then default to dark mode
-    const saved = localStorage.getItem('darkMode');
-    if (saved !== null) {
-      return JSON.parse(saved);
-    }
-    // Default to dark mode instead of system preference
+    // Force dark mode as default - ignore localStorage for now
     return true;
   });
 
   useEffect(() => {
+    // Clear any existing localStorage preference to ensure dark mode default
+    localStorage.removeItem('darkMode');
+    
     // Apply dark mode class to document
     if (isDarkMode) {
       document.documentElement.classList.add('dark');

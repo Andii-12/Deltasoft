@@ -17,13 +17,10 @@
     <link rel="manifest" href="/manifest.json" />
     <title>Дельтасофт - Орчин үеийн програм хангамжийн шийдэл</title>
     <script>
-      // Set dark mode immediately to prevent flash
+      // Force dark mode immediately to prevent flash
       (function() {
-        const saved = localStorage.getItem('darkMode');
-        const isDark = saved !== null ? JSON.parse(saved) : true;
-        if (isDark) {
-          document.documentElement.classList.add('dark');
-        }
+        // Always set dark mode as default
+        document.documentElement.classList.add('dark');
       })();
     </script>
   </head>
