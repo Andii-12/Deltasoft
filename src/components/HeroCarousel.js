@@ -5,39 +5,19 @@ const HeroCarousel = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [isFading, setIsFading] = useState(false);
   
-  // Static slides with image paths
+  // Static slides with image paths only
   const slides = [
     {
-      title: "Дельтасофт ХХК",
-      subtitle: "МТ шийдэл & Дижитал үйлчилгээ",
-      description: "Орчин үеийн технологи болон мэргэжлийн хөгжүүлэгчдийн багтайгаар санааг хүчирхэг дижитал шийдэл болгон хувиргах.",
-      bgColor: "bg-gradient-to-br from-primary/10 to-primary/5",
-      icon: "💻",
-      image: "/images/carousel/slide1.jpg" // You can upload your image here
+      image: "/images/carousel/slide1.jpg"
     },
     {
-      title: "Веб хөгжүүлэлт",
-      subtitle: "Орчин үеийн & Уян хатан вэбсайт",
-      description: "Хамгийн сүүлийн үеийн технологиор бүтээгдсэн, оновчтой гүйцэтгэл болон хэрэглэгчийн туршлагад зориулсан вэб аппликешн.",
-      bgColor: "bg-gradient-to-br from-blue-500/10 to-blue-600/5",
-      icon: "🌐",
-      image: "/images/carousel/slide2.jpg" // You can upload your image here
+      image: "/images/carousel/slide2.jpg"
     },
     {
-      title: "МТ зөвлөгөө",
-      subtitle: "Стратегийн технологийн шийдэл",
-      description: "Таны бизнесийг өсөлт, үр ашигтай ажиллагаанд технологийг ашиглахад туслах мэргэжлийн зөвлөгөө.",
-      bgColor: "bg-gradient-to-br from-green-500/10 to-green-600/5",
-      icon: "🚀",
-      image: "/images/carousel/slide3.jpg" // You can upload your image here
+      image: "/images/carousel/slide3.jpg"
     },
     {
-      title: "24/7 дэмжлэг",
-      subtitle: "Хэрэгтэй үедээ энд байна",
-      description: "Таны системийг зохих байдлаар ажиллуулахын тулд өдөр шөнийн 24 цаг техникийн дэмжлэг үзүүлэх.",
-      bgColor: "bg-gradient-to-br from-purple-500/10 to-purple-600/5",
-      icon: "⚡",
-      image: "/images/carousel/slide4.jpg" // You can upload your image here
+      image: "/images/carousel/slide4.jpg"
     }
   ];
 
@@ -69,49 +49,18 @@ const HeroCarousel = () => {
   };
 
   return (
-    <div className={`relative flex-shrink-0 h-80 md:h-96 lg:h-[40vh] flex items-center justify-center overflow-hidden transition-all duration-700 ease-in-out ${slides[currentSlide].bgColor}`}>
-      {/* Background Image or Gradient */}
-      {slides[currentSlide].image ? (
-        <div className="absolute inset-0">
-          <img
-            src={slides[currentSlide].image}
-            alt={slides[currentSlide].title}
-            className={`w-full h-full object-cover transition-all duration-700 ${isFading ? 'opacity-0 scale-110' : 'opacity-100 scale-100'}`}
-            onError={(e) => {
-              // If image fails to load, hide the image and show gradient background
-              e.target.style.display = 'none';
-              e.target.parentElement.style.background = slides[currentSlide].bgColor;
-            }}
-          />
-          <div className="absolute inset-0 bg-black/30"></div>
-        </div>
-      ) : (
-        /* Animated background elements */
-        <div className="absolute inset-0 overflow-hidden">
-          <div className={`absolute top-0 left-0 w-64 h-64 bg-primary/5 rounded-full blur-3xl transition-all duration-1000 ${isFading ? 'opacity-0 scale-50' : 'opacity-100 scale-100'}`} style={{ transform: 'translate(-50%, -50%)' }}></div>
-          <div className={`absolute bottom-0 right-0 w-96 h-96 bg-primary/5 rounded-full blur-3xl transition-all duration-1000 delay-100 ${isFading ? 'opacity-0 scale-50' : 'opacity-100 scale-100'}`} style={{ transform: 'translate(50%, 50%)' }}></div>
-        </div>
-      )}
-
-      {/* Content with smooth transitions */}
-      <div className="max-w-4xl mx-auto px-6 text-center relative z-10">
-        <div className={`mb-4 transition-all duration-500 ${isFading ? 'opacity-0 translate-y-4' : 'opacity-100 translate-y-0'}`}>
-          <div className={`text-3xl md:text-4xl mb-2 transition-all duration-500 ${isFading ? 'scale-75 rotate-12' : 'scale-100 rotate-0'}`}>
-            <div className="inline-block animate-bounce-slow">
-              {slides[currentSlide].icon}
-            </div>
-          </div>
-          <h1 className={`text-xl md:text-3xl font-bold mb-2 text-text-primary dark:text-dark-text transition-all duration-500 delay-75 ${isFading ? 'opacity-0 translate-x-8' : 'opacity-100 translate-x-0'}`}>
-            {slides[currentSlide].title}
-          </h1>
-          <p className={`text-base md:text-lg text-primary font-semibold mb-2 transition-all duration-500 delay-100 ${isFading ? 'opacity-0 translate-x-8' : 'opacity-100 translate-x-0'}`}>
-            {slides[currentSlide].subtitle}
-          </p>
-          <p className={`text-sm md:text-base text-text-secondary dark:text-dark-text-secondary max-w-2xl mx-auto leading-relaxed transition-all duration-500 delay-150 ${isFading ? 'opacity-0 translate-y-4' : 'opacity-100 translate-y-0'}`}>
-            {slides[currentSlide].description}
-          </p>
-        </div>
-
+    <div className="relative flex-shrink-0 h-80 md:h-96 lg:h-[40vh] overflow-hidden bg-gray-200 dark:bg-gray-700">
+      {/* Background Image */}
+      <div className="absolute inset-0">
+        <img
+          src={slides[currentSlide].image}
+          alt={`Carousel slide ${currentSlide + 1}`}
+          className={`w-full h-full object-cover transition-all duration-700 ${isFading ? 'opacity-0 scale-110' : 'opacity-100 scale-100'}`}
+          onError={(e) => {
+            // If image fails to load, hide the image
+            e.target.style.display = 'none';
+          }}
+        />
       </div>
 
       {/* Navigation Arrows */}
