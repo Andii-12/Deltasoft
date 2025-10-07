@@ -15,9 +15,9 @@ const Footer = () => {
             <span className="text-gray-500">|</span>
             <a href="/quote" className="hover:text-primary dark:hover:text-white transition-colors">Үнийн санал</a>
             <span className="text-gray-500">|</span>
-            <a href="#" className="hover:text-primary dark:hover:text-white transition-colors">Холбоо барих</a>
+            <a href="/contact" className="hover:text-primary dark:hover:text-white transition-colors">Холбоо барих</a>
             <span className="text-gray-500">|</span>
-            <a href="#" className="hover:text-primary dark:hover:text-white transition-colors">Лого</a>
+            <a href="/logo" className="hover:text-primary dark:hover:text-white transition-colors">Лого</a>
           </div>
           
           {/* Copyright */}
