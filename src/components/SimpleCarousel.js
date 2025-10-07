@@ -5,23 +5,33 @@ const SimpleCarousel = () => {
   const [imageLoaded, setImageLoaded] = useState(false);
   
   const slides = useMemo(() => [
-    "/images/carousel/slide1.jpg",
-    "/images/carousel/slide2.jpg", 
-    "/images/carousel/slide3.jpg"
+    {
+      image: "/images/carousel/slide1.jpg",
+      fallback: "https://images.unsplash.com/photo-1551650975-87deedd944c3?w=800&h=400&fit=crop&crop=center"
+    },
+    {
+      image: "/images/carousel/slide2.jpg", 
+      fallback: "https://images.unsplash.com/photo-1518709268805-4e9042af2176?w=800&h=400&fit=crop&crop=center"
+    },
+    {
+      image: "/images/carousel/slide3.jpg",
+      fallback: "https://images.unsplash.com/photo-1519389950473-47ba0277781c?w=800&h=400&fit=crop&crop=center"
+    }
   ], []);
 
   useEffect(() => {
     // Test if image loads
     const img = new Image();
     img.onload = () => {
-      console.log('✅ Simple carousel image loaded:', slides[currentSlide]);
+      console.log('✅ Simple carousel image loaded:', slides[currentSlide].image);
       setImageLoaded(true);
     };
     img.onerror = () => {
-      console.log('❌ Simple carousel image failed:', slides[currentSlide]);
+      console.log('❌ Simple carousel image failed:', slides[currentSlide].image);
+      console.log('🔄 Trying fallback image...');
       setImageLoaded(false);
     };
-    img.src = slides[currentSlide];
+    img.src = slides[currentSlide].image;
   }, [currentSlide, slides]);
 
   const nextSlide = () => {
@@ -35,19 +45,26 @@ const SimpleCarousel = () => {
   return (
     <div className="relative h-80 md:h-96 lg:h-[40vh] overflow-hidden bg-gray-200 dark:bg-gray-700">
       <div className="absolute inset-0">
-        {imageLoaded ? (
-          <img
-            src={slides[currentSlide]}
-            alt={`Slide ${currentSlide + 1}`}
-            className="w-full h-full object-cover"
-          />
-        ) : (
-          <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-primary/20 to-primary/10">
+        <img
+          src={imageLoaded ? slides[currentSlide].image : slides[currentSlide].fallback}
+          alt={`Slide ${currentSlide + 1}`}
+          className="w-full h-full object-cover"
+          onLoad={() => {
+            console.log('✅ Image displayed successfully');
+            setImageLoaded(true);
+          }}
+          onError={(e) => {
+            console.log('❌ Both image and fallback failed');
+            e.target.style.display = 'none';
+          }}
+        />
+        {!imageLoaded && (
+          <div className="absolute inset-0 flex items-center justify-center bg-gradient-to-br from-primary/20 to-primary/10">
             <div className="text-center">
               <div className="text-6xl mb-4">🚀</div>
               <h2 className="text-2xl font-bold text-primary mb-2">Deltasoft</h2>
               <p className="text-sm mb-2">Орчин үеийн програм хангамжийн шийдэл</p>
-              <p className="text-xs text-gray-400">Loading: {slides[currentSlide]}</p>
+              <p className="text-xs text-gray-400">Loading: {slides[currentSlide].image}</p>
             </div>
           </div>
         )}

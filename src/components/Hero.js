@@ -1,8 +1,8 @@
 import React from 'react';
-import SimpleCarousel from './SimpleCarousel';
+import RobustCarousel from './RobustCarousel';
 
 const Hero = () => {
-  return <SimpleCarousel />;
+  return <RobustCarousel />;
 };
 
 export default Hero; 
