@@ -10,7 +10,8 @@ import {
   FaSignOutAlt,
   FaClock,
   FaUsers,
-  FaTachometerAlt
+  FaTachometerAlt,
+  FaImages
 } from 'react-icons/fa';
 
 const AdminLayout = () => {
@@ -30,6 +31,7 @@ const AdminLayout = () => {
 
   const menuItems = [
     { path: '/admin/dashboard', icon: FaTachometerAlt, label: 'Самбар' },
+    { path: '/admin/carousel', icon: FaImages, label: 'Карусел удирдлага' },
     { path: '/admin/news', icon: FaNewspaper, label: 'Мэдээ' },
     { path: '/admin/partners', icon: FaHandshake, label: 'Хамтрагчид' },
     { path: '/admin/quotes', icon: FaFileInvoiceDollar, label: 'Үнийн санал' },

@@ -22,6 +22,7 @@ import Dashboard from './components/admin/Dashboard';
 import { FaGlobe, FaVideo, FaPaperPlane, FaDesktop, FaCode, FaCloud, FaMobileAlt, FaNetworkWired, FaServer, FaWifi, FaTrash, FaTimes } from 'react-icons/fa';
 import TeamManagement from './components/admin/TeamManagement';
 import WorkerManagement from './components/admin/WorkerManagement';
+import CarouselManagement from './components/admin/CarouselManagement';
 import * as XLSX from 'xlsx';
 import config from './config';
 
@@ -59,7 +60,7 @@ function HomeWithScroll() {
   return (
     <div className={`min-h-screen bg-background dark:bg-dark-bg text-text-primary dark:text-dark-text transition-all duration-1000 ${isVisible ? 'opacity-100' : 'opacity-0'}`}>
       <Navbar />
-      <main>
+      <main className="pt-20">
         <Hero />
         <Projects />
         <Logos />
@@ -831,6 +832,7 @@ function App() {
           <Route path="schedule" element={<AdminSchedule />} />
           <Route path="team" element={<TeamManagement />} />
           <Route path="workers" element={<WorkerManagement />} />
+          <Route path="carousel" element={<CarouselManagement />} />
         </Route>
         <Route path="/news" element={<NewsPage />} />
         <Route path="/news/:id" element={<NewsSingle />} />

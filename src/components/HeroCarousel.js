@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { FaChevronLeft, FaChevronRight } from 'react-icons/fa';
+import config from '../config';
 
 const HeroCarousel = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [isFading, setIsFading] = useState(false);
-  
-  const slides = [
+  const [slides, setSlides] = useState([
     {
       title: "Дельтасофт ХХК",
       subtitle: "МТ шийдэл & Дижитал үйлчилгээ",
@@ -34,7 +34,26 @@ const HeroCarousel = () => {
       bgColor: "bg-gradient-to-br from-purple-500/10 to-purple-600/5",
       icon: "⚡"
     }
-  ];
+  ]);
+  
+  useEffect(() => {
+    // Fetch slides from API
+    const fetchSlides = async () => {
+      try {
+        const response = await fetch(`${config.API_URL}/api/carousel`);
+        if (response.ok) {
+          const data = await response.json();
+          if (data && data.length > 0) {
+            setSlides(data);
+          }
+        }
+      } catch (error) {
+        console.log('Using default slides');
+      }
+    };
+    
+    fetchSlides();
+  }, []);
 
   useEffect(() => {
     const timer = setInterval(() => {
