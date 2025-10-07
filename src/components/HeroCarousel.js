@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { FaChevronLeft, FaChevronRight } from 'react-icons/fa';
 
 const HeroCarousel = () => {
@@ -8,7 +8,7 @@ const HeroCarousel = () => {
   // const [imageError, setImageError] = useState(false);
   
   // Static slides with image paths only
-  const slides = [
+  const slides = useMemo(() => [
     {
       image: "/images/carousel/slide1.jpg",
       fallback: "https://via.placeholder.com/800x400/22c55e/ffffff?text=Deltasoft+Carousel"
@@ -21,7 +21,7 @@ const HeroCarousel = () => {
       image: "/images/carousel/slide3.jpg",
       fallback: "https://via.placeholder.com/800x400/15803d/ffffff?text=Deltasoft+Innovation"
     }
-  ];
+  ], []);
 
   // Reset image loaded state when slide changes
   useEffect(() => {
@@ -53,7 +53,7 @@ const HeroCarousel = () => {
     };
 
     preloadAllImages();
-  }, [slides]);
+  }, []); // Empty dependency array since slides is memoized and stable
 
   useEffect(() => {
     // Only auto-rotate if there are multiple slides

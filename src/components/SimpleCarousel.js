@@ -1,14 +1,14 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 
 const SimpleCarousel = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [imageLoaded, setImageLoaded] = useState(false);
   
-  const slides = [
+  const slides = useMemo(() => [
     "/images/carousel/slide1.jpg",
     "/images/carousel/slide2.jpg", 
     "/images/carousel/slide3.jpg"
-  ];
+  ], []);
 
   useEffect(() => {
     // Test if image loads
