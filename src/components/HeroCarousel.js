@@ -83,7 +83,7 @@ const HeroCarousel = () => {
   };
 
   return (
-    <div className={`relative h-48 md:h-56 flex items-center justify-center overflow-hidden transition-all duration-700 ease-in-out ${slides[currentSlide].bgColor}`}>
+    <div className={`relative h-72 md:h-80 flex items-center justify-center overflow-hidden transition-all duration-700 ease-in-out ${slides[currentSlide].bgColor}`}>
       {/* Animated background elements */}
       <div className="absolute inset-0 overflow-hidden">
         <div className={`absolute top-0 left-0 w-64 h-64 bg-primary/5 rounded-full blur-3xl transition-all duration-1000 ${isFading ? 'opacity-0 scale-50' : 'opacity-100 scale-100'}`} style={{ transform: 'translate(-50%, -50%)' }}></div>
@@ -92,19 +92,19 @@ const HeroCarousel = () => {
 
       {/* Content with smooth transitions */}
       <div className="max-w-4xl mx-auto px-6 text-center relative z-10">
-        <div className={`mb-2 transition-all duration-500 ${isFading ? 'opacity-0 translate-y-4' : 'opacity-100 translate-y-0'}`}>
-          <div className={`text-2xl md:text-3xl mb-1 transition-all duration-500 ${isFading ? 'scale-75 rotate-12' : 'scale-100 rotate-0'}`}>
+        <div className={`mb-4 transition-all duration-500 ${isFading ? 'opacity-0 translate-y-4' : 'opacity-100 translate-y-0'}`}>
+          <div className={`text-3xl md:text-4xl mb-2 transition-all duration-500 ${isFading ? 'scale-75 rotate-12' : 'scale-100 rotate-0'}`}>
             <div className="inline-block animate-bounce-slow">
               {slides[currentSlide].icon}
             </div>
           </div>
-          <h1 className={`text-lg md:text-2xl font-bold mb-1 text-text-primary dark:text-dark-text transition-all duration-500 delay-75 ${isFading ? 'opacity-0 translate-x-8' : 'opacity-100 translate-x-0'}`}>
+          <h1 className={`text-xl md:text-3xl font-bold mb-2 text-text-primary dark:text-dark-text transition-all duration-500 delay-75 ${isFading ? 'opacity-0 translate-x-8' : 'opacity-100 translate-x-0'}`}>
             {slides[currentSlide].title}
           </h1>
-          <p className={`text-sm md:text-base text-primary font-semibold mb-1 transition-all duration-500 delay-100 ${isFading ? 'opacity-0 translate-x-8' : 'opacity-100 translate-x-0'}`}>
+          <p className={`text-base md:text-lg text-primary font-semibold mb-2 transition-all duration-500 delay-100 ${isFading ? 'opacity-0 translate-x-8' : 'opacity-100 translate-x-0'}`}>
             {slides[currentSlide].subtitle}
           </p>
-          <p className={`text-xs md:text-sm text-text-secondary dark:text-dark-text-secondary max-w-2xl mx-auto leading-snug transition-all duration-500 delay-150 ${isFading ? 'opacity-0 translate-y-4' : 'opacity-100 translate-y-0'}`}>
+          <p className={`text-sm md:text-base text-text-secondary dark:text-dark-text-secondary max-w-2xl mx-auto leading-relaxed transition-all duration-500 delay-150 ${isFading ? 'opacity-0 translate-y-4' : 'opacity-100 translate-y-0'}`}>
             {slides[currentSlide].description}
           </p>
         </div>
