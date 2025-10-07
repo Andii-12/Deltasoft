@@ -22,12 +22,12 @@ const iconMap = {
 const ProjectCard = ({ title, description, icon }) => {
   const IconComponent = iconMap[icon];
   return (
-    <div className="card card-hover p-2.5">
-      <div className="w-8 h-8 mb-1.5 text-primary mx-auto">
+    <div className="card card-hover p-3 h-full">
+      <div className="w-10 h-10 mb-2 text-primary mx-auto">
         {IconComponent && <IconComponent className="w-full h-full" />}
       </div>
-      <h3 className="text-xs font-medium mb-1 text-text-primary dark:text-dark-text text-center">{title}</h3>
-      <p className="text-text-secondary dark:text-dark-text-secondary text-[10px] leading-tight text-center">{description}</p>
+      <h3 className="text-sm font-medium mb-1.5 text-text-primary dark:text-dark-text text-center">{title}</h3>
+      <p className="text-text-secondary dark:text-dark-text-secondary text-xs leading-relaxed text-center">{description}</p>
     </div>
   );
 };
@@ -135,15 +135,15 @@ const Projects = () => {
   }
 
   return (
-    <section className="py-2 bg-background dark:bg-dark-bg">
-      <div className="max-w-6xl mx-auto px-6">
-        <div className="text-center mb-2">
-          <p className="text-xs md:text-sm text-text-secondary dark:text-dark-text-secondary max-w-2xl mx-auto">
+    <section className="flex-1 py-4 bg-background dark:bg-dark-bg flex flex-col">
+      <div className="max-w-6xl mx-auto px-6 flex-1 flex flex-col">
+        <div className="text-center mb-3">
+          <p className="text-sm text-text-secondary dark:text-dark-text-secondary max-w-2xl mx-auto">
             Мэргэжлийн баг маань хийсэн амжилттай төслүүд болон шийдлүүд
           </p>
         </div>
         
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-2">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-3 flex-1 content-start">
           {projects
             .filter(project => project.category === 'main' && project.icon)
             .map((project) => (

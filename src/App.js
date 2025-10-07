@@ -58,9 +58,9 @@ function HomeWithScroll() {
   }, [location]);
 
   return (
-    <div className={`min-h-screen bg-background dark:bg-dark-bg text-text-primary dark:text-dark-text transition-all duration-1000 ${isVisible ? 'opacity-100' : 'opacity-0'}`}>
+    <div className={`h-screen bg-background dark:bg-dark-bg text-text-primary dark:text-dark-text transition-all duration-1000 ${isVisible ? 'opacity-100' : 'opacity-0'} flex flex-col`}>
       <Navbar />
-      <main className="pt-20">
+      <main className="pt-20 flex-1 flex flex-col overflow-hidden">
         <Hero />
         <Projects />
         <Logos />

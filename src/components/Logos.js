@@ -48,7 +48,7 @@ const Logos = () => {
   }
 
   return (
-    <section className="py-1.5 bg-surface dark:bg-dark-surface">
+    <section className="flex-shrink-0 py-3 bg-surface dark:bg-dark-surface">
       <div className="max-w-6xl mx-auto px-6">
         <div className="text-center mb-1.5">
           <h2 className="text-sm md:text-base font-bold text-text-primary dark:text-dark-text">

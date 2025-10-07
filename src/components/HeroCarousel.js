@@ -83,7 +83,7 @@ const HeroCarousel = () => {
   };
 
   return (
-    <div className={`relative h-72 md:h-80 flex items-center justify-center overflow-hidden transition-all duration-700 ease-in-out ${slides[currentSlide].bgColor}`}>
+    <div className={`relative flex-shrink-0 h-80 md:h-96 lg:h-[40vh] flex items-center justify-center overflow-hidden transition-all duration-700 ease-in-out ${slides[currentSlide].bgColor}`}>
       {/* Animated background elements */}
       <div className="absolute inset-0 overflow-hidden">
         <div className={`absolute top-0 left-0 w-64 h-64 bg-primary/5 rounded-full blur-3xl transition-all duration-1000 ${isFading ? 'opacity-0 scale-50' : 'opacity-100 scale-100'}`} style={{ transform: 'translate(-50%, -50%)' }}></div>
