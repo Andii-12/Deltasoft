@@ -10,39 +10,70 @@ const NewsPage = () => {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    fetch(`${config.API_URL}/api/news`)
-      .then(res => {
+    const fetchNews = async () => {
+      try {
+        console.log('📡 Fetching news from:', `${config.API_URL}/api/news`);
+        const res = await fetch(`${config.API_URL}/api/news`);
         if (!res.ok) {
           throw new Error('Network response was not ok');
         }
-        return res.json();
-      })
-      .then(data => {
+        const data = await res.json();
+        console.log('✅ News loaded:', data.length, 'items');
         setNews(
           data
             .filter(n => n.status === 'published')
             .sort((a, b) => new Date(b.date) - new Date(a.date))
         );
         setLoading(false);
-      })
-      .catch(error => {
+      } catch (error) {
+        console.error('❌ News fetch error:', error.message);
         setError('Сервертэй холбогдоход алдаа гарлаа');
         setLoading(false);
-        console.error(error);
-      });
+      }
+    };
+    
+    fetchNews();
   }, []);
 
-  if (loading) return <div className="text-center py-20 text-gray-400 bg-darker min-h-screen"><Navbar />Уншиж байна...<Footer /></div>;
-  if (!news.length) return <div className="text-center py-20 text-gray-400 bg-darker min-h-screen"><Navbar />Мэдээ олдсонгүй.<Footer /></div>;
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-background dark:bg-dark-bg flex flex-col">
+        <Navbar />
+        <div className="flex-1 flex items-center justify-center">
+          <div className="animate-spin rounded-full h-8 w-8 border-t-2 border-b-2 border-primary"></div>
+        </div>
+        <Footer />
+      </div>
+    );
+  }
+  
+  if (error || !news.length) {
+    return (
+      <div className="min-h-screen bg-background dark:bg-dark-bg flex flex-col">
+        <Navbar />
+        <div className="flex-1 flex items-center justify-center px-4">
+          <div className="text-center">
+            <p className="text-text-secondary dark:text-dark-text-secondary mb-4">
+              {error || 'Мэдээ олдсонгүй.'}
+            </p>
+            <Link to="/" className="text-primary hover:text-primary-dark underline">
+              Нүүр хуудас руу буцах
+            </Link>
+          </div>
+        </div>
+        <Footer />
+      </div>
+    );
+  }
 
   const [main, ...rest] = news;
   const featured = rest.slice(0, 2);
   const others = rest.slice(2);
 
   return (
-    <div className="bg-darker min-h-screen flex flex-col">
+    <div className="bg-background dark:bg-dark-bg min-h-screen flex flex-col">
       <Navbar />
-      <div className="flex-1 w-full py-10 mt-24">
+      <div className="flex-1 w-full py-10 pt-24">
         {/* Featured Section */}
         <div className="max-w-7xl mx-auto px-4 grid grid-cols-1 lg:grid-cols-3 gap-8 mb-16">
           {/* Main Featured */}
@@ -102,7 +133,6 @@ const NewsPage = () => {
         </div>
       </div>
       <Footer />
-      {error && <div style={{ color: 'red', margin: '1em 0' }}>{error}</div>}
     </div>
   );
 };

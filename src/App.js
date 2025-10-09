@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate, useLocation } from 'react-router-dom';
 import { DarkModeProvider } from './contexts/DarkModeContext';
+import ErrorBoundary from './components/ErrorBoundary';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
 import Projects from './components/Projects';
@@ -790,42 +791,44 @@ function formatDuration(duration) {
 
 function App() {
   return (
-    <DarkModeProvider>
-      <Router>
-        <Routes>
-        {/* Public Routes */}
-        <Route path="/" element={<HomeWithScroll />} />
-        <Route path="/about" element={<AboutUsPage />} />
-        <Route path="/quote" element={<QuoteForm />} />
+    <ErrorBoundary>
+      <DarkModeProvider>
+        <Router>
+          <Routes>
+          {/* Public Routes */}
+          <Route path="/" element={<HomeWithScroll />} />
+          <Route path="/about" element={<AboutUsPage />} />
+          <Route path="/quote" element={<QuoteForm />} />
 
-        {/* Admin Routes */}
-        <Route path="/admin/login" element={<Login />} />
-        <Route path="/admin/reset-password" element={<ResetPassword />} />
-        <Route path="/admin" element={
-          <ProtectedRoute>
-            <AdminLayout />
-          </ProtectedRoute>
-        }>
-          <Route index element={<Navigate to="dashboard" replace />} />
-          <Route path="dashboard" element={<Dashboard />} />
-          <Route path="news" element={<NewsManagement />} />
-          <Route path="quotes" element={<QuotesDashboard />} />
-          <Route path="projects" element={<AdminProjects />} />
-          <Route path="partners" element={<AdminPartners />} />
-          <Route path="project-management" element={<AdminProjectManagement />} />
-          <Route path="schedule" element={<AdminSchedule />} />
-          <Route path="team" element={<TeamManagement />} />
-          <Route path="workers" element={<WorkerManagement />} />
-        </Route>
-        <Route path="/news" element={<NewsPage />} />
-        <Route path="/news/:id" element={<NewsSingle />} />
-        <Route path="/projects" element={<ProjectsPage />} />
+          {/* Admin Routes */}
+          <Route path="/admin/login" element={<Login />} />
+          <Route path="/admin/reset-password" element={<ResetPassword />} />
+          <Route path="/admin" element={
+            <ProtectedRoute>
+              <AdminLayout />
+            </ProtectedRoute>
+          }>
+            <Route index element={<Navigate to="dashboard" replace />} />
+            <Route path="dashboard" element={<Dashboard />} />
+            <Route path="news" element={<NewsManagement />} />
+            <Route path="quotes" element={<QuotesDashboard />} />
+            <Route path="projects" element={<AdminProjects />} />
+            <Route path="partners" element={<AdminPartners />} />
+            <Route path="project-management" element={<AdminProjectManagement />} />
+            <Route path="schedule" element={<AdminSchedule />} />
+            <Route path="team" element={<TeamManagement />} />
+            <Route path="workers" element={<WorkerManagement />} />
+          </Route>
+          <Route path="/news" element={<NewsPage />} />
+          <Route path="/news/:id" element={<NewsSingle />} />
+          <Route path="/projects" element={<ProjectsPage />} />
 
-        {/* Worker Routes */}
-        <Route path="/worker/*" element={<WorkerRoutes />} />
-        </Routes>
-      </Router>
-    </DarkModeProvider>
+          {/* Worker Routes */}
+          <Route path="/worker/*" element={<WorkerRoutes />} />
+          </Routes>
+        </Router>
+      </DarkModeProvider>
+    </ErrorBoundary>
   );
 }
 

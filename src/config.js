@@ -5,13 +5,9 @@ const getApiUrl = () => {
     return process.env.REACT_APP_API_URL;
   }
   
-  // In production build, use Railway URL
-  if (process.env.NODE_ENV === 'production') {
-    return 'https://deltasoft-production.up.railway.app';
-  }
-  
-  // In development, use empty string (proxy)
-  return '';
+  // Always use the Railway backend URL (both dev and production)
+  // This avoids proxy issues and ensures consistent behavior
+  return 'https://deltasoft-production.up.railway.app';
 };
 
 const config = {
@@ -20,7 +16,8 @@ const config = {
 };
 
 // Debug logging
-console.log('API_URL configured as:', config.API_URL);
+console.log('✅ Config loaded');
+console.log('API_URL:', config.API_URL);
 console.log('Environment:', config.ENV);
 
 export default config; 

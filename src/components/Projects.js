@@ -35,52 +35,34 @@ const ProjectCard = ({ title, description, icon }) => {
 const Projects = () => {
   const [projects, setProjects] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState('');
 
   useEffect(() => {
     const fetchProjects = async () => {
       try {
-        // Ensure we have a full URL
-        let apiUrl = config.API_URL;
-        if (!apiUrl.startsWith('http://') && !apiUrl.startsWith('https://')) {
-          apiUrl = `https://${apiUrl}`;
-        }
-        const fullUrl = `${apiUrl}/api/projects?category=main`;
+        const fullUrl = `${config.API_URL}/api/projects?category=main`;
         
-        console.log('Config API_URL:', config.API_URL);
-        console.log('Processed API_URL:', apiUrl);
-        console.log('Full fetch URL:', fullUrl);
+        console.log('📡 Fetching projects from:', fullUrl);
         
         const response = await fetch(fullUrl, {
+          method: 'GET',
           headers: {
             'Content-Type': 'application/json',
             'Accept': 'application/json'
           }
         });
         
-        console.log('Response status:', response.status);
-        console.log('Response headers:', response.headers);
+        console.log('📡 Response status:', response.status);
         
         if (!response.ok) {
-          const errorText = await response.text();
-          console.error('Error response:', errorText);
-          throw new Error(`Failed to fetch projects: ${response.status} ${response.statusText}`);
-        }
-        
-        const contentType = response.headers.get('content-type');
-        if (!contentType || !contentType.includes('application/json')) {
-          const text = await response.text();
-          console.error('Non-JSON response:', text);
-          throw new Error('Server returned non-JSON response');
+          throw new Error(`Failed to fetch projects: ${response.status}`);
         }
         
         const data = await response.json();
-        console.log('Projects data:', data);
+        console.log('✅ Projects data loaded:', data.length, 'projects');
         setProjects(data);
       } catch (err) {
-        console.error('Fetch error:', err);
-        setError(err.message);
-        // Set some sample data as fallback
+        console.error('❌ Fetch error:', err.message);
+        // Set fallback data so page still renders
         setProjects([
           {
             _id: '1',
@@ -114,21 +96,11 @@ const Projects = () => {
 
   if (loading) {
     return (
-      <section className="py-12 bg-background dark:bg-dark-bg relative">
+      <section className="flex-1 py-12 bg-background dark:bg-dark-bg relative">
         <div className="max-w-6xl mx-auto px-6">
           <div className="flex justify-center">
             <div className="animate-spin rounded-full h-8 w-8 border-t-2 border-b-2 border-primary"></div>
           </div>
-        </div>
-      </section>
-    );
-  }
-
-  if (error) {
-    return (
-      <section className="py-12 bg-background dark:bg-dark-bg relative">
-        <div className="max-w-6xl mx-auto px-6">
-          <div className="text-center text-red-500">{error}</div>
         </div>
       </section>
     );

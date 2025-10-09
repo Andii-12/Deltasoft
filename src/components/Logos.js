@@ -12,14 +12,18 @@ const Logos = () => {
 
   const fetchLogos = async () => {
     try {
+      console.log('📡 Fetching logos from:', `${config.API_URL}/api/logos/active`);
       const response = await fetch(`${config.API_URL}/api/logos/active`);
       const data = await response.json();
       if (response.ok) {
+        console.log('✅ Logos loaded:', data.length, 'logos');
         setLogos(data);
       } else {
+        console.log('⚠️ Failed to load logos');
         setError('Failed to load logos');
       }
     } catch (err) {
+      console.error('❌ Logos fetch error:', err.message);
       setError('Failed to load logos');
     } finally {
       setLoading(false);
