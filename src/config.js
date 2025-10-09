@@ -19,10 +19,8 @@ const config = {
   ENV: process.env.NODE_ENV || 'development'
 };
 
-// Debug logging (will be removed in production build)
-if (process.env.NODE_ENV !== 'production') {
-  console.log('API_URL configured as:', config.API_URL);
-  console.log('Environment:', config.ENV);
-}
+// Debug logging
+console.log('API_URL configured as:', config.API_URL);
+console.log('Environment:', config.ENV);
 
 export default config; 
